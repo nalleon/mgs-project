@@ -22,6 +22,6 @@ public class AuthController {
     @PostMapping("/login")
     public String createAuthenticationToken(@RequestBody UserInfo userInfo) {
 
-        return "soy_el_token"
+        return "soy_el_token";
     }
 }
