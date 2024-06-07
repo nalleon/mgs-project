@@ -1,4 +1,8 @@
-package es.ies.puerto.mgs.project.model.entities;
+package es.ies.puerto.mgs.project.dto;
+
+import es.ies.puerto.mgs.project.model.entities.Director;
+import es.ies.puerto.mgs.project.model.entities.Game;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 
 import java.util.Objects;
 import java.util.Set;
@@ -6,7 +10,7 @@ import java.util.Set;
 /**
  * @author nalleon
  */
-public class Game {
+public class GameDTO {
     /**
      * Properties
      */
@@ -17,7 +21,7 @@ public class Game {
     /**
      * Default constructor of the class
      */
-    public Game() {
+    public GameDTO() {
     }
 
     /**
@@ -25,7 +29,7 @@ public class Game {
      * @param name of the Game
      */
 
-    public Game(String name) {
+    public GameDTO(String name) {
         this.name = name;
     }
 
@@ -36,7 +40,7 @@ public class Game {
      * @param gameCharacters of the Game
      */
 
-    public Game(String name, Director director, Set<MGSCharacter> gameCharacters) {
+    public GameDTO(String name, Director director, Set<MGSCharacter> gameCharacters) {
         this.name = name;
         this.director = director;
         this.gameCharacters = gameCharacters;
@@ -73,7 +77,7 @@ public class Game {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        Game game = (Game) object;
+        GameDTO game = (GameDTO) object;
         return Objects.equals(name, game.name);
     }
 
@@ -84,7 +88,7 @@ public class Game {
 
     @Override
     public String toString() {
-        return "Game{" +
+        return "GameDTO{" +
                 "name='" + name + '\'' +
                 ", director=" + director +
                 ", gameCharacters=" + gameCharacters +

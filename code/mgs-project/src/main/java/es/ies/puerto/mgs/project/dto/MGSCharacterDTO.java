@@ -1,11 +1,14 @@
-package es.ies.puerto.mgs.project.model.entities;
+package es.ies.puerto.mgs.project.dto;
+
+import es.ies.puerto.mgs.project.model.entities.Codename;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 
 import java.util.Objects;
 
 /**
  * @author nalleon
  */
-public class MGSCharacter {
+public class MGSCharacterDTO {
     /**
      * Properties
      */
@@ -16,14 +19,14 @@ public class MGSCharacter {
     /**
      * Default constructor of the class
      */
-    public MGSCharacter() {
+    public MGSCharacterDTO() {
     }
 
     /**
      * Constructor of the class
      * @param mgsChracterId of the MGSCharacter
      */
-    public MGSCharacter(int mgsChracterId) {
+    public MGSCharacterDTO(int mgsChracterId) {
         this.mgsChracterId = mgsChracterId;
     }
 
@@ -33,7 +36,7 @@ public class MGSCharacter {
      * @param name of the MGSCharacter
      * @param codename of the MGSCharacter
      */
-    public MGSCharacter(int mgsChracterId, String name, Codename codename) {
+    public MGSCharacterDTO(int mgsChracterId, String name, Codename codename) {
         this.mgsChracterId = mgsChracterId;
         this.name = name;
         this.codename = codename;
@@ -71,7 +74,7 @@ public class MGSCharacter {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        MGSCharacter that = (MGSCharacter) object;
+        MGSCharacterDTO that = (MGSCharacterDTO) object;
         return mgsChracterId == that.mgsChracterId;
     }
 
@@ -82,7 +85,7 @@ public class MGSCharacter {
 
     @Override
     public String toString() {
-        return "MGSCharacter{" +
+        return "MGSCharacterDTO{" +
                 "mgsChracterId=" + mgsChracterId +
                 ", name='" + name + '\'' +
                 ", codename=" + codename +
