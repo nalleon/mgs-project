@@ -11,7 +11,6 @@ public class CodenameDTO {
     /**
      * Properties
      */
-    int codenameId;
     String codename;
 
     /**
@@ -21,33 +20,16 @@ public class CodenameDTO {
     }
 
     /**
-     * Constructor of the class
-     * @param codenameId of the Codename
-     */
-    public CodenameDTO(int codenameId) {
-        this.codenameId = codenameId;
-    }
-
-    /**
      * Full constructor of the class
-     * @param codenameId of the Codename
      * @param codename of the Codename
      */
-    public CodenameDTO(int codenameId, String codename) {
-        this.codenameId = codenameId;
+    public CodenameDTO(String codename) {
         this.codename = codename;
     }
 
     /**
      * Getters and setters
      */
-    public int getCodenameId() {
-        return codenameId;
-    }
-
-    public void setCodenameId(int codenameId) {
-        this.codenameId = codenameId;
-    }
 
     public String getCodename() {
         return codename;
@@ -58,23 +40,22 @@ public class CodenameDTO {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        CodenameDTO codename = (CodenameDTO) object;
-        return codenameId == codename.codenameId;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CodenameDTO that = (CodenameDTO) o;
+        return Objects.equals(codename, that.codename);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codenameId);
+        return Objects.hashCode(codename);
     }
 
     @Override
     public String toString() {
         return "CodenameDTO{" +
-                "codenameId=" + codenameId +
-                ", codename='" + codename + '\'' +
+                "codename='" + codename + '\'' +
                 '}';
     }
 }

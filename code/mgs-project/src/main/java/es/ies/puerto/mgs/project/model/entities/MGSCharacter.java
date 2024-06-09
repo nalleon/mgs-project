@@ -9,9 +9,10 @@ public class MGSCharacter {
     /**
      * Properties
      */
-    int mgsChracterId;
     String name;
     Codename codename;
+    int age;
+    boolean status;
 
     /**
      * Default constructor of the class
@@ -21,35 +22,29 @@ public class MGSCharacter {
 
     /**
      * Constructor of the class
-     * @param mgsChracterId of the MGSCharacter
+     * @param name of the MGSCharacter
      */
-    public MGSCharacter(int mgsChracterId) {
-        this.mgsChracterId = mgsChracterId;
+    public MGSCharacter(String name) {
+        this.name = name;
     }
 
     /**
      * Full constructor of the class
-     * @param mgsChracterId of the MGSCharacter
-     * @param name of the MGSCharacter
      * @param codename of the MGSCharacter
+     * @param age of the MGSCharacter
+     * @param status of the MGSCharacter
+     * @param name of the MGSCharacter
      */
-    public MGSCharacter(int mgsChracterId, String name, Codename codename) {
-        this.mgsChracterId = mgsChracterId;
-        this.name = name;
+    public MGSCharacter(Codename codename, int age, boolean status, String name) {
         this.codename = codename;
+        this.age = age;
+        this.status = status;
+        this.name = name;
     }
 
     /**
      * Getters and setters
      */
-
-    public int getMgsChracterId() {
-        return mgsChracterId;
-    }
-
-    public void setMgsChracterId(int mgsChracterId) {
-        this.mgsChracterId = mgsChracterId;
-    }
 
     public String getName() {
         return name;
@@ -67,25 +62,42 @@ public class MGSCharacter {
         this.codename = codename;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        MGSCharacter that = (MGSCharacter) object;
-        return mgsChracterId == that.mgsChracterId;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MGSCharacter that = (MGSCharacter) o;
+        return Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mgsChracterId);
+        return Objects.hashCode(name);
     }
 
     @Override
     public String toString() {
         return "MGSCharacter{" +
-                "mgsChracterId=" + mgsChracterId +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", codename=" + codename +
+                ", age=" + age +
+                ", status=" + status +
                 '}';
     }
 }

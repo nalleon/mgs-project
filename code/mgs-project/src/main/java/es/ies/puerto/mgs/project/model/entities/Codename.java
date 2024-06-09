@@ -9,7 +9,6 @@ public class Codename {
     /**
      * Properties
      */
-    int codenameId;
     String codename;
 
     /**
@@ -20,32 +19,16 @@ public class Codename {
 
     /**
      * Constructor of the class
-     * @param codenameId of the Codename
+     * @param codename
      */
-    public Codename(int codenameId) {
-        this.codenameId = codenameId;
-    }
 
-    /**
-     * Full constructor of the class
-     * @param codenameId of the Codename
-     * @param codename of the Codename
-     */
-    public Codename(int codenameId, String codename) {
-        this.codenameId = codenameId;
+    public Codename(String codename) {
         this.codename = codename;
     }
 
     /**
      * Getters and setters
      */
-    public int getCodenameId() {
-        return codenameId;
-    }
-
-    public void setCodenameId(int codenameId) {
-        this.codenameId = codenameId;
-    }
 
     public String getCodename() {
         return codename;
@@ -55,24 +38,24 @@ public class Codename {
         this.codename = codename;
     }
 
+
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Codename codename = (Codename) object;
-        return codenameId == codename.codenameId;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Codename codename1 = (Codename) o;
+        return Objects.equals(codename, codename1.codename);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codenameId);
+        return Objects.hashCode(codename);
     }
 
     @Override
     public String toString() {
         return "Codename{" +
-                "codenameId=" + codenameId +
-                ", codename='" + codename + '\'' +
+                "codename='" + codename + '\'' +
                 '}';
     }
 }

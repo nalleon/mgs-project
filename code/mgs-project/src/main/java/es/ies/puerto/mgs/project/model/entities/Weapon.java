@@ -11,7 +11,6 @@ public class Weapon {
     /**
      * Properties
      */
-    int id;
     String name;
     String type;
 
@@ -23,36 +22,25 @@ public class Weapon {
 
     /**
      * Constructor of the class
-     * @param id of the Weapon
+     * @param name of the Weapon
      */
-    public Weapon(int id) {
-        this.id = id;
+    public Weapon(String name) {
+        this.name = name;
     }
 
     /**
      * Full constructor of the class
-     * @param id of the Weapon
      * @param name of the Weapon
      * @param type of the Weapon
      */
-
-    public Weapon(int id, String name, String type) {
-        this.id = id;
+    public Weapon(String name, String type) {
         this.name = name;
-        this.type=type;
+        this.type = type;
     }
 
     /**
      * Getters and setters
      */
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -75,19 +63,18 @@ public class Weapon {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Weapon weapon = (Weapon) o;
-        return id == weapon.id;
+        return Objects.equals(name, weapon.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(name);
     }
 
     @Override
     public String toString() {
         return "Weapon{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 '}';
     }
