@@ -7,7 +7,7 @@
 <img src="img/logo.png">
 </div>
 
-## Índice
+## Index
 - [Metal Gear Solid - Project](/code/mgs-project/)
   - [Project's details](#index01)
 
