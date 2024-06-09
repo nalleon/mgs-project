@@ -88,6 +88,7 @@ public class Weapon {
         return "Weapon{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
