@@ -159,7 +159,7 @@
 							<goal>check</goal>
 						</goals>
 						<configuration>
-							<dataFile>${project.build.directory}/jacoco.exec</dataFile>
+							<dataFile>src/main/java/es.ies.puerto.mgs.project/jacoco.exec</dataFile>
 							<rules>
 								<rule>
 									<element>BUNDLE</element>
