@@ -10,8 +10,8 @@ public class Game {
     /**
      * Properties
      */
+    int id;
     String name;
-    Director director;
     Set<MGSCharacter> gameCharacters;
 
     /**
@@ -22,21 +22,22 @@ public class Game {
 
     /**
      * Constructor of the class
-     * @param name of the Game
+     * @param id of the Game
      */
 
-    public Game(String name) {
-        this.name = name;
+    public Game(int id) {
+        this.id = id;
     }
 
     /**
      * Full constructor of the class
+     * @param id of the Game
      * @param name of the Game
      * @param director of the Game
      * @param gameCharacters of the Game
      */
-
-    public Game(String name, Director director, Set<MGSCharacter> gameCharacters) {
+    public Game(int id, String name, Director director, Set<MGSCharacter> gameCharacters) {
+        this.id = id;
         this.name = name;
         this.director = director;
         this.gameCharacters = gameCharacters;
@@ -45,6 +46,15 @@ public class Game {
     /**
      * Getters and setters
      */
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -70,22 +80,23 @@ public class Game {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        Game game = (Game) object;
-        return Objects.equals(name, game.name);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return id == game.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Game{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", director=" + director +
                 ", gameCharacters=" + gameCharacters +
                 '}';

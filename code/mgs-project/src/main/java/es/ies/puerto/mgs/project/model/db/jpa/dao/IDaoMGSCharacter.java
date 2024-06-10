@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author nalleon
  */
-public interface IDaoMGSCharacter extends JpaRepository<MGSCharacter, String> {
+public interface IDaoMGSCharacter extends JpaRepository<MGSCharacter, Integer> {
 }

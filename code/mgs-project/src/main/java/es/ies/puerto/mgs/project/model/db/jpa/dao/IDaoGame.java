@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @author nalleon
  */
-public interface IDaoGame extends JpaRepository<Game, String> {
+public interface IDaoGame extends JpaRepository<Game, Integer> {
 }

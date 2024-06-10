@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @author nalleon
  */
 @Repository
-public interface IDaoWeapon extends MongoRepository<Weapon, String> {
+public interface IDaoWeapon extends MongoRepository<Weapon, Integer> {
 }

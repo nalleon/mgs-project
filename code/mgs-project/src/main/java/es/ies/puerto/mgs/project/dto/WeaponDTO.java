@@ -1,13 +1,13 @@
-package es.ies.puerto.mgs.project.model.entities;
+package es.ies.puerto.mgs.project.dto;
+
+import es.ies.puerto.mgs.project.model.entities.Weapon;
 
 import java.util.Objects;
 
 /**
  * @author nalleon
- *
- * --> For MongoDB
  */
-public class Weapon {
+public class WeaponDTO {
     /**
      * Properties
      */
@@ -18,14 +18,14 @@ public class Weapon {
     /**
      * Default constructor of the class
      */
-    public Weapon() {
+    public WeaponDTO() {
     }
 
     /**
      * Constructor of the class
      * @param id of the Weapon
      */
-    public Weapon(int id) {
+    public WeaponDTO(int id) {
         this.id = id;
     }
 
@@ -35,7 +35,7 @@ public class Weapon {
      * @param name of the Weapon
      * @param type of the Weapon
      */
-    public Weapon(String type, String name, int id) {
+    public WeaponDTO(String type, String name, int id) {
         this.type = type;
         this.name = name;
         this.id = id;
@@ -73,7 +73,7 @@ public class Weapon {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Weapon weapon = (Weapon) o;
+        WeaponDTO weapon = (WeaponDTO) o;
         return id == weapon.id;
     }
 
@@ -84,7 +84,7 @@ public class Weapon {
 
     @Override
     public String toString() {
-        return "Weapon{" +
+        return "WeaponDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
