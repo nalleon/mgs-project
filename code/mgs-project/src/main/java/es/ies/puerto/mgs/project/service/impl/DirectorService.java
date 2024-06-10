@@ -1,9 +1,10 @@
 package es.ies.puerto.mgs.project.service.impl;
 import es.ies.puerto.mgs.project.dto.DirectorDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
 import es.ies.puerto.mgs.project.model.entities.Director;
-import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author nalleon
  */
 @Service
-public class DirectorService implements IService<DirectorDTO> {
+public class DirectorService implements IServiceJPA<DirectorDTO> {
     /**
      * Properties
      */
@@ -27,7 +28,7 @@ public class DirectorService implements IService<DirectorDTO> {
     /**
      * Default constructor of the class
      */
-    public DirectorService (){}
+    public DirectorService(){}
 
     /**
      * Setter of the dao
@@ -39,16 +40,21 @@ public class DirectorService implements IService<DirectorDTO> {
     }
 
     @Override
-    public void add(DirectorDTO directorDTO) {
-        iDaoDirector.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
+    public boolean add(DirectorDTO directorDTO) {
+        if (iDaoDirector.existsById(directorDTO.getDirectorId())){
+            iDaoDirector.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
+        }
+        return true;
     }
 
     @Override
-    public void update(DirectorDTO directorDTO) {
-        Director director = iDaoDirector.findById(directorDTO.getDirectorId()).orElseThrow(
-                () -> new RuntimeException("Can not find by ID")
-        );
-        iDaoDirector.save(director);
+    public boolean update(DirectorDTO directorDTO) {
+        if (iDaoDirector.existsById(directorDTO.getDirectorId())) {
+            iDaoDirector.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 
     @Override
@@ -63,17 +69,16 @@ public class DirectorService implements IService<DirectorDTO> {
 
     @Override
     public DirectorDTO getById(int id) {
-        Director director = iDaoDirector.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID")
-        );
-        return IDirectorMapper.INSTANCE.toDTO(director);
-
+        return IDirectorMapper.INSTANCE.toDTO(iDaoDirector.getById(id));
     }
 
     @Override
-    public void delete(int id) {
-        Director director = iDaoDirector.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID"));
-        iDaoDirector.delete(director);
+    public boolean delete(int id) {
+        if (iDaoDirector.existsById(id)) {
+            iDaoDirector.deleteById(id);
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 }

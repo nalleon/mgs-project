@@ -2,7 +2,6 @@ package es.ies.puerto.mgs.project.controller.impl;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
-import es.ies.puerto.mgs.project.service.impl.GameService;
 import es.ies.puerto.mgs.project.service.impl.MGSCharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

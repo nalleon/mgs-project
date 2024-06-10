@@ -1,10 +1,11 @@
 package es.ies.puerto.mgs.project.service.impl;
 
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
-import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @author nalleon
  */
 @Service
-public class MGSCharacterService implements IService<MGSCharacterDTO> {
+public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
     /**
      * Properties
      */
@@ -27,7 +28,7 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
     /**
      * Default constructor of the class
      */
-    public MGSCharacterService (){}
+    public MGSCharacterService(){}
 
     /**
      * Setter of the dao
@@ -39,16 +40,21 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
     }
 
     @Override
-    public void add(MGSCharacterDTO mgsCharacterDTO) {
-        iDaoMGSCharacter.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
+    public boolean add(MGSCharacterDTO mgsCharacterDTO) {
+        if (!iDaoMGSCharacter.existsById(mgsCharacterDTO.getId())){
+            iDaoMGSCharacter.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
+        }
+        return true;
     }
 
     @Override
-    public void update(MGSCharacterDTO mgsCharacterDTO) {
-        MGSCharacter mgsCharacter = iDaoMGSCharacter.findById(mgsCharacterDTO.getId()).orElseThrow(
-                () -> new RuntimeException("Can not find by ID (name)")
-        );
-        iDaoMGSCharacter.save(mgsCharacter);
+    public boolean update(MGSCharacterDTO mgsCharacterDTO) {
+        if (iDaoMGSCharacter.existsById(mgsCharacterDTO.getId())) {
+            iDaoMGSCharacter.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 
     @Override
@@ -67,13 +73,15 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
                 () -> new RuntimeException("Cannot find by ID")
         );
         return IMGSCharacterMapper.INSTANCE.toDTO(mgsCharacter);
-
     }
 
     @Override
-    public void delete(int id) {
-        MGSCharacter mgsCharacter = iDaoMGSCharacter.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID"));
-        iDaoMGSCharacter.delete(mgsCharacter);
+    public boolean delete(int id) {
+        if (iDaoMGSCharacter.existsById(id)) {
+            iDaoMGSCharacter.deleteById(id);
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 }

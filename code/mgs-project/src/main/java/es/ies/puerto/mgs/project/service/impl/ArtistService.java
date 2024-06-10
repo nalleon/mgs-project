@@ -3,7 +3,7 @@ import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
 import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author nalleon
  */
 @Service
-public class ArtistService implements IService<ArtistDTO> {
+public class ArtistService implements IServiceJPA<ArtistDTO> {
     /**
      * Properties
      */
@@ -27,7 +27,7 @@ public class ArtistService implements IService<ArtistDTO> {
     /**
      * Default constructor of the class
      */
-    public ArtistService (){}
+    public ArtistService(){}
 
     /**
      * Setter of the dao
@@ -39,16 +39,21 @@ public class ArtistService implements IService<ArtistDTO> {
     }
 
     @Override
-    public void add(ArtistDTO artistDTO) {
-        iDaoArtist.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
+    public boolean add(ArtistDTO artistDTO) {
+        if (iDaoArtist.existsById(artistDTO.getArtistId())){
+            iDaoArtist.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
+        }
+        return true;
     }
 
     @Override
-    public void update(ArtistDTO artistDTO) {
-        Artist artist = iDaoArtist.findById(artistDTO.getArtistId()).orElseThrow(
-                () -> new RuntimeException("Can not find by ID")
-        );
-        iDaoArtist.save(artist);
+    public boolean update(ArtistDTO artistDTO) {
+        if (iDaoArtist.existsById(artistDTO.getArtistId())) {
+            iDaoArtist.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 
     @Override
@@ -63,17 +68,16 @@ public class ArtistService implements IService<ArtistDTO> {
 
     @Override
     public ArtistDTO getById(int id) {
-        Artist artist = iDaoArtist.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID")
-        );
-        return IArtistMapper.INSTANCE.toDTO(artist);
-
+        return IArtistMapper.INSTANCE.toDTO(iDaoArtist.getById(id));
     }
 
     @Override
-    public void delete(int id) {
-        Artist artist = iDaoArtist.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID"));
-        iDaoArtist.delete(artist);
+    public boolean delete(int id) {
+        if (iDaoArtist.existsById(id)) {
+            iDaoArtist.deleteById(id);
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 }

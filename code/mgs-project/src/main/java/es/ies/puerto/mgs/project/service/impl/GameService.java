@@ -1,9 +1,10 @@
 package es.ies.puerto.mgs.project.service.impl;
 import es.ies.puerto.mgs.project.dto.GameDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
 import es.ies.puerto.mgs.project.model.entities.Game;
-import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author nalleon
  */
 @Service
-public class GameService implements IService<GameDTO> {
+public class GameService implements IServiceJPA<GameDTO> {
     /**
      * Properties
      */
@@ -27,7 +28,7 @@ public class GameService implements IService<GameDTO> {
     /**
      * Default constructor of the class
      */
-    public GameService (){}
+    public GameService(){}
 
     /**
      * Setter of the dao
@@ -39,16 +40,21 @@ public class GameService implements IService<GameDTO> {
     }
 
     @Override
-    public void add(GameDTO gameDTO) {
-        iDaoGame.save(IGameMapper.INSTANCE.toEntity(gameDTO));
+    public boolean add(GameDTO gameDTO) {
+        if (!iDaoGame.existsById(gameDTO.getId())){
+            iDaoGame.save(IGameMapper.INSTANCE.toEntity(gameDTO));
+        }
+        return true;
     }
 
     @Override
-    public void update(GameDTO gameDTO) {
-        Game game = iDaoGame.findById(gameDTO.getId()).orElseThrow(
-                () -> new RuntimeException("Can not find by ID")
-        );
-        iDaoGame.save(game);
+    public boolean update(GameDTO gameDTO) {
+        if (iDaoGame.existsById(gameDTO.getId())) {
+            iDaoGame.save(IGameMapper.INSTANCE.toEntity(gameDTO));
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 
     @Override
@@ -63,17 +69,17 @@ public class GameService implements IService<GameDTO> {
 
     @Override
     public GameDTO getById(int id) {
-        Game game = iDaoGame.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID")
-        );
-        return IGameMapper.INSTANCE.toDTO(game);
+        return IGameMapper.INSTANCE.toDTO(iDaoGame.getById(id));
 
     }
 
     @Override
-    public void delete(int id) {
-        Game game = iDaoGame.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID"));
-        iDaoGame.delete(game);
+    public boolean delete(int id) {
+        if (iDaoGame.existsById(id)) {
+            iDaoGame.deleteById(id);
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 }

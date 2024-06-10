@@ -58,15 +58,28 @@ public class MapperHelper extends TestUtilities {
         weaponDTO.setName(NAME);
         weaponDTO.setType(TYPE);
 
+        game = new Game();
+        game.setId(GAME_ID);
+        game.setName(NAME);
+        game.setGameCharacters(GAME_CHARACTERS);
+        //game.setDirector(director);
+
+        gameDTO = new GameDTO();
+        gameDTO.setId(GAME_ID);
+        gameDTO.setName(NAME);
+        gameDTO.setGameCharacters(CHARACTERS_DESIGNED_DTO);
+       // gameDTO.setDirector(directorDTO);
+
         director = new Director();
         director.setDirectorId(DIRECTOR_ID);
         director.setFullName(FULL_NAME);
-        director.setGamesDirected(GAMES_DIRECTED);
+        director.setGamesDirected(new HashSet<>(List.of(game)));
+
 
         directorDTO = new DirectorDTO();
         directorDTO.setDirectorId(DIRECTOR_ID);
         directorDTO.setFullName(FULL_NAME);
-        directorDTO.setGamesDirected(GAMES_DIRECTED_DTO);
+        directorDTO.setGamesDirected(new HashSet<>(List.of(gameDTO)));
 
         artist = new Artist();
         artist.setArtistId(ARTIST_ID);
@@ -95,16 +108,5 @@ public class MapperHelper extends TestUtilities {
         mgsCharacterDTO.setAge(AGE);
         mgsCharacterDTO.setArtist(artistDTO);
 
-        game = new Game();
-        game.setId(GAME_ID);
-        game.setName(NAME);
-        game.setGameCharacters(GAME_CHARACTERS);
-        game.setDirector(director);
-
-        gameDTO = new GameDTO();
-        gameDTO.setId(GAME_ID);
-        gameDTO.setName(NAME);
-        gameDTO.setGameCharacters(GAME_CHARACTERS_DTO);
-        gameDTO.setDirector(directorDTO);
     }
 }

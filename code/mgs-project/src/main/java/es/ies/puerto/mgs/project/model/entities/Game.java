@@ -30,7 +30,6 @@ public class Game implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "mgsCharacter_id")})
     Set<MGSCharacter> gameCharacters;
 
-    Director director;
 
     /**
      * Default constructor of the class
@@ -52,13 +51,12 @@ public class Game implements Serializable {
      * @param id of the Game
      * @param name of the Game
      * @param gameCharacters of the Game
-     * @param director of the Game
      */
-    public Game(int id, String name, Set<MGSCharacter> gameCharacters, Director director) {
+    public Game(int id, String name, Set<MGSCharacter> gameCharacters) {
         this.id = id;
         this.name = name;
         this.gameCharacters = gameCharacters;
-        this.director = director;
+        //this.director = director;
     }
 
     /**
@@ -89,13 +87,6 @@ public class Game implements Serializable {
         this.gameCharacters = gameCharacters;
     }
 
-    public Director getDirector() {
-        return director;
-    }
-
-    public void setDirector(Director director) {
-        this.director = director;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -116,7 +107,6 @@ public class Game implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", gameCharacters=" + gameCharacters +
-                ", director=" + director +
                 '}';
     }
 }

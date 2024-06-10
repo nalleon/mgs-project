@@ -1,10 +1,12 @@
 package es.ies.puerto.mgs.project.service.impl;
 
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
-import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceMongoDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class WeaponService implements IService<WeaponDTO> {
+public class WeaponService implements IServiceJPA<WeaponDTO> {
     /**
      * Properties
      */
@@ -24,7 +26,7 @@ public class WeaponService implements IService<WeaponDTO> {
     /**
      * Default constructor of the class
      */
-    public WeaponService (){}
+    public WeaponService(){}
 
     /**
      * Setter of the dao
@@ -37,16 +39,21 @@ public class WeaponService implements IService<WeaponDTO> {
     }
 
     @Override
-    public void add(WeaponDTO weaponDTO) {
-        iDaoWeapon.insert(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
+    public boolean add(WeaponDTO weaponDTO) {
+        if (!iDaoWeapon.existsById(weaponDTO.getId())){
+            iDaoWeapon.insert(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
+        }
+        return true;
     }
 
     @Override
-    public void update(WeaponDTO weaponDTO) {
-        Weapon weapon = iDaoWeapon.findById(weaponDTO.getId()).orElseThrow(
-                () -> new RuntimeException("Can not find by ID (name)")
-        );
-        iDaoWeapon.save(weapon);
+    public boolean update(WeaponDTO weaponDTO) {
+        if (iDaoWeapon.existsById(weaponDTO.getId())) {
+            iDaoWeapon.save(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 
     @Override
@@ -68,9 +75,12 @@ public class WeaponService implements IService<WeaponDTO> {
     }
 
     @Override
-    public void delete(int id) {
-        Weapon weapon = iDaoWeapon.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID"));
-        iDaoWeapon.delete(weapon);
+    public boolean delete(int id) {
+        if (iDaoWeapon.existsById(id)) {
+            iDaoWeapon.deleteById(id);
+            return true;
+        } else {
+            throw new RuntimeException("Cannot find by ID");
+        }
     }
 }
