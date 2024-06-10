@@ -1,18 +1,32 @@
 package es.ies.puerto.mgs.project.model.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
+
+
+import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * @author nalleon
  */
-public class Director {
+
+@Entity
+@Table(name = "Director")
+public class Director implements Serializable {
     /**
      * Properties
      */
-
+    @Id
     int directorId;
     String fullName;
+    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
+    @JoinTable(name = "DirectorGame",
+            joinColumns = { @JoinColumn(name = "director_id") },
+            inverseJoinColumns = { @JoinColumn(name = "game_id")})
     Set<Game> gamesDirected;
 
     /**

@@ -1,5 +1,9 @@
 package es.ies.puerto.mgs.project.model.entities;
 
+import jakarta.persistence.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,10 +11,12 @@ import java.util.Objects;
  *
  * --> For MongoDB
  */
-public class Weapon {
+@Document(collection = "Weapon")
+public class Weapon implements Serializable {
     /**
      * Properties
      */
+    @Id
     int id;
     String name;
     String type;

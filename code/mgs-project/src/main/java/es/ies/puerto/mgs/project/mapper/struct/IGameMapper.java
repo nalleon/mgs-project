@@ -1,9 +1,7 @@
-package es.ies.puerto.mgs.project.mapper.struc;
+package es.ies.puerto.mgs.project.mapper.struct;
 
 import es.ies.puerto.mgs.project.dto.GameDTO;
-import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.model.entities.Game;
-import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 /**

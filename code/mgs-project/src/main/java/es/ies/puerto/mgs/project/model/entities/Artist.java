@@ -1,17 +1,30 @@
 package es.ies.puerto.mgs.project.model.entities;
-
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
+
+import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * @author nalleon
  */
-public class Artist {
+
+@Entity
+@Table(name = "Artist")
+public class Artist implements Serializable {
     /**
      * Properties
      */
+    @Id
     int artistId;
     String fullName;
+    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
+    @JoinTable(name = "ArtistMGSCharacter",
+            joinColumns = { @JoinColumn(name = "artist_id") },
+            inverseJoinColumns = { @JoinColumn(name = "mgsCharacter_id")})
     Set<MGSCharacter> charactersDesigned;
 
     /**

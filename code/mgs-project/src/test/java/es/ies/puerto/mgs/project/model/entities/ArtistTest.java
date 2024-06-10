@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collection;
+
 import java.util.HashSet;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class ArtistTest extends TestUtilities {
         artist.setCharactersDesigned(CHARACTERS_DESIGNED);
     }
 
-    @Test
+   @Test
     public void getSetTest(){
         Assertions.assertEquals(ARTIST_ID, artist.getArtistId(), MESSAGE_ERROR);
         Assertions.assertEquals(FULL_NAME, artist.getFullName(), MESSAGE_ERROR);
@@ -52,6 +51,5 @@ public class ArtistTest extends TestUtilities {
         Assertions.assertFalse(artist.equals(nullObject), MESSAGE_ERROR);
         Assertions.assertFalse(artist.equals(notEquals), MESSAGE_ERROR);
         Assertions.assertFalse(artist.equals(str), MESSAGE_ERROR);
-
     }
 }

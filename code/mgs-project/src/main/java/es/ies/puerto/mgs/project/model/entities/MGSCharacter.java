@@ -1,19 +1,31 @@
 package es.ies.puerto.mgs.project.model.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 /**
  * @author nalleon
  */
-public class MGSCharacter {
+
+@Entity
+@Table(name = "MGSCharacter")
+public class MGSCharacter implements Serializable {
     /**
      * Properties
      */
+    @Id
     int id;
     String name;
     String codename;
     int age;
     boolean status;
+    Artist artist;
 
     /**
      * Default constructor of the class
@@ -36,15 +48,18 @@ public class MGSCharacter {
      * @param age of the MGSCharacter
      * @param status of the MGSCharacter
      * @param name of the MGSCharacter
+     * @param artist of the MGSCharacter
      */
 
-    public MGSCharacter(int id, String name, String codename, int age, boolean status) {
+    public MGSCharacter(int id, String name, int age, String codename, boolean status, Artist artist) {
         this.id = id;
         this.name = name;
-        this.codename = codename;
         this.age = age;
+        this.codename = codename;
         this.status = status;
+        this.artist = artist;
     }
+
 
     /**
      * Getters and setters
@@ -89,6 +104,14 @@ public class MGSCharacter {
         this.status = status;
     }
 
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,9 +130,10 @@ public class MGSCharacter {
         return "MGSCharacter{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", codename=" + codename +
+                ", codename='" + codename + '\'' +
                 ", age=" + age +
                 ", status=" + status +
+                ", artist=" + artist +
                 '}';
     }
 }

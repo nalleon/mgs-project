@@ -1,5 +1,8 @@
 package es.ies.puerto.mgs.project.dto;
 
+import es.ies.puerto.mgs.project.model.entities.Artist;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
+
 import java.util.Objects;
 
 /**
@@ -14,6 +17,7 @@ public class MGSCharacterDTO {
     String codename;
     int age;
     boolean status;
+    Artist artist;
 
     /**
      * Default constructor of the class
@@ -36,15 +40,18 @@ public class MGSCharacterDTO {
      * @param age of the MGSCharacter
      * @param status of the MGSCharacter
      * @param name of the MGSCharacter
+     * @param artist of the MGSCharacter
      */
 
-    public MGSCharacterDTO(int id, String name, String codename, int age, boolean status) {
+    public MGSCharacterDTO(int id, String name, int age, String codename, boolean status, Artist artist) {
         this.id = id;
         this.name = name;
-        this.codename = codename;
         this.age = age;
+        this.codename = codename;
         this.status = status;
+        this.artist = artist;
     }
+
 
     /**
      * Getters and setters
@@ -89,6 +96,14 @@ public class MGSCharacterDTO {
         this.status = status;
     }
 
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,9 +122,11 @@ public class MGSCharacterDTO {
         return "MGSCharacterDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", codename=" + codename +
+                ", codename='" + codename + '\'' +
                 ", age=" + age +
                 ", status=" + status +
+                ", artist=" + artist +
                 '}';
     }
+
 }

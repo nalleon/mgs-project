@@ -1,4 +1,4 @@
-package es.ies.puerto.mgs.project.mapper.struc;
+package es.ies.puerto.mgs.project.mapper.struct;
 
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;

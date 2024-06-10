@@ -1,7 +1,4 @@
 package es.ies.puerto.mgs.project.dto;
-
-import es.ies.puerto.mgs.project.model.entities.Weapon;
-
 import java.util.Objects;
 
 /**

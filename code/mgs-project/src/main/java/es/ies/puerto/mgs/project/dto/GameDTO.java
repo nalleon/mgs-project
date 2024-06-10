@@ -17,6 +17,7 @@ public class GameDTO {
     int id;
     String name;
     Set<MGSCharacter> gameCharacters;
+    Director director;
 
     /**
      * Default constructor of the class
@@ -38,11 +39,13 @@ public class GameDTO {
      * @param id of the Game
      * @param name of the Game
      * @param gameCharacters of the Game
+     * @param director of the Game
      */
-    public GameDTO(int id, String name, Set<MGSCharacter> gameCharacters) {
+    public GameDTO(int id, String name, Set<MGSCharacter> gameCharacters, Director director) {
         this.id = id;
         this.name = name;
         this.gameCharacters = gameCharacters;
+        this.director = director;
     }
 
     /**
@@ -73,12 +76,20 @@ public class GameDTO {
         this.gameCharacters = gameCharacters;
     }
 
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
+        this.director = director;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GameDTO game = (GameDTO) o;
-        return id == game.id;
+        GameDTO gameDTO = (GameDTO) o;
+        return id == gameDTO.id;
     }
 
     @Override
@@ -92,6 +103,7 @@ public class GameDTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", gameCharacters=" + gameCharacters +
+                ", director=" + director +
                 '}';
     }
 }

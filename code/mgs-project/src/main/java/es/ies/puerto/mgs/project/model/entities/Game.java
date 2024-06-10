@@ -1,18 +1,36 @@
 package es.ies.puerto.mgs.project.model.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
+
+
+import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  * @author nalleon
  */
-public class Game {
+
+@Entity
+@Table(name = "Game")
+public class Game implements Serializable {
     /**
      * Properties
      */
+    @Id
     int id;
     String name;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
+    @JoinTable(name = "GameMGSCharacter",
+            joinColumns = { @JoinColumn(name = "game_id") },
+            inverseJoinColumns = { @JoinColumn(name = "mgsCharacter_id")})
     Set<MGSCharacter> gameCharacters;
+
+    Director director;
 
     /**
      * Default constructor of the class
@@ -33,13 +51,14 @@ public class Game {
      * Full constructor of the class
      * @param id of the Game
      * @param name of the Game
-     * @param director of the Game
      * @param gameCharacters of the Game
+     * @param director of the Game
      */
-    public Game(int id, String name, Set<MGSCharacter> gameCharacters) {
+    public Game(int id, String name, Set<MGSCharacter> gameCharacters, Director director) {
         this.id = id;
         this.name = name;
         this.gameCharacters = gameCharacters;
+        this.director = director;
     }
 
     /**
@@ -70,6 +89,14 @@ public class Game {
         this.gameCharacters = gameCharacters;
     }
 
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
+        this.director = director;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,6 +116,7 @@ public class Game {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", gameCharacters=" + gameCharacters +
+                ", director=" + director +
                 '}';
     }
 }
