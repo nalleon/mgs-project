@@ -16,7 +16,6 @@ public class GameDTO {
      */
     int id;
     String name;
-    Director director;
     Set<MGSCharacter> gameCharacters;
 
     /**
@@ -38,13 +37,11 @@ public class GameDTO {
      * Full constructor of the class
      * @param id of the Game
      * @param name of the Game
-     * @param director of the Game
      * @param gameCharacters of the Game
      */
-    public GameDTO(int id, String name, Director director, Set<MGSCharacter> gameCharacters) {
+    public GameDTO(int id, String name, Set<MGSCharacter> gameCharacters) {
         this.id = id;
         this.name = name;
-        this.director = director;
         this.gameCharacters = gameCharacters;
     }
 
@@ -66,14 +63,6 @@ public class GameDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Director getDirector() {
-        return director;
-    }
-
-    public void setDirector(Director director) {
-        this.director = director;
     }
 
     public Set<MGSCharacter> getGameCharacters() {
@@ -102,7 +91,6 @@ public class GameDTO {
         return "GameDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", director=" + director +
                 ", gameCharacters=" + gameCharacters +
                 '}';
     }

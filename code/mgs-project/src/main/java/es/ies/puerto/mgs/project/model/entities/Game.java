@@ -36,10 +36,9 @@ public class Game {
      * @param director of the Game
      * @param gameCharacters of the Game
      */
-    public Game(int id, String name, Director director, Set<MGSCharacter> gameCharacters) {
+    public Game(int id, String name, Set<MGSCharacter> gameCharacters) {
         this.id = id;
         this.name = name;
-        this.director = director;
         this.gameCharacters = gameCharacters;
     }
 
@@ -61,14 +60,6 @@ public class Game {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Director getDirector() {
-        return director;
-    }
-
-    public void setDirector(Director director) {
-        this.director = director;
     }
 
     public Set<MGSCharacter> getGameCharacters() {
@@ -97,7 +88,6 @@ public class Game {
         return "Game{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", director=" + director +
                 ", gameCharacters=" + gameCharacters +
                 '}';
     }

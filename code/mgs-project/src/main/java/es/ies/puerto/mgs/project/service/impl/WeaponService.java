@@ -6,7 +6,8 @@ import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class WeaponService implements IService<WeaponDTO> {
     /**
      * Properties
      */
-    //private final static Logger LOGGER = LoggerFactory.getLogger(EquipmentService.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(WeaponService.class);
 
     private IDaoWeapon iDaoWeapon;
 
@@ -59,13 +60,15 @@ public class WeaponService implements IService<WeaponDTO> {
     @Override
     public WeaponDTO getById(int id) {
         Weapon weapon = iDaoWeapon.findById(id).orElseThrow(
-                () -> new RuntimeException("Can not find by ID (name)")
+                () -> new RuntimeException("Cannot find by ID")
         );
-        return null;
+        return IWeaponMapper.INSTANCE.toDTO(weapon);
     }
 
     @Override
     public void delete(int id) {
-
+        Weapon weapon = iDaoWeapon.findById(id).orElseThrow(
+                () -> new RuntimeException("Cannot find by ID"));
+        iDaoWeapon.delete(weapon);
     }
 }

@@ -1,6 +1,5 @@
 package es.ies.puerto.mgs.project.dto;
 
-import org.h2.engine.User;
 
 /**
  * @author nalleon

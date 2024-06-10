@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>es.ies.puerto.mgs.project</groupId>
 	<artifactId>mgs-project</artifactId>
-	<version>mgs-project</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>mgs-project</name>
 	<description>Proyecto de fin de curso</description>
@@ -32,14 +32,15 @@
 		<log4j.version>2.17.1</log4j.version>
 		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
 		<junit.version>5.6.0</junit.version>
-		<mokito-version>2.21.0</mokito-version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.1.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -50,8 +51,9 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -59,13 +61,33 @@
 		</dependency>
 		-->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${org.mapstruct.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.36.0.3</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
+		<!-- Hibernate 6, SQLite dialect is supported -->
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-community-dialects</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
@@ -75,44 +97,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.projectreactor</groupId>
-			<artifactId>reactor-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!--
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		-->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.1.0</version>
-		</dependency>
-
-		<!-- MapStruc-->
-
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>${org.mapstruct.version}</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.xerial</groupId>
-			<artifactId>sqlite-jdbc</artifactId>
-			<version>3.36.0.3</version>
-		</dependency>
-
-		<!-- Hibernate 6, SQLite dialect is supported -->
-		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-community-dialects</artifactId>
 		</dependency>
 
 		<!-- Testing Dependencies -->
@@ -140,9 +124,15 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!--
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		-->
 
 	</dependencies>
-
 
 	<build>
 		<plugins>
@@ -150,10 +140,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -176,72 +163,71 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>pre-unit-test</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>post-unit-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>check-unit-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<dataFile>src/main/java/es.ies.puerto.mgs.project/jacoco.exec</dataFile>
-							<rules>
-								<rule>
-									<element>BUNDLE</element>
-									<limits>
-										<limit>
-											<counter>INSTRUCTION</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>${jacoco.unit-tests.limit.instruction-ratio}</minimum>
-										</limit>
-										<limit>
-											<counter>BRANCH</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>${jacoco.unit-tests.limit.branch-ratio}</minimum>
-										</limit>
-									</limits>
-								</rule>
-								<rule>
-									<element>CLASS</element>
-									<limits>
-										<limit>
-											<counter>COMPLEXITY</counter>
-											<value>TOTALCOUNT</value>
-											<maximum>${jacoco.unit-tests.limit.class-complexity}</maximum>
-										</limit>
-									</limits>
-								</rule>
-								<rule>
-									<element>METHOD</element>
-									<limits>
-										<limit>
-											<counter>COMPLEXITY</counter>
-											<value>TOTALCOUNT</value>
-											<maximum>${jacoco.unit-tests.limit.method-complexity}</maximum>
-										</limit>
-									</limits>
-								</rule>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>${jacoco-maven-plugin.version}</version>
+			<executions>
+				<execution>
+					<id>prepare-agent</id>
+					<goals>
+						<goal>prepare-agent</goal>
+					</goals>
+				</execution>
+				<execution>
+					<id>report</id>
+					<phase>test</phase>
+					<goals>
+						<goal>report</goal>
+					</goals>
+				</execution>
+				<execution>
+					<id>check</id>
+					<goals>
+						<goal>check</goal>
+					</goals>
+					<configuration>
+						<dataFile>${project.build.directory}/jacoco.exec</dataFile>
+						<rules>
+							<rule>
+								<element>BUNDLE</element>
+								<limits>
+									<limit>
+										<counter>INSTRUCTION</counter>
+										<value>COVEREDRATIO</value>
+										<minimum>${jacoco.unit-tests.limit.instruction-ratio}</minimum>
+									</limit>
+									<limit>
+										<counter>BRANCH</counter>
+										<value>COVEREDRATIO</value>
+										<minimum>${jacoco.unit-tests.limit.branch-ratio}</minimum>
+									</limit>
+								</limits>
+							</rule>
+							<rule>
+								<element>CLASS</element>
+								<limits>
+									<limit>
+										<counter>COMPLEXITY</counter>
+										<value>TOTALCOUNT</value>
+										<maximum>${jacoco.unit-tests.limit.class-complexity}</maximum>
+									</limit>
+								</limits>
+							</rule>
+							<rule>
+								<element>METHOD</element>
+								<limits>
+									<limit>
+										<counter>COMPLEXITY</counter>
+										<value>TOTALCOUNT</value>
+										<maximum>${jacoco.unit-tests.limit.method-complexity}</maximum>
+									</limit>
+								</limits>
+							</rule>
+						</rules>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
