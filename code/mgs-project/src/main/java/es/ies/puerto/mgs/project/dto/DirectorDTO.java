@@ -16,7 +16,7 @@ public class DirectorDTO {
 
     int directorId;
     String fullName;
-    Set<Game> gamesDirected;
+    Set<GameDTO> gamesDirected;
 
     /**
      * Default constructor of the class
@@ -40,7 +40,7 @@ public class DirectorDTO {
      * @param gamesDirected of the Director
      */
 
-    public DirectorDTO(int directorId, String fullName, Set<Game> gamesDirected) {
+    public DirectorDTO(int directorId, String fullName, Set<GameDTO> gamesDirected) {
         this.directorId = directorId;
         this.fullName = fullName;
         this.gamesDirected = gamesDirected;
@@ -65,11 +65,11 @@ public class DirectorDTO {
         this.fullName = fullName;
     }
 
-    public Set<Game> getGamesDirected() {
+    public Set<GameDTO> getGamesDirected() {
         return gamesDirected;
     }
 
-    public void setGamesDirected(Set<Game> gamesDirected) {
+    public void setGamesDirected(Set<GameDTO> gamesDirected) {
         this.gamesDirected = gamesDirected;
     }
 

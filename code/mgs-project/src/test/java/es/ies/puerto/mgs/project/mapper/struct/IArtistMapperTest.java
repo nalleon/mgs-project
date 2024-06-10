@@ -1,4 +1,6 @@
 package es.ies.puerto.mgs.project.mapper.struct;
 
-public class IArtistMapperTest {
+import es.ies.puerto.mgs.project.utilities.MapperHelper;
+
+public class IArtistMapperTest extends MapperHelper {
 }

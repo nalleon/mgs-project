@@ -17,7 +17,7 @@ public class MGSCharacterDTO {
     String codename;
     int age;
     boolean status;
-    Artist artist;
+    ArtistDTO artist;
 
     /**
      * Default constructor of the class
@@ -43,7 +43,7 @@ public class MGSCharacterDTO {
      * @param artist of the MGSCharacter
      */
 
-    public MGSCharacterDTO(int id, String name, int age, String codename, boolean status, Artist artist) {
+    public MGSCharacterDTO(int id, String name, String codename, int age, boolean status, ArtistDTO artist) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -96,11 +96,11 @@ public class MGSCharacterDTO {
         this.status = status;
     }
 
-    public Artist getArtist() {
+    public ArtistDTO getArtist() {
         return artist;
     }
 
-    public void setArtist(Artist artist) {
+    public void setArtist(ArtistDTO artist) {
         this.artist = artist;
     }
 

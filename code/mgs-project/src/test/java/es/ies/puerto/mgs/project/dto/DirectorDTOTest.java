@@ -1,5 +1,7 @@
-package es.ies.puerto.mgs.project.model.entities;
+package es.ies.puerto.mgs.project.dto;
 
+import es.ies.puerto.mgs.project.model.entities.Director;
+import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,16 +10,15 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 import java.util.List;
 
-public class DirectorTest  extends TestUtilities {
-
-    Director director;
+public class DirectorDTOTest extends TestUtilities {
+    DirectorDTO director;
     public static final int DIRECTOR_ID = 1;
     public static final String FULL_NAME = "artistFullName";
-    public static final HashSet<Game> GAMES_DIRECTED = new HashSet<>(List.of(new Game(1)));
+    public static final HashSet<GameDTO> GAMES_DIRECTED = new HashSet<>(List.of(new GameDTO(1)));
 
     @BeforeEach
     public void beforeEach(){
-        director = new Director();
+        director = new DirectorDTO();
         director.setDirectorId(DIRECTOR_ID);
         director.setFullName(FULL_NAME);
         director.setGamesDirected(GAMES_DIRECTED);
@@ -39,10 +40,10 @@ public class DirectorTest  extends TestUtilities {
 
     @Test
     public void equalsTest(){
-        Director equals = new Director(DIRECTOR_ID);
-        Director notEquals = new Director(2, FULL_NAME, GAMES_DIRECTED);
+        DirectorDTO equals = new DirectorDTO(DIRECTOR_ID);
+        DirectorDTO notEquals = new DirectorDTO(2, FULL_NAME, GAMES_DIRECTED);
         String str = "str";
-        Director nullObject = null;
+        DirectorDTO nullObject = null;
 
         Assertions.assertTrue(director.equals(equals), MESSAGE_ERROR);
         Assertions.assertEquals(director.hashCode(), equals.hashCode(), MESSAGE_ERROR);

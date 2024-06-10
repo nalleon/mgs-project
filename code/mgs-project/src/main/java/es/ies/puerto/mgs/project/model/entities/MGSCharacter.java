@@ -51,7 +51,7 @@ public class MGSCharacter implements Serializable {
      * @param artist of the MGSCharacter
      */
 
-    public MGSCharacter(int id, String name, int age, String codename, boolean status, Artist artist) {
+    public MGSCharacter(int id, String name, String codename, int age, boolean status, Artist artist) {
         this.id = id;
         this.name = name;
         this.age = age;

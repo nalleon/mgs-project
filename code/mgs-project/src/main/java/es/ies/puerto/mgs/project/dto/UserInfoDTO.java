@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * @author nalleon
  */
-public class UserInfo {
+public class UserInfoDTO {
 
     /**
      * Properties
@@ -17,7 +17,11 @@ public class UserInfo {
     /**
      * Default constructor of the class
      */
-    public UserInfo (){}
+    public UserInfoDTO(){}
+
+    public UserInfoDTO(String username) {
+        this.username = username;
+    }
 
     /**
      * Full constrcutor of the class
@@ -25,7 +29,7 @@ public class UserInfo {
      * @param password
      */
 
-    public UserInfo(String username, String password) {
+    public UserInfoDTO(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -53,8 +57,8 @@ public class UserInfo {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserInfo userInfo = (UserInfo) o;
-        return Objects.equals(username, userInfo.username);
+        UserInfoDTO userInfoDTO = (UserInfoDTO) o;
+        return Objects.equals(username, userInfoDTO.username);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class ArtistDTO {
      */
     int artistId;
     String fullName;
-    Set<MGSCharacter> charactersDesigned;
+    Set<MGSCharacterDTO> charactersDesigned;
 
     /**
      * Default constructor of the class
@@ -37,7 +37,7 @@ public class ArtistDTO {
      * @param fullName of the Artist
      * @param charactersDesigned of the Artist
      */
-    public ArtistDTO(int artistId, String fullName, Set<MGSCharacter> charactersDesigned) {
+    public ArtistDTO(int artistId, String fullName, Set<MGSCharacterDTO> charactersDesigned) {
         this.artistId = artistId;
         this.fullName = fullName;
         this.charactersDesigned = charactersDesigned;
@@ -63,11 +63,11 @@ public class ArtistDTO {
         this.fullName = fullName;
     }
 
-    public Set<MGSCharacter> getCharactersDesigned() {
+    public Set<MGSCharacterDTO> getCharactersDesigned() {
         return charactersDesigned;
     }
 
-    public void setCharactersDesigned(Set<MGSCharacter> charactersDesigned) {
+    public void setCharactersDesigned(Set<MGSCharacterDTO> charactersDesigned) {
         this.charactersDesigned = charactersDesigned;
     }
 

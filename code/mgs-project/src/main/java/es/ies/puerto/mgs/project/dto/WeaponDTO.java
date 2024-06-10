@@ -32,7 +32,7 @@ public class WeaponDTO {
      * @param name of the Weapon
      * @param type of the Weapon
      */
-    public WeaponDTO(String type, String name, int id) {
+    public WeaponDTO(int id, String type, String name) {
         this.type = type;
         this.name = name;
         this.id = id;
