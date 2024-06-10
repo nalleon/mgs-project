@@ -5,6 +5,7 @@ import es.ies.puerto.mgs.project.mapper.struc.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ public class WeaponService implements IService<WeaponDTO> {
      * @param iDaoWeapon
      */
 
+    @Autowired
     public void setiDaoWeapon(IDaoWeapon iDaoWeapon) {
         this.iDaoWeapon = iDaoWeapon;
     }

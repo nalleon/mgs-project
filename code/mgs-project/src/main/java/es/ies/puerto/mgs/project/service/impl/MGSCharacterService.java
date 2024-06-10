@@ -43,6 +43,7 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
 
     @Override
     public void add(MGSCharacterDTO mgsCharacterDTO) {
+        iDaoMGSCharacter.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
     }
 
     @Override
@@ -56,11 +57,11 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
     @Override
     public List<MGSCharacterDTO> getAll() {
         List<MGSCharacter> mgsCharacters = iDaoMGSCharacter.findAll();
-        List<MGSCharacterDTO> weaponDTOS = new ArrayList<>();
+        List<MGSCharacterDTO> mgsCharacterDTOS = new ArrayList<>();
         for (MGSCharacter mgsCharacter : mgsCharacters){
-            weaponDTOS.add(IMGSCharacterMapper.INSTANCE.toDTO(mgsCharacter));
+            mgsCharacterDTOS.add(IMGSCharacterMapper.INSTANCE.toDTO(mgsCharacter));
         }
-        return weaponDTOS;
+        return mgsCharacterDTOS;
     }
 
     @Override
