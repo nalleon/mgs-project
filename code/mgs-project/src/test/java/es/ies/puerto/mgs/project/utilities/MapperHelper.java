@@ -79,7 +79,7 @@ public class MapperHelper extends TestUtilities {
         directorDTO = new DirectorDTO();
         directorDTO.setDirectorId(DIRECTOR_ID);
         directorDTO.setFullName(FULL_NAME);
-        directorDTO.setGamesDirected(new HashSet<>(List.of(gameDTO)));
+        //directorDTO.setGamesDirected(new HashSet<>(List.of(gameDTO)));
 
         artist = new Artist();
         artist.setArtistId(ARTIST_ID);
@@ -89,7 +89,7 @@ public class MapperHelper extends TestUtilities {
         artistDTO = new ArtistDTO();
         artistDTO.setArtistId(ARTIST_ID);
         artistDTO.setFullName(FULL_NAME);
-        artistDTO.setCharactersDesigned(CHARACTERS_DESIGNED_DTO);
+        //artistDTO.setCharactersDesigned(CHARACTERS_DESIGNED_DTO);
 
 
         mgsCharacter = new MGSCharacter();

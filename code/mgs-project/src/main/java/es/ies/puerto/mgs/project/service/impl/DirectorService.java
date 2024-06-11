@@ -41,7 +41,7 @@ public class DirectorService implements IServiceJPA<DirectorDTO> {
 
     @Override
     public boolean add(DirectorDTO directorDTO) {
-        if (iDaoDirector.existsById(directorDTO.getDirectorId())){
+        if (!iDaoDirector.existsById(directorDTO.getDirectorId())){
             iDaoDirector.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
         }
         return true;

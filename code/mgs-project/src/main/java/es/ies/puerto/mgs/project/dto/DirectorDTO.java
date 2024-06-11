@@ -16,7 +16,6 @@ public class DirectorDTO {
 
     int directorId;
     String fullName;
-    Set<GameDTO> gamesDirected;
 
     /**
      * Default constructor of the class
@@ -43,7 +42,6 @@ public class DirectorDTO {
     public DirectorDTO(int directorId, String fullName, Set<GameDTO> gamesDirected) {
         this.directorId = directorId;
         this.fullName = fullName;
-        this.gamesDirected = gamesDirected;
     }
 
     /**
@@ -65,14 +63,6 @@ public class DirectorDTO {
         this.fullName = fullName;
     }
 
-    public Set<GameDTO> getGamesDirected() {
-        return gamesDirected;
-    }
-
-    public void setGamesDirected(Set<GameDTO> gamesDirected) {
-        this.gamesDirected = gamesDirected;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
@@ -91,7 +81,6 @@ public class DirectorDTO {
         return "DirectorDTO{" +
                 "directorId=" + directorId +
                 ", fullName='" + fullName + '\'' +
-                ", gamesDirected=" + gamesDirected +
                 '}';
     }
 }

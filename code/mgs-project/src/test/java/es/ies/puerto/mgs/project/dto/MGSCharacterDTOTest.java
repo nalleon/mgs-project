@@ -34,7 +34,7 @@ public class MGSCharacterDTOTest extends TestUtilities {
         artist = new ArtistDTO();
         artist.setArtistId(ARTIST_ID);
         artist.setFullName(FULL_NAME);
-        artist.setCharactersDesigned(CHARACTERS_DESIGNED);
+        //artist.setCharactersDesigned(CHARACTERS_DESIGNED);
 
         mgsCharacter.setArtist(artist);
     }

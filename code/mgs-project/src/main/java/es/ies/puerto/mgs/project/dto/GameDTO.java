@@ -17,7 +17,7 @@ public class GameDTO {
     int id;
     String name;
     Set<MGSCharacterDTO> gameCharacters;
-   // DirectorDTO director;
+    DirectorDTO director;
 
     /**
      * Default constructor of the class
@@ -74,6 +74,13 @@ public class GameDTO {
         this.gameCharacters = gameCharacters;
     }
 
+    public DirectorDTO getDirector() {
+        return director;
+    }
+
+    public void setDirector(DirectorDTO director) {
+        this.director = director;
+    }
 
     @Override
     public boolean equals(Object o) {

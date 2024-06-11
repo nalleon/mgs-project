@@ -22,27 +22,27 @@ public class ArtistDTOTest extends TestUtilities {
         artist = new ArtistDTO();
         artist.setArtistId(ARTIST_ID);
         artist.setFullName(FULL_NAME);
-        artist.setCharactersDesigned(CHARACTERS_DESIGNED);
+        //artist.setCharactersDesigned(CHARACTERS_DESIGNED);
     }
 
     @Test
     public void getSetTest(){
         Assertions.assertEquals(ARTIST_ID, artist.getArtistId(), MESSAGE_ERROR);
         Assertions.assertEquals(FULL_NAME, artist.getFullName(), MESSAGE_ERROR);
-        Assertions.assertEquals(CHARACTERS_DESIGNED, artist.getCharactersDesigned(), MESSAGE_ERROR);
+        //Assertions.assertEquals(CHARACTERS_DESIGNED, artist.getCharactersDesigned(), MESSAGE_ERROR);
     }
 
     @Test
     public void toStringTest(){
         Assertions.assertTrue(artist.toString().contains(String.valueOf(ARTIST_ID)), MESSAGE_ERROR);
         Assertions.assertTrue(artist.toString().contains(FULL_NAME), MESSAGE_ERROR);
-        Assertions.assertTrue(artist.toString().contains(CHARACTERS_DESIGNED.toString()), MESSAGE_ERROR);
+//        Assertions.assertTrue(artist.toString().contains(CHARACTERS_DESIGNED.toString()), MESSAGE_ERROR);
     }
 
     @Test
     public void equalsTest(){
         ArtistDTO equals = new ArtistDTO(ARTIST_ID);
-        ArtistDTO notEquals = new ArtistDTO(2, FULL_NAME, CHARACTERS_DESIGNED);
+        ArtistDTO notEquals = new ArtistDTO(2, FULL_NAME);
         String str = "str";
         ArtistDTO nullObject = null;
 

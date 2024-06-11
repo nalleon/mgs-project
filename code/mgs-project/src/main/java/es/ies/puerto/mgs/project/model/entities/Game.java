@@ -30,6 +30,10 @@ public class Game implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "mgsCharacter_id")})
     Set<MGSCharacter> gameCharacters;
 
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    Director director;
+
+
 
     /**
      * Default constructor of the class

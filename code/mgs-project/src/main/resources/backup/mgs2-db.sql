@@ -18,7 +18,7 @@ CREATE TABLE MGSCharacter (
 );
 
 
-INSERT INTO MGSCharacter (id, name, codename, age, status, artist_id) VALUES (1, 'David', 'Solid Snake', 42, 1, 1);
+INSERT INTO MGSCharacter (name, codename, age, status, artist_id) VALUES (1, 'David', 'Solid Snake', 42, 1, 1);
 INSERT INTO MGSCharacter (id, name, codename, age, status, artist_id) VALUES (2, 'John', 'Naked Snake', 50, 0, 1);
 INSERT INTO MGSCharacter (id, name, codename, age, status, artist_id) VALUES (3, 'Jack', 'Raiden', 32, 1, 1);
 INSERT INTO MGSCharacter (id, name, codename, age, status, artist_id) VALUES (4, 'Shalashaska', 'Revolver Ocelot', 55, 1, 1);

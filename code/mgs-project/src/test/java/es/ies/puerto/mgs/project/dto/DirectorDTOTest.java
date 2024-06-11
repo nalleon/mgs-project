@@ -21,21 +21,21 @@ public class DirectorDTOTest extends TestUtilities {
         director = new DirectorDTO();
         director.setDirectorId(DIRECTOR_ID);
         director.setFullName(FULL_NAME);
-        director.setGamesDirected(GAMES_DIRECTED);
+        //director.setGamesDirected(GAMES_DIRECTED);
     }
 
     @Test
     public void getSetTest(){
         Assertions.assertEquals(DIRECTOR_ID, director.getDirectorId(), MESSAGE_ERROR);
         Assertions.assertEquals(FULL_NAME, director.getFullName(), MESSAGE_ERROR);
-        Assertions.assertEquals(GAMES_DIRECTED, director.getGamesDirected(), MESSAGE_ERROR);
+       // Assertions.assertEquals(GAMES_DIRECTED, director.getGamesDirected(), MESSAGE_ERROR);
     }
 
     @Test
     public void toStringTest(){
         Assertions.assertTrue(director.toString().contains(String.valueOf(DIRECTOR_ID)), MESSAGE_ERROR);
         Assertions.assertTrue(director.toString().contains(FULL_NAME), MESSAGE_ERROR);
-        Assertions.assertTrue(director.toString().contains(GAMES_DIRECTED.toString()), MESSAGE_ERROR);
+        //Assertions.assertTrue(director.toString().contains(GAMES_DIRECTED.toString()), MESSAGE_ERROR);
     }
 
     @Test

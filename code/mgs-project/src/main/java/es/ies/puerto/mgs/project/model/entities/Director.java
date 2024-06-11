@@ -22,11 +22,8 @@ public class Director implements Serializable {
     @Id
     int directorId;
     String fullName;
-    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SELECT)
-    @JoinTable(name = "DirectorGame",
-            joinColumns = { @JoinColumn(name = "director_id") },
-            inverseJoinColumns = { @JoinColumn(name = "game_id")})
+
+    @OneToMany(mappedBy = "director", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     Set<Game> gamesDirected;
 
     /**

@@ -20,11 +20,7 @@ public class Artist implements Serializable {
     @Id
     int artistId;
     String fullName;
-    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SELECT)
-    @JoinTable(name = "ArtistMGSCharacter",
-            joinColumns = { @JoinColumn(name = "artist_id") },
-            inverseJoinColumns = { @JoinColumn(name = "mgsCharacter_id")})
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<MGSCharacter> charactersDesigned;
 
     /**

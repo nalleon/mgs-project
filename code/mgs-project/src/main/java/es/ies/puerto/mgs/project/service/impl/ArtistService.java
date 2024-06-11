@@ -40,7 +40,7 @@ public class ArtistService implements IServiceJPA<ArtistDTO> {
 
     @Override
     public boolean add(ArtistDTO artistDTO) {
-        if (iDaoArtist.existsById(artistDTO.getArtistId())){
+        if (!iDaoArtist.existsById(artistDTO.getArtistId())){
             iDaoArtist.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
         }
         return true;

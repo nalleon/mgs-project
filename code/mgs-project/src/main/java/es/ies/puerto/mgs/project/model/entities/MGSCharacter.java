@@ -2,12 +2,10 @@ package es.ies.puerto.mgs.project.model.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * @author nalleon
@@ -25,7 +23,10 @@ public class MGSCharacter implements Serializable {
     String codename;
     int age;
     boolean status;
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     Artist artist;
+    @ManyToMany(mappedBy = "gameCharacters", cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    Set<Game> games;
 
     /**
      * Default constructor of the class
