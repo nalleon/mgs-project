@@ -1,5 +1,5 @@
 package es.ies.puerto.mgs.project.service;
 
-public class WeaponService {
+public class WeaponServiceTest {
 
 }
