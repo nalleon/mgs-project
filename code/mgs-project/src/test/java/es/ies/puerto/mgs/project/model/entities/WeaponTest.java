@@ -41,6 +41,7 @@ public class WeaponTest extends TestUtilities {
         Weapon nullObject = null;
 
         Assertions.assertTrue(weapon.equals(equals), MESSAGE_ERROR);
+        Assertions.assertTrue(weapon.equals(weapon), MESSAGE_ERROR);
         Assertions.assertEquals(weapon.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(weapon, equals, MESSAGE_ERROR);
         Assertions.assertFalse(weapon.equals(nullObject), MESSAGE_ERROR);

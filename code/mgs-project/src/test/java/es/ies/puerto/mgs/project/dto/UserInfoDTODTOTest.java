@@ -37,6 +37,7 @@ public class UserInfoDTODTOTest extends TestUtilities {
         UserInfoDTO nullObject = null;
 
         Assertions.assertTrue(userInfoDTO.equals(equals), MESSAGE_ERROR);
+        Assertions.assertTrue(userInfoDTO.equals(userInfoDTO), MESSAGE_ERROR);
         Assertions.assertEquals(userInfoDTO.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(userInfoDTO, equals, MESSAGE_ERROR);
         Assertions.assertFalse(userInfoDTO.equals(nullObject), MESSAGE_ERROR);

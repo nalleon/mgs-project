@@ -43,14 +43,14 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     @Override
     @PostMapping("/")
     public ResponseEntity add(MGSCharacterDTO mgsCharacterDTO) {
-        mgsCharacterService.add(mgsCharacterDTO);
+        mgsCharacterService.addUpdate(mgsCharacterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/")
     @Override
     public ResponseEntity update(MGSCharacterDTO mgsCharacterDTO) {
-        mgsCharacterService.update(mgsCharacterDTO);
+        mgsCharacterService.addUpdate(mgsCharacterDTO);
         return ResponseEntity.ok().build();
     }
 

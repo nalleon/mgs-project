@@ -45,6 +45,7 @@ public class DirectorTest  extends TestUtilities {
         Director nullObject = null;
 
         Assertions.assertTrue(director.equals(equals), MESSAGE_ERROR);
+        Assertions.assertTrue(director.equals(director), MESSAGE_ERROR);
         Assertions.assertEquals(director.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(director, equals, MESSAGE_ERROR);
         Assertions.assertFalse(director.equals(nullObject), MESSAGE_ERROR);

@@ -1,5 +1,6 @@
 package es.ies.puerto.mgs.project.service.impl;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
+import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
 import es.ies.puerto.mgs.project.model.entities.Artist;
@@ -39,22 +40,14 @@ public class ArtistService implements IServiceJPA<ArtistDTO> {
     }
 
     @Override
-    public boolean add(ArtistDTO artistDTO) {
-        if (!iDaoArtist.existsById(artistDTO.getArtistId())){
-            iDaoArtist.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
+    public boolean addUpdate(ArtistDTO artistDTO) {
+        if (artistDTO == null){
+            return false;
         }
+        iDaoArtist.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
         return true;
     }
 
-    @Override
-    public boolean update(ArtistDTO artistDTO) {
-        if (iDaoArtist.existsById(artistDTO.getArtistId())) {
-            iDaoArtist.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
-        }
-    }
 
     @Override
     public List<ArtistDTO> getAll() {
@@ -68,16 +61,29 @@ public class ArtistService implements IServiceJPA<ArtistDTO> {
 
     @Override
     public ArtistDTO getById(int id) {
-        return IArtistMapper.INSTANCE.toDTO(iDaoArtist.getById(id));
+        if (!iDaoArtist.existsById(id)) {
+            return null;
+        }
+
+        ArtistDTO result = null;
+
+        List<ArtistDTO> list = getAll();
+
+        for (ArtistDTO artistDTO: list){
+            if (artistDTO.getArtistId() == id){
+                result = artistDTO;
+                break;
+            }
+        }
+        return result;
     }
 
     @Override
     public boolean delete(int id) {
-        if (iDaoArtist.existsById(id)) {
-            iDaoArtist.deleteById(id);
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
+        if (!iDaoArtist.existsById(id)) {
+            return false;
         }
+        iDaoArtist.deleteById(id);
+        return true;
     }
 }

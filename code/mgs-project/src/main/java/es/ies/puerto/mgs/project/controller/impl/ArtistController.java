@@ -46,14 +46,14 @@ public class ArtistController implements IController<ArtistDTO> {
     @Override
     @PostMapping("/")
     public ResponseEntity add(ArtistDTO artistDTO) {
-        artistService.add(artistDTO);
+        artistService.addUpdate(artistDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/")
     @Override
     public ResponseEntity update(ArtistDTO artistDTO) {
-        artistService.update(artistDTO);
+        artistService.addUpdate(artistDTO);
         return ResponseEntity.ok().build();
     }
 

@@ -67,6 +67,7 @@ public class MGSCharacterDTOTest extends TestUtilities {
         MGSCharacterDTO nullObject = null;
 
         Assertions.assertTrue(mgsCharacter.equals(equals), MESSAGE_ERROR);
+        Assertions.assertTrue(mgsCharacter.equals(mgsCharacter), MESSAGE_ERROR);
         Assertions.assertEquals(mgsCharacter.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(mgsCharacter, equals, MESSAGE_ERROR);
         Assertions.assertFalse(mgsCharacter.equals(nullObject), MESSAGE_ERROR);

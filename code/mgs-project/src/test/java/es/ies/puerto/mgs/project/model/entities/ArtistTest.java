@@ -46,6 +46,7 @@ public class ArtistTest extends TestUtilities {
         Artist nullObject = null;
 
         Assertions.assertTrue(artist.equals(equals), MESSAGE_ERROR);
+        Assertions.assertTrue(artist.equals(artist), MESSAGE_ERROR);
         Assertions.assertEquals(artist.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(artist, equals, MESSAGE_ERROR);
         Assertions.assertFalse(artist.equals(nullObject), MESSAGE_ERROR);

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class WeaponService implements IServiceJPA<WeaponDTO> {
+public class WeaponService implements IServiceMongoDb<WeaponDTO> {
     /**
      * Properties
      */
@@ -42,18 +42,20 @@ public class WeaponService implements IServiceJPA<WeaponDTO> {
     public boolean add(WeaponDTO weaponDTO) {
         if (!iDaoWeapon.existsById(weaponDTO.getId())){
             iDaoWeapon.insert(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
+        } else{
+            iDaoWeapon.save(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
         }
         return true;
     }
 
     @Override
     public boolean update(WeaponDTO weaponDTO) {
-        if (iDaoWeapon.existsById(weaponDTO.getId())) {
-            iDaoWeapon.save(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
+        if (!iDaoWeapon.existsById(weaponDTO.getId())) {
+            iDaoWeapon.insert(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
         }
+
+        iDaoWeapon.save(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
+        return true;
     }
 
     @Override
@@ -68,19 +70,29 @@ public class WeaponService implements IServiceJPA<WeaponDTO> {
 
     @Override
     public WeaponDTO getById(int id) {
-        Weapon weapon = iDaoWeapon.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID")
-        );
-        return IWeaponMapper.INSTANCE.toDTO(weapon);
+        if (!iDaoWeapon.existsById(id)) {
+            return null;
+        }
+
+        WeaponDTO result = null;
+
+        List<WeaponDTO> list = getAll();
+
+        for (WeaponDTO weaponDTO: list){
+            if (weaponDTO.getId() == id){
+                result = weaponDTO;
+                break;
+            }
+        }
+        return result;
     }
 
     @Override
     public boolean delete(int id) {
-        if (iDaoWeapon.existsById(id)) {
-            iDaoWeapon.deleteById(id);
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
+        if (!iDaoWeapon.existsById(id)) {
+            return false;
         }
+        iDaoWeapon.deleteById(id);
+        return true;
     }
 }

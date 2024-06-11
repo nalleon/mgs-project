@@ -22,21 +22,18 @@ public class ArtistDTOTest extends TestUtilities {
         artist = new ArtistDTO();
         artist.setArtistId(ARTIST_ID);
         artist.setFullName(FULL_NAME);
-        //artist.setCharactersDesigned(CHARACTERS_DESIGNED);
     }
 
     @Test
     public void getSetTest(){
         Assertions.assertEquals(ARTIST_ID, artist.getArtistId(), MESSAGE_ERROR);
         Assertions.assertEquals(FULL_NAME, artist.getFullName(), MESSAGE_ERROR);
-        //Assertions.assertEquals(CHARACTERS_DESIGNED, artist.getCharactersDesigned(), MESSAGE_ERROR);
     }
 
     @Test
     public void toStringTest(){
         Assertions.assertTrue(artist.toString().contains(String.valueOf(ARTIST_ID)), MESSAGE_ERROR);
         Assertions.assertTrue(artist.toString().contains(FULL_NAME), MESSAGE_ERROR);
-//        Assertions.assertTrue(artist.toString().contains(CHARACTERS_DESIGNED.toString()), MESSAGE_ERROR);
     }
 
     @Test
@@ -47,6 +44,8 @@ public class ArtistDTOTest extends TestUtilities {
         ArtistDTO nullObject = null;
 
         Assertions.assertTrue(artist.equals(equals), MESSAGE_ERROR);
+        Assertions.assertTrue(artist.equals(artist), MESSAGE_ERROR);
+
         Assertions.assertEquals(artist.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(artist, equals, MESSAGE_ERROR);
         Assertions.assertFalse(artist.equals(nullObject), MESSAGE_ERROR);

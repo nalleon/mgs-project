@@ -1,5 +1,6 @@
 package es.ies.puerto.mgs.project.service.impl;
 import es.ies.puerto.mgs.project.dto.DirectorDTO;
+import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
@@ -40,22 +41,15 @@ public class DirectorService implements IServiceJPA<DirectorDTO> {
     }
 
     @Override
-    public boolean add(DirectorDTO directorDTO) {
-        if (!iDaoDirector.existsById(directorDTO.getDirectorId())){
-            iDaoDirector.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
+    public boolean addUpdate(DirectorDTO directorDTO) {
+        if (directorDTO == null){
+            return false;
         }
+
+        iDaoDirector.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
         return true;
     }
 
-    @Override
-    public boolean update(DirectorDTO directorDTO) {
-        if (iDaoDirector.existsById(directorDTO.getDirectorId())) {
-            iDaoDirector.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
-        }
-    }
 
     @Override
     public List<DirectorDTO> getAll() {
@@ -69,16 +63,29 @@ public class DirectorService implements IServiceJPA<DirectorDTO> {
 
     @Override
     public DirectorDTO getById(int id) {
-        return IDirectorMapper.INSTANCE.toDTO(iDaoDirector.getById(id));
+        if (!iDaoDirector.existsById(id)) {
+            return null;
+        }
+
+        DirectorDTO result = null;
+
+        List<DirectorDTO> list = getAll();
+
+        for (DirectorDTO directorDTO: list){
+            if (directorDTO.getDirectorId() == id){
+                result = directorDTO;
+                break;
+            }
+        }
+        return result;
     }
 
     @Override
     public boolean delete(int id) {
-        if (iDaoDirector.existsById(id)) {
-            iDaoDirector.deleteById(id);
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
+        if (!iDaoDirector.existsById(id)) {
+            return false;
         }
+        iDaoDirector.deleteById(id);
+        return true;
     }
 }

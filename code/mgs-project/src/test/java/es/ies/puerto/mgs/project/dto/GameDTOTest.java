@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class GameDTOTest extends TestUtilities {
+    public static final DirectorDTO DIRECTOR = new DirectorDTO(1);
     GameDTO game;
     public static final int GAME_ID = 1;
     public static final String NAME = "nameTest";
@@ -22,9 +23,8 @@ public class GameDTOTest extends TestUtilities {
         game = new GameDTO();
         game.setId(GAME_ID);
         game.setName(NAME);
-
         game.setGameCharacters(GAME_CHARACTERS);
-
+        game.setDirector(DIRECTOR);
     }
 
     @Test
@@ -32,6 +32,7 @@ public class GameDTOTest extends TestUtilities {
         Assertions.assertEquals(GAME_ID, game.getId(), MESSAGE_ERROR);
         Assertions.assertEquals(NAME, game.getName(), MESSAGE_ERROR);
         Assertions.assertEquals(GAME_CHARACTERS, game.getGameCharacters(), MESSAGE_ERROR);
+        Assertions.assertEquals(DIRECTOR, game.getDirector(), MESSAGE_ERROR);
     }
 
     @Test
@@ -39,6 +40,8 @@ public class GameDTOTest extends TestUtilities {
         Assertions.assertTrue(game.toString().contains(String.valueOf(GAME_ID)), MESSAGE_ERROR);
         Assertions.assertTrue(game.toString().contains(NAME), MESSAGE_ERROR);
         Assertions.assertTrue(game.toString().contains(GAME_CHARACTERS.toString()), MESSAGE_ERROR);
+        Assertions.assertTrue(game.toString().contains(DIRECTOR.toString()), MESSAGE_ERROR);
+
     }
 
     @Test
@@ -49,6 +52,7 @@ public class GameDTOTest extends TestUtilities {
         GameDTO nullObject = null;
 
         Assertions.assertTrue(game.equals(equals), MESSAGE_ERROR);
+        Assertions.assertTrue(game.equals(game), MESSAGE_ERROR);
         Assertions.assertEquals(game.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(game, equals, MESSAGE_ERROR);
         Assertions.assertFalse(game.equals(nullObject), MESSAGE_ERROR);

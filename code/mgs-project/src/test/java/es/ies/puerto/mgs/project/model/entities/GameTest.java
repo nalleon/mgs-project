@@ -46,6 +46,7 @@ public class GameTest extends TestUtilities {
         Game nullObject = null;
 
         Assertions.assertTrue(game.equals(equals), MESSAGE_ERROR);
+        Assertions.assertTrue(game.equals(game), MESSAGE_ERROR);
         Assertions.assertEquals(game.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(game, equals, MESSAGE_ERROR);
         Assertions.assertFalse(game.equals(nullObject), MESSAGE_ERROR);

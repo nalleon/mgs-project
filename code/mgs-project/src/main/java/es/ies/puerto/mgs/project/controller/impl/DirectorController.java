@@ -44,14 +44,14 @@ public class DirectorController implements IController<DirectorDTO> {
     @Override
     @PostMapping("/")
     public ResponseEntity add(DirectorDTO directorDTO) {
-        directorService.add(directorDTO);
+        directorService.addUpdate(directorDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/")
     @Override
     public ResponseEntity update(DirectorDTO directorDTO) {
-        directorService.update(directorDTO);
+        directorService.addUpdate(directorDTO);
         return ResponseEntity.ok().build();
     }
 

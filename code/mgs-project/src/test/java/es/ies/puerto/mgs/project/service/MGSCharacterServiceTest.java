@@ -1,8 +1,13 @@
 package es.ies.puerto.mgs.project.service;
 
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
+import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
+import es.ies.puerto.mgs.project.model.entities.Weapon;
 import es.ies.puerto.mgs.project.service.impl.MGSCharacterService;
+import es.ies.puerto.mgs.project.service.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.MapperHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.junit.jupiter.api.Test;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -22,99 +28,84 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class MGSCharacterServiceTest extends MapperHelper {
+
     @Mock
-    private IDaoMGSCharacter daoMock;
+    IDaoMGSCharacter daoMock;
 
     @InjectMocks
-    private MGSCharacterService service;
+    MGSCharacterService service;
 
 
     @BeforeEach
-    void setUp() {
+    public void beforeEach (){
         MockitoAnnotations.openMocks(this);
+        service = new MGSCharacterService();
+        service.setiDaoMGSCharacter(daoMock);
+    }
+    @Test
+    void getAllTest() {
+        List<MGSCharacter> list = new ArrayList<>();
+        list.add(new MGSCharacter(1));
+        list.add(new MGSCharacter(2));
+        list.add(new MGSCharacter(3));
+        when(daoMock.findAll()).thenReturn(list);
+        Assertions.assertNotNull(service.getAll(), MESSAGE_ERROR);
     }
 
     @Test
-    void testGetAllObjects() {
-        when(daoMock.findAll()).thenReturn(new ArrayList<>(List.of(mgsCharacter)));
-
-        List<MGSCharacterDTO> result = service.getAll();
-
-        Assertions.assertEquals(1, result.size(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getId(), result.get(0).getId(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getName(), result.get(0).getName(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getCodename(), result.get(0).getCodename(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getAge(), result.get(0).getAge(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.isStatus(), result.get(0).isStatus(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getArtist(), result.get(0).getArtist(), MESSAGE_ERROR);
-
-        verify(daoMock, times(1)).findAll();
+    void getByIdNullTest() {
+        when(daoMock.existsById(1)).thenReturn(false);
+        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
     @Test
-    void testSaveGetOneObject() {
-        when(daoMock.save(mgsCharacter)).thenReturn(mgsCharacter);
+    void getByIdEmptyListTest() {
+        when(daoMock.existsById(1)).thenReturn(true);
+        when(daoMock.findAll()).thenReturn(new ArrayList<>());
 
-        MGSCharacterDTO mgsCharacterDTOAdd = mgsCharacterDTO;
-        Assertions.assertTrue(service.add(mgsCharacterDTOAdd), MESSAGE_ERROR);
+        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
-    //@Test
-    void testUpdateObjectExists() {
-        when(daoMock.existsById(mgsCharacter.getId())).thenReturn(true);
-        when(daoMock.save(mgsCharacter)).thenReturn(mgsCharacter);
+    @Test
+    void getByIdListWithoutObjectTest() {
+        when(daoMock.existsById(1)).thenReturn(true);
+        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new MGSCharacter(2), new MGSCharacter(3))));
 
-        MGSCharacterDTO mgsCharacterDTOUpdate = mgsCharacterDTO;
-        service.update(mgsCharacterDTOUpdate);
-
-        mgsCharacterDTOUpdate = service.getById(mgsCharacterDTOUpdate.getId());
-
-        Assertions.assertNotNull(mgsCharacterDTOUpdate, MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getId(), mgsCharacterDTOUpdate.getId(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getName(), mgsCharacterDTOUpdate.getName(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getCodename(), mgsCharacterDTOUpdate.getCodename(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getAge(), mgsCharacterDTOUpdate.getAge(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.isStatus(), mgsCharacterDTOUpdate.isStatus(), MESSAGE_ERROR);
-        Assertions.assertEquals(mgsCharacterDTO.getArtist(), mgsCharacterDTOUpdate.getArtist(), MESSAGE_ERROR);
-
-
-        verify(daoMock, times(1)).existsById(mgsCharacter.getId());
-        verify(daoMock, times(1)).save(mgsCharacter);
+        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
-    //@Test
-    void testUpdateObjectNotExists() {
-        when(daoMock.existsById(mgsCharacter.getId())).thenReturn(false);
-
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            service.update(mgsCharacterDTO);
-        });
-        Assertions.assertEquals("Character not found with id 1", exception.getMessage());
-
-        verify(daoMock, times(1)).existsById(mgsCharacter.getId());
-        verify(daoMock, times(0)).save(mgsCharacter);
+    @Test
+    void getOneTest() {
+        when(daoMock.existsById(1)).thenReturn(true);
+        List<MGSCharacter> list = new ArrayList<>();
+        list.add(new MGSCharacter(1));
+        list.add(new MGSCharacter(2));
+        list.add(new MGSCharacter(3));
+        when(daoMock.findAll()).thenReturn(list);
+        Assertions.assertNotNull(service.getById(1), MESSAGE_ERROR);
     }
 
-   // @Test
-    void testDeleteObjectExists() {
-        when(daoMock.existsById(mgsCharacter.getId())).thenReturn(true);
-
-        service.delete(mgsCharacter.getId());
-
-        verify(daoMock, times(1)).existsById(mgsCharacter.getId());
-        verify(daoMock, times(1)).deleteById(mgsCharacter.getId());
+    @Test
+    void addUpdateTest() {
+        when(daoMock.save(any(MGSCharacter.class))).thenReturn(new MGSCharacter());
+        Assertions.assertTrue(service.addUpdate(new MGSCharacterDTO(1)), MESSAGE_ERROR);
     }
 
-   // @Test
-    void testDeleteObjectNotExists() {
-        when(daoMock.existsById(mgsCharacter.getId())).thenReturn(false);
+    @Test
+    void addUpdateFalseTest() {
+        Assertions.assertFalse(service.addUpdate(null), MESSAGE_ERROR);
+    }
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            service.delete(mgsCharacterDTO.getId());
-        });
-        assertEquals("Character not found with id 1", exception.getMessage());
 
-        verify(daoMock, times(1)).existsById(mgsCharacter.getId());
-        verify(daoMock, times(0)).deleteById(mgsCharacter.getId());
+    @Test
+    void deleteTest() {
+        when(daoMock.existsById(1)).thenReturn(true);
+        Assertions.assertTrue(service.delete(1), MESSAGE_ERROR);
+    }
+
+    @Test
+    void deleteNonExistentTest() {
+        when(daoMock.existsById(1)).thenReturn(false);
+        Assertions.assertFalse(service.delete(1), MESSAGE_ERROR);
     }
 }

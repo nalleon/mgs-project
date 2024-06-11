@@ -101,6 +101,7 @@ public class GameDTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", gameCharacters=" + gameCharacters +
+                ", director=" + director +
                 '}';
     }
 }

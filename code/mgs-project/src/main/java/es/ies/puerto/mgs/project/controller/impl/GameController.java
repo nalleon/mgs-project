@@ -44,14 +44,14 @@ public class GameController implements IController<GameDTO> {
     @Override
     @PostMapping("/")
     public ResponseEntity add(GameDTO gameDTO) {
-        gameService.add(gameDTO);
+        gameService.addUpdate(gameDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/")
     @Override
     public ResponseEntity update(GameDTO gameDTO) {
-        gameService.update(gameDTO);
+        gameService.addUpdate(gameDTO);
         return ResponseEntity.ok().build();
     }
 

@@ -1,8 +1,10 @@
 package es.ies.puerto.mgs.project.service.impl;
 
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
@@ -40,22 +42,14 @@ public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
     }
 
     @Override
-    public boolean add(MGSCharacterDTO mgsCharacterDTO) {
-        if (!iDaoMGSCharacter.existsById(mgsCharacterDTO.getId())){
-            iDaoMGSCharacter.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
+    public boolean addUpdate(MGSCharacterDTO mgsCharacterDTO) {
+        if (mgsCharacterDTO == null){
+            return false;
         }
+        iDaoMGSCharacter.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
         return true;
     }
 
-    @Override
-    public boolean update(MGSCharacterDTO mgsCharacterDTO) {
-        if (iDaoMGSCharacter.existsById(mgsCharacterDTO.getId())) {
-            iDaoMGSCharacter.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
-        }
-    }
 
     @Override
     public List<MGSCharacterDTO> getAll() {
@@ -69,19 +63,30 @@ public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
 
     @Override
     public MGSCharacterDTO getById(int id) {
-        MGSCharacter mgsCharacter = iDaoMGSCharacter.findById(id).orElseThrow(
-                () -> new RuntimeException("Cannot find by ID")
-        );
-        return IMGSCharacterMapper.INSTANCE.toDTO(mgsCharacter);
+        if (!iDaoMGSCharacter.existsById(id)) {
+            return null;
+        }
+
+        MGSCharacterDTO result = null;
+
+        List<MGSCharacterDTO> list = getAll();
+
+        for (MGSCharacterDTO mgsCharacterDTO: list){
+            if (mgsCharacterDTO.getId() == id){
+                result = mgsCharacterDTO;
+                break;
+            }
+        }
+        return result;
     }
 
     @Override
     public boolean delete(int id) {
-        if (iDaoMGSCharacter.existsById(id)) {
-            iDaoMGSCharacter.deleteById(id);
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
+        if (!iDaoMGSCharacter.existsById(id)) {
+            return false;
         }
+        iDaoMGSCharacter.deleteById(id);
+        return true;
+
     }
 }

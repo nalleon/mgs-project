@@ -1,5 +1,6 @@
 package es.ies.puerto.mgs.project.service.impl;
 import es.ies.puerto.mgs.project.dto.GameDTO;
+import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
@@ -40,22 +41,15 @@ public class GameService implements IServiceJPA<GameDTO> {
     }
 
     @Override
-    public boolean add(GameDTO gameDTO) {
-        if (!iDaoGame.existsById(gameDTO.getId())){
-            iDaoGame.save(IGameMapper.INSTANCE.toEntity(gameDTO));
+    public boolean addUpdate(GameDTO gameDTO) {
+        if (gameDTO == null){
+            return false;
         }
+        iDaoGame.save(IGameMapper.INSTANCE.toEntity(gameDTO));
         return true;
     }
 
-    @Override
-    public boolean update(GameDTO gameDTO) {
-        if (iDaoGame.existsById(gameDTO.getId())) {
-            iDaoGame.save(IGameMapper.INSTANCE.toEntity(gameDTO));
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
-        }
-    }
+
 
     @Override
     public List<GameDTO> getAll() {
@@ -69,17 +63,30 @@ public class GameService implements IServiceJPA<GameDTO> {
 
     @Override
     public GameDTO getById(int id) {
-        return IGameMapper.INSTANCE.toDTO(iDaoGame.getById(id));
+        if (!iDaoGame.existsById(id)) {
+            return null;
+        }
+
+        GameDTO result = null;
+
+        List<GameDTO> list = getAll();
+
+        for (GameDTO gameDTO: list){
+            if (gameDTO.getId() == id){
+                result = gameDTO;
+                break;
+            }
+        }
+        return result;
 
     }
 
     @Override
     public boolean delete(int id) {
-        if (iDaoGame.existsById(id)) {
-            iDaoGame.deleteById(id);
-            return true;
-        } else {
-            throw new RuntimeException("Cannot find by ID");
+        if (!iDaoGame.existsById(id)) {
+            return false;
         }
+        iDaoGame.deleteById(id);
+        return true;
     }
 }
