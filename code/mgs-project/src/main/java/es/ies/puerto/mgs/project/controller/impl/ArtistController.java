@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/artist")
+@RequestMapping("/v1/artist")
 public class ArtistController implements IController<ArtistDTO> {
     /**
      * Properties

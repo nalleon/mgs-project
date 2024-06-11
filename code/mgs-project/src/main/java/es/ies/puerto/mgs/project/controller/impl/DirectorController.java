@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/director")
+@RequestMapping("/v1/director")
 public class DirectorController implements IController<DirectorDTO> {
     /**
      * Properties

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/game")
+@RequestMapping("/v1/game")
 public class GameController implements IController<GameDTO> {
     /**
      * Properties

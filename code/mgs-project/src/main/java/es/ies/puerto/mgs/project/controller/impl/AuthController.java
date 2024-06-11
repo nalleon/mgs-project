@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author nalleon
  */
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/v1/auth")
 public class AuthController {
 
     @PostMapping("/login")

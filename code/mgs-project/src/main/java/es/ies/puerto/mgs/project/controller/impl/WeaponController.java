@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/weapon")
+@RequestMapping("/v1/weapon")
 public class WeaponController implements IController<WeaponDTO> {
     /**
      * Properties

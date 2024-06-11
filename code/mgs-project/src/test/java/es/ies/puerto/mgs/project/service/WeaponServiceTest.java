@@ -1,5 +1,4 @@
 package es.ies.puerto.mgs.project.service;
-
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
@@ -11,21 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.junit.jupiter.api.BeforeEach;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import java.util.*;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.mockito.Mockito.when;
 
 public class WeaponServiceTest extends TestUtilities {
 
