@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weapons</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Buscar Producto por ID</h1>
+    <input type="text" id="productId" placeholder="Ingrese el ID del producto">
+    <button id="getProducto">Buscar Producto</button>
+    <div id="resultado"></div>
+</div>
+
+<div class="container">
+    <h1>Obtener Todos los Productos</h1>
+    <button id="getAllProductos">Obtener Todos los Productos</button>
+    <div id="resultadoAll"></div>
+    <button id="mostrarMas" style="display: none;">Mostrar Más</button> <!-- Botón "Mostrar Más" oculto inicialmente -->
+</div>
+
+<div class="container">
+    <h1>Agregar Nuevo Producto</h1>
+    <input type="text" id="productName" placeholder="Nombre del producto">
+    <input type="number" id="productPrice" placeholder="Precio del producto">
+    <input type="text" id="productCategory" placeholder="Categoría del producto">
+    <textarea id="productDescription" placeholder="Descripción del producto"></textarea>
+    <button id="saveProduct">Guardar Producto</button>
+    <div id="successMessage">¡Producto guardado exitosamente!</div>
+</div>
+
+<div class="container">
+    <h1>Borrar Producto por ID</h1>
+    <input type="text" id="productIdToDelete" placeholder="Ingrese el ID del producto a borrar">
+    <button id="deleteProduct">Borrar Producto</button>
+    <div id="deleteMessage"></div>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
