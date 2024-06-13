@@ -4,41 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weapons</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="">
 </head>
 <body>
 <div class="container">
     <h1>Search by ID</h1>
-    <input type="text" id="productId" placeholder="Ingrese el ID del producto">
-    <button id="getProducto">Buscar Producto</button>
+    <input type="text" id="productId" placeholder="Insert weapon's ID">
+    <button id="getOne">Search weapon</button>
     <div id="resultado"></div>
 </div>
 
 <div class="container">
     <h1>Obtain all</h1>
-    <button id="getAll">Obtener Todos los Productos</button>
-    <div id="resultadoAll"></div>
-    <button id="mostrarMas" style="display: none;">Mostrar Más</button> <!-- Botón "Mostrar Más" oculto inicialmente -->
+    <button id="getAll">Obtain all weapons</button>
+    <div id="resultAll"></div>
 </div>
 
 <div class="container">
-    <h1>Agregar Nuevo Producto</h1>
-    <input type="text" id="productName" placeholder="Nombre del producto">
-    <input type="number" id="productPrice" placeholder="Precio del producto">
-    <input type="text" id="productCategory" placeholder="Categoría del producto">
-    <textarea id="productDescription" placeholder="Descripción del producto"></textarea>
-    <button id="saveProduct">Guardar Producto</button>
-    <div id="successMessage">¡Producto guardado exitosamente!</div>
+    <h1>Add new weapon</h1>
+    <input type="number" id="objectId" placeholder="id">
+    <input type="text" id="objectName" placeholder="name">
+    <input type="text" id="objectType" placeholder="type">
+    <button id="save">Save weapon</button>
+    <div id="successMessage">Weapon saved successfully!</div>
 </div>
 
 <div class="container">
-    <h1>Borrar Producto por ID</h1>
-    <input type="text" id="productIdToDelete" placeholder="Ingrese el ID del producto a borrar">
-    <button id="deleteProduct">Borrar Producto</button>
+    <h1>Delete weapon by ID</h1>
+    <input type="text" id="objectIdToDelete" placeholder="Insert weapon's ID">
+    <button id="deleteWeapon">Delete weapon</button>
     <div id="deleteMessage"></div>
 </div>
 
 
-<script src="script.js"></script>
+<script src="./script.js"></script>
 </body>
 </html>

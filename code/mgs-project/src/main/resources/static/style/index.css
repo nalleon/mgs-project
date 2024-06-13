@@ -1,0 +1,192 @@
+/* Estilo para el contenedor */
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff; /* Fondo blanco */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el título */
+.container h1 {
+    color: #c2185b; /* Rosa oscuro */
+    text-align: center;
+}
+
+/* Estilo para los campos de entrada */
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Estilo para el botón */
+button {
+    padding: 10px 20px;
+    background-color: #ffd7e5; /* Rosa pastel */
+    color: #c2185b; /* Rosa oscuro */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #fce4ec; /* Rosa claro */
+}
+
+/* Estilo para el contenedor del mensaje de éxito */
+#successMessage {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #dcedc8; /* Verde claro */
+    border-radius: 4px;
+    display: none; /* Ocultar inicialmente */
+}
+
+.container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* Fondo blanco */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo para el título */
+        .container h1 {
+            color: #c2185b; /* Rosa oscuro */
+            text-align: center;
+        }
+
+        /* Estilo para el campo de entrada de texto */
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Estilo para el botón */
+        button {
+            padding: 10px 20px;
+            background-color: #ffd7e5; /* Rosa pastel */
+            color: #c2185b; /* Rosa oscuro */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #fce4ec; /* Rosa claro */
+        }
+
+        /* Estilo para el contenedor del resultado */
+        #resultado {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9; /* Fondo pastel */
+            border-radius: 4px;
+        }
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* Fondo pastel */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff; /* Blanco */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #c2185b; /* Rosa oscuro */
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    display: block;
+    padding: 10px 20px;
+    background-color: #ffd7e5; /* Rosa pastel */
+    color: #c2185b; /* Rosa oscuro */
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #fce4ec; /* Rosa claro */
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #ffd7e5; /* Rosa pastel */
+    color: #c2185b; /* Rosa oscuro */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #fce4ec; /* Rosa claro */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#resultado {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff; /* Blanco */
+    border-radius: 4px;
+}
+
+#resultado p {
+    margin: 0;
+}
+
+/* Estilos específicos para el encabezado */
+header {
+    background-color: #fff; /* Blanco */
+    padding: 20px; /* Ajusta el relleno según sea necesario */
+    text-align: center;
+    z-index: 100; /* Z-index mayor para que esté por encima del resto de elementos */
+}
+
+header img {
+    max-width: 200px; /* Ajusta el tamaño según sea necesario */
+}

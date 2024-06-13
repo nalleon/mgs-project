@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/weapon")
+@CrossOrigin(origins = "http://localhost:63342")
 public class WeaponController implements IController<WeaponDTO> {
     /**
      * Properties
@@ -41,33 +42,33 @@ public class WeaponController implements IController<WeaponDTO> {
     }
 
     @Override
-    @PostMapping("/")
+    @PostMapping("/add/")
     public ResponseEntity add(WeaponDTO weaponDTO) {
         weaponService.add(weaponDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/")
+    @PutMapping("/update/")
     @Override
     public ResponseEntity update(WeaponDTO weaponDTO) {
         weaponService.update(weaponDTO);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/")
+    @GetMapping("/findAll/")
     @Override
     public ResponseEntity<List<WeaponDTO>> getAll() {
         return ResponseEntity.ok(weaponService.getAll());
     }
 
     @Override
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<WeaponDTO> getById(int id) {
         return ResponseEntity.ok(weaponService.getById(id));
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(int id) {
         weaponService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
