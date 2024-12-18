@@ -4,12 +4,19 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 import java.util.Set;
+/**
+ * @author nalleon
+ */
 
 @Entity
 @Table(name = "roles")
 public class Role {
-    @Id
 
+    /**
+     * Properties
+     */
+
+    @Id
     private int id;
 
     private String name;
@@ -20,8 +27,16 @@ public class Role {
     /**
      * Default constructor of the class
      */
-    public Role() {
+    public Role() {}
 
+    /**
+     * Full constructor of the class
+     * @param id of the role
+     * @param name of the role
+     */
+    public Role(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     /**

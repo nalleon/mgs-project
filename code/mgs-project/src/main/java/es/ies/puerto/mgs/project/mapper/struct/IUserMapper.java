@@ -5,6 +5,9 @@ import es.ies.puerto.mgs.project.model.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+/**
+ * @author nalleon
+ */
 @Mapper
 public interface IUserMapper {
     IUserMapper INSTANCE = Mappers.getMapper(IUserMapper.class);

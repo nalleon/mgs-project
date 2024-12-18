@@ -4,6 +4,9 @@ import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+/**
+ * @author nalleon
+ */
 @Mapper
 public interface IRoleMapper {
     IRoleMapper INSTANCE = Mappers.getMapper(IRoleMapper.class);

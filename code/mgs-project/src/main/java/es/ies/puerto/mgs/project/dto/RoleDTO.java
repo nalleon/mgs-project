@@ -16,8 +16,16 @@ public class RoleDTO {
     /**
      * Default constructor of the class
      */
-    public RoleDTO() {
+    public RoleDTO() {}
 
+    /**
+     * Full constructor of the clss
+     * @param id of the user
+     * @param name of the user
+     */
+    public RoleDTO(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     /**

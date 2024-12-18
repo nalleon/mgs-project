@@ -33,8 +33,6 @@ public class Game implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     Director director;
 
-
-
     /**
      * Default constructor of the class
      */

@@ -3,11 +3,17 @@ package es.ies.puerto.mgs.project.model.entities;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+/**
+ * @author nalleon
+ */
 
 @Entity
 @Table(name = "users")
 public class User {
 
+    /**
+     * Properties
+     */
     @Id
     private int id;
 
@@ -24,13 +30,13 @@ public class User {
     public User() {}
 
     /**
-     * Constructor of the class
+     * Constructor of the class with unique properties
+     * @param id of the user
      * @param email of the user
-     * @param password
      */
-    public User(String email, String password) {
+    public User(int id, String email) {
+        this.id = id;
         this.email = email;
-        this.password = password;
     }
 
     /**
@@ -69,6 +75,14 @@ public class User {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     /**
      * toString
      */
@@ -78,7 +92,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", id_role=" + role + '\''+
+                ", role=" + role.getName() + '\''+
                 '}';
     }
 
