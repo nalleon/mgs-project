@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,4 +54,9 @@ button:hover {
 #message {
     margin-top: 15px;
     text-align: center;
+}
+
+img {
+    height: 50%;
+    width: 50%;
 }

@@ -91,6 +91,13 @@ public class Game implements Serializable {
         this.gameCharacters = gameCharacters;
     }
 
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
+        this.director = director;
+    }
 
     @Override
     public boolean equals(Object o) {

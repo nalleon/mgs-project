@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 /**
  * @author nalleon
  */
-@Mapper(uses = {IMGSCharacterMapper.class})
+@Mapper(uses = {IMGSCharacterMapper.class, IDirectorMapper.class})
 public interface IGameMapper {
     IGameMapper INSTANCE = Mappers.getMapper(IGameMapper.class);
 
