@@ -20,17 +20,16 @@ public class UserDTO {
 
     /**
      * Constructor of the class
+     * @param id of the user
      * @param email of the user
-     * @param password
      */
-    public UserDTO(String email, String password) {
+    public UserDTO(int id, String email) {
         this.email = email;
-        this.password = password;
+        this.id = id;
     }
 
     /**
      * Getters and setters
-     * @return
      */
     public int getId() {
         return id;
@@ -62,6 +61,14 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public RoleDTO getRole() {
+        return role;
+    }
+
+    public void setRole(RoleDTO role) {
+        this.role = role;
     }
 
     /**
