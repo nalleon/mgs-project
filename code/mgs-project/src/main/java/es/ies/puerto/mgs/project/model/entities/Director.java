@@ -14,7 +14,7 @@ import org.hibernate.annotations.FetchMode;
  */
 
 @Entity
-@Table(name = "Director")
+@Table(name = "directors")
 public class Director implements Serializable {
     /**
      * Properties

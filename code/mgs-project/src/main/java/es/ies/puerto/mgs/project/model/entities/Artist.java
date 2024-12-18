@@ -12,7 +12,7 @@ import org.hibernate.annotations.FetchMode;
  */
 
 @Entity
-@Table(name = "Artist")
+@Table(name = "artists")
 public class Artist implements Serializable {
     /**
      * Properties

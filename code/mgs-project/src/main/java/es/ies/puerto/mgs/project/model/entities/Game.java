@@ -14,7 +14,7 @@ import org.hibernate.annotations.FetchMode;
  */
 
 @Entity
-@Table(name = "Game")
+@Table(name = "games")
 public class Game implements Serializable {
     /**
      * Properties
@@ -25,7 +25,7 @@ public class Game implements Serializable {
 
     @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     @Fetch(FetchMode.SELECT)
-    @JoinTable(name = "GameMGSCharacter",
+    @JoinTable(name = "games_mgscharacters",
             joinColumns = { @JoinColumn(name = "game_id") },
             inverseJoinColumns = { @JoinColumn(name = "mgsCharacter_id")})
     Set<MGSCharacter> gameCharacters;

@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController
-@RequestMapping("/v1/weapon")
-@CrossOrigin(origins = "http://localhost:63342")
+//@RestController
+//@RequestMapping("/v1/weapons")
+//@CrossOrigin(origins = "http://localhost:63342")
 public class WeaponController implements IController<WeaponDTO> {
     /**
      * Properties
@@ -42,7 +42,7 @@ public class WeaponController implements IController<WeaponDTO> {
     }
 
     @Override
-    @PostMapping("/add/")
+    @PostMapping("/")
     public ResponseEntity add(WeaponDTO weaponDTO) {
         weaponService.add(weaponDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();

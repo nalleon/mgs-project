@@ -7,12 +7,13 @@ import java.util.Set;
 
 import jakarta.persistence.*;
 
+
 /**
  * @author nalleon
  */
 
 @Entity
-@Table(name = "MGSCharacter")
+@Table(name = "mgscharacters")
 public class MGSCharacter implements Serializable {
     /**
      * Properties

@@ -3,6 +3,7 @@ package es.ies.puerto.mgs.project.controller.impl;
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.service.impl.ArtistService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/v1/artist")
+@RequestMapping("api/v1/artists")
 public class ArtistController implements IController<ArtistDTO> {
     /**
      * Properties
@@ -50,7 +51,8 @@ public class ArtistController implements IController<ArtistDTO> {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/")
+    @PutMapping("/{id}")
+
     @Override
     public ResponseEntity update(ArtistDTO artistDTO) {
         artistService.addUpdate(artistDTO);
@@ -65,6 +67,7 @@ public class ArtistController implements IController<ArtistDTO> {
 
     @Override
     @GetMapping("/{id}")
+
     public ResponseEntity<ArtistDTO> getById(int id) {
         return ResponseEntity.ok(artistService.getById(id));
     }

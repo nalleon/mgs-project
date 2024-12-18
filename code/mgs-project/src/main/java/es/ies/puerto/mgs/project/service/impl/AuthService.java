@@ -1,5 +1,5 @@
 package es.ies.puerto.mgs.project.service.impl;
-
+/*
 import es.ies.puerto.mgs.project.security.jwt.AuthResponse;
 import es.ies.puerto.mgs.project.security.jwt.JwtService;
 import es.ies.puerto.mgs.project.security.jwt.LoginRequest;
@@ -8,12 +8,14 @@ import es.ies.puerto.mgs.project.security.jwt.user.Role;
 import es.ies.puerto.mgs.project.security.jwt.user.User;
 import es.ies.puerto.mgs.project.security.jwt.user.repository.IUserDao;
 import lombok.*;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.
+AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+*/
 public class AuthService {
     /**
     private final IUserDao iUserDao;

@@ -13,12 +13,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
  * @author nalleon
  */
-@Service
+@Component
 public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
     /**
      * Properties

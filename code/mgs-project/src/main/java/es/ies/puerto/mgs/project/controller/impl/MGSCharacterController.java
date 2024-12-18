@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("/v1/character")
+@RequestMapping("/v1/characters")
 public class MGSCharacterController implements IController<MGSCharacterDTO> {
     /**
      * Properties

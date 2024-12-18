@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 /**
- * @author mackstm
  * @author nalleon
  */
 public interface IController <T> {
