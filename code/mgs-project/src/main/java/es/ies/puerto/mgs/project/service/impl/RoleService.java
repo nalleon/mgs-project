@@ -35,7 +35,7 @@ public class RoleService implements IServiceJPA<RoleDTO> {
      * @param iDaoRole
      */
     @Autowired
-    public void setIDaoUser(IDaoRole iDaoRole) {
+    public void setIDaoRole(IDaoRole iDaoRole) {
         this.iDaoRole = iDaoRole;
     }
 
