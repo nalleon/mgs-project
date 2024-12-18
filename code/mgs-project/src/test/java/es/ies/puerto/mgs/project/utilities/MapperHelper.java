@@ -30,6 +30,12 @@ public class MapperHelper extends TestUtilities {
     public static final int AGE = 50;
     public static final boolean STATUS = true;
     public static final String CHARACTER_NAME = "nameTest";
+    public static final int ROLE_ID = 1;
+    public static final String ROLE_NAME = "Admin";
+    public static final int USER_ID = 1;
+    public static final String USER_NAME = "userNameTest";
+    public static final String USER_EMAIL = "user@test.com";
+    public static final String USER_PASSWORD = "password123";
 
     public Artist artist;
     public  ArtistDTO artistDTO;
@@ -45,6 +51,12 @@ public class MapperHelper extends TestUtilities {
 
     public Weapon weapon;
     public WeaponDTO weaponDTO;
+
+    public Role role;
+    public  RoleDTO roleDTO;
+
+    public User user;
+    public UserDTO userDTO;
 
     @BeforeEach
     public void beforeEach(){
@@ -108,5 +120,26 @@ public class MapperHelper extends TestUtilities {
         mgsCharacterDTO.setAge(AGE);
         mgsCharacterDTO.setArtist(artistDTO);
 
+        role = new Role();
+        role.setId(ROLE_ID);
+        role.setName(ROLE_NAME);
+
+        roleDTO = new RoleDTO();
+        roleDTO.setId(ROLE_ID);
+        roleDTO.setName(ROLE_NAME);
+
+        user = new User();
+        user.setId(USER_ID);
+        user.setName(USER_NAME);
+        user.setEmail(USER_EMAIL);
+        user.setPassword(USER_PASSWORD);
+        user.setRole(role);
+
+        userDTO = new UserDTO();
+        userDTO.setId(USER_ID);
+        userDTO.setName(USER_NAME);
+        userDTO.setEmail(USER_EMAIL);
+        userDTO.setPassword(USER_PASSWORD);
+        userDTO.setRole(roleDTO);
     }
 }
