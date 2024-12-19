@@ -20,6 +20,7 @@
 ## Detalles del proyecto <a name="index01"></a>
 
 Este tiene como objetivo principal crear una base de datos que almacene información relevante sobre la saga de videojuegos Metal Gear Solid. Esta wiki contará con información sobre los personajes, juegos, directores, artistas y usuarios que interactúan con el sistema. 
+  
 
 El proyecto incluirá una API RESTful para permitir la gestión y consulta de los datos, junto con una interfaz gráfica para la visualización de la información de los videojuegos y sus personajes. La seguridad será un objetivo importante, por lo que se implementarán medidas de autenticación y autorización para proteger el acceso a los recursos de la API. Además, se utilizarán bases de datos relacionales y no relacionales para manejar diferentes tipos de datos y escenarios de uso.
 
