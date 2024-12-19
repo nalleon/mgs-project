@@ -45,6 +45,7 @@ public class ArtistController implements IController<ArtistDTO> {
     }
 
     @Override
+    @Operation(summary = "Insert artist")
     @PostMapping("/")
     public ResponseEntity add(ArtistDTO artistDTO) {
         artistService.addUpdate(artistDTO);
@@ -52,7 +53,7 @@ public class ArtistController implements IController<ArtistDTO> {
     }
 
     @PutMapping("/{id}")
-
+    @Operation(summary = "Update artist")
     @Override
     public ResponseEntity update(ArtistDTO artistDTO) {
         artistService.addUpdate(artistDTO);
@@ -60,6 +61,7 @@ public class ArtistController implements IController<ArtistDTO> {
     }
 
     @GetMapping("/")
+    @Operation(summary = "Get all artist")
     @Override
     public ResponseEntity<List<ArtistDTO>> getAll() {
         return ResponseEntity.ok(artistService.getAll());
@@ -67,12 +69,13 @@ public class ArtistController implements IController<ArtistDTO> {
 
     @Override
     @GetMapping("/{id}")
-
+    @Operation(summary = "Get artist by ID")
     public ResponseEntity<ArtistDTO> getById(int id) {
         return ResponseEntity.ok(artistService.getById(id));
     }
 
     @Override
+    @Operation(summary = "Delete artist")
     @DeleteMapping("/{id}")
     public ResponseEntity delete(int id) {
         artistService.delete(id);

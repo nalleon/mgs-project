@@ -3,6 +3,7 @@ package es.ies.puerto.mgs.project.controller.impl;
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.service.impl.GameService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,12 +44,14 @@ public class GameController implements IController<GameDTO> {
 
     @Override
     @PostMapping("/")
+    @Operation(summary = "Insert game")
     public ResponseEntity add(GameDTO gameDTO) {
         gameService.addUpdate(gameDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/")
+    @Operation(summary = "Update game")
     @Override
     public ResponseEntity update(GameDTO gameDTO) {
         gameService.addUpdate(gameDTO);
@@ -56,6 +59,7 @@ public class GameController implements IController<GameDTO> {
     }
 
     @GetMapping("/")
+    @Operation(summary = "Get all games")
     @Override
     public ResponseEntity<List<GameDTO>> getAll() {
         return ResponseEntity.ok(gameService.getAll());
@@ -63,12 +67,14 @@ public class GameController implements IController<GameDTO> {
 
     @Override
     @GetMapping("/{id}")
+    @Operation(summary = "Get game by ID")
     public ResponseEntity<GameDTO> getById(int id) {
         return ResponseEntity.ok(gameService.getById(id));
     }
 
     @Override
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete game")
     public ResponseEntity delete(int id) {
         gameService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
