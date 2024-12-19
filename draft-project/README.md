@@ -1,33 +1,34 @@
-
 <div align="justify">
 
-# METAL GEAR SOLID Wiki - Draft project
+# METAL GEAR SOLID Wiki - Anteproyecto
 
 <div align="center">
 <img src="../img/logo.png">
 </div>
 
-## Index
-- [Objective](#index01)
-- [Problem's description](#index02)
-- [Technologias and architecture](#index03)
+## Índice
+- [Objetivo](#index01)
+- [Descripción del problema](#index02)
+- [Tecnologías utilizadas](#index03)
 
+## Objetivo <a name="index01"></a>
 
-## Objective <a name="index01"></a>
-The managment of a wiki of the Metal Gear Solid series.
+La gestión de una wiki de la saga de juegos Metal Gear Solid.
 
-## Problem's description <a name="index02"></a>
-Securization of the API that will include a CRUD for each table as well as 85% or higher of jacoco code coverage.
-## Technologias and architecture <a name="index03"></a>
-The technologies and architectures I used are as follows:
+## Descripción del problema <a name="index02"></a>
 
-- [IntelliJ IDEA - Community Edition](https://www.jetbrains.com/idea/) for Java code.
-- [Visual Studio Code](https://code.visualstudio.com/) for creating markdown documents.
-- [GitHub](https://github.com/) for the main management of the project.
-- [MongoDB Atlas](https://www.mongodb.com/) for the no relational database.
-- [SQLite](https://www.sqlite.org/index.html) for the relational database.
-- [Spring-Data](https://spring.io/projects/spring-data) for data management in the API.
+Securización de una API con JWT y SOAP que incluirá un CRUD para cada tabla, así como una cobertura de código de jacoco del 85% o superior y la dockerización del proyecto.
 
-
+## Tecnologías utilizadas <a name="index03"></a>
+Las tecnologías y arquitecturas que utilizaremos son las siguientes:
+ 
+- [IntelliJ IDEA - Community Edition](https://www.jetbrains.com/idea/) para el código en Java.
+- [Visual Studio Code](https://code.visualstudio.com/) para crear la documentación en markdown y el código en Java Script.
+- [GitHub](https://github.com/) para la gestión principal del proyecto.
+- [MongoDB Atlas](https://www.mongodb.com/) para la base de datos no relacional.
+- [SQLite](https://www.sqlite.org/index.html) para la base de datos relacional.
+- [Spring-Data](https://spring.io/projects/spring-data) para la gestión de datos en la API.
+- [Swagger](https://swagger.io/) para la documentación de la API y manejo de los endpoints de esta.
+- [Docker](https://www.docker.com/) para el despliegue del proyecto.
 
 </div>
