@@ -4,6 +4,7 @@ import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.service.impl.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,19 +45,23 @@ public class RoleController implements IController<RoleDTO> {
     }
 
     @Override
-    @PostMapping("/")
+    @PutMapping("/{id}")
     @Operation(summary = "Insert role")
     public ResponseEntity add(RoleDTO dto) {
-        service.addUpdate(dto);
+        service.add(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/")
     @Operation(summary = "Update role")
     @Override
-    public ResponseEntity update(RoleDTO dto) {
-        service.addUpdate(dto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity update(@PathVariable(value = "id") int id, @Valid @RequestBody RoleDTO dto) {
+        try {
+            service.update(id, dto);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/")

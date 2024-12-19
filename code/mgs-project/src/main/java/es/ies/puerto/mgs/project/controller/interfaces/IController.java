@@ -10,7 +10,7 @@ import java.util.List;
 public interface IController <T> {
     public ResponseEntity add(T t);
 
-    public ResponseEntity update(T t);
+    public ResponseEntity update(int id, T t);
 
     public ResponseEntity<List<T>> getAll();
 

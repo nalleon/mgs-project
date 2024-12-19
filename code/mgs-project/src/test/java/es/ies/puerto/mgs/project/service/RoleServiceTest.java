@@ -1,12 +1,10 @@
 package es.ies.puerto.mgs.project.service;
 
-import es.ies.puerto.mgs.project.dto.RoleDTO;
+import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.Role;
-import es.ies.puerto.mgs.project.model.entities.Role;
-import es.ies.puerto.mgs.project.service.impl.RoleService;
 import es.ies.puerto.mgs.project.service.impl.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -19,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -82,14 +81,25 @@ public class RoleServiceTest extends TestUtilities {
     @Test
     void addUpdateTest() {
         when(daoMock.save(any(Role.class))).thenReturn(new Role());
-        Assertions.assertTrue(service.addUpdate(new RoleDTO(1, "Admin")), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new RoleDTO(1, "Admin")), MESSAGE_ERROR);
     }
 
     @Test
     void addUpdateFalseTest() {
-        Assertions.assertFalse(service.addUpdate(null), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(null), MESSAGE_ERROR);
     }
 
+    @Test
+    void updateTest() throws Exception {
+        when(daoMock.save(any(Role.class))).thenReturn(new Role());
+        when(daoMock.findById(1)).thenReturn(Optional.of(new Role()));
+        Assertions.assertTrue(service.update(1,new RoleDTO(1, "admin")), MESSAGE_ERROR);
+    }
+
+    @Test
+    void updateFalseTest() throws Exception {
+        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
+    }
 
     @Test
     void deleteTest() {

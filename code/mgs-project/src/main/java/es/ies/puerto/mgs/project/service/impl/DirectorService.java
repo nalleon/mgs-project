@@ -4,6 +4,7 @@ import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
+import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public class DirectorService implements IServiceJPA<DirectorDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(DirectorService.class);
 
-    private IDaoDirector iDaoDirector;
+    private IDaoDirector repository;
 
     /**
      * Default constructor of the class
@@ -34,27 +35,42 @@ public class DirectorService implements IServiceJPA<DirectorDTO> {
 
     /**
      * Setter of the dao
-     * @param iDaoDirector
+     * @param repository
      */
     @Autowired
-    public void setiDaoDirector(IDaoDirector iDaoDirector) {
-        this.iDaoDirector = iDaoDirector;
+    public void setiDaoDirector(IDaoDirector repository) {
+        this.repository = repository;
     }
 
     @Override
-    public boolean addUpdate(DirectorDTO directorDTO) {
+    public boolean add(DirectorDTO directorDTO) {
         if (directorDTO == null){
             return false;
         }
 
-        iDaoDirector.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
+        repository.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
         return true;
+    }
+
+    @Override
+    public boolean update(int id, DirectorDTO directorDTO) throws Exception {
+        try {
+            Director toUpdate = repository.findById(id).orElseThrow(() ->
+                    new Exception("Element not found for this id :: " + id));
+
+            toUpdate.setFullName(directorDTO.getFullName());
+            repository.save(toUpdate);
+            return true;
+
+        } catch (Exception e){
+            return false;
+        }
     }
 
 
     @Override
     public List<DirectorDTO> getAll() {
-        List<Director> directors = iDaoDirector.findAll();
+        List<Director> directors = repository.findAll();
         List<DirectorDTO> directorDTOS = new ArrayList<>();
         for (Director director : directors){
             directorDTOS.add(IDirectorMapper.INSTANCE.toDTO(director));
@@ -64,7 +80,7 @@ public class DirectorService implements IServiceJPA<DirectorDTO> {
 
     @Override
     public DirectorDTO getById(int id) {
-        if (!iDaoDirector.existsById(id)) {
+        if (!repository.existsById(id)) {
             return null;
         }
 
@@ -83,10 +99,10 @@ public class DirectorService implements IServiceJPA<DirectorDTO> {
 
     @Override
     public boolean delete(int id) {
-        if (!iDaoDirector.existsById(id)) {
+        if (!repository.existsById(id)) {
             return false;
         }
-        iDaoDirector.deleteById(id);
+        repository.deleteById(id);
         return true;
     }
 }

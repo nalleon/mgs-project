@@ -1,14 +1,8 @@
 package es.ies.puerto.mgs.project.service;
 
 import es.ies.puerto.mgs.project.dto.UserDTO;
-import es.ies.puerto.mgs.project.dto.UserDTO;
-import es.ies.puerto.mgs.project.dto.UserDTO;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.entities.User;
-import es.ies.puerto.mgs.project.model.entities.User;
-import es.ies.puerto.mgs.project.model.entities.User;
-import es.ies.puerto.mgs.project.service.impl.UserService;
 import es.ies.puerto.mgs.project.service.impl.UserService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -84,12 +78,12 @@ public class UserServiceTest extends TestUtilities {
     @Test
     void addUpdateTest() {
         when(daoMock.save(any(User.class))).thenReturn(new User());
-        Assertions.assertTrue(service.addUpdate(new UserDTO(1, "example@email.com")), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new UserDTO(1, "example@email.com")), MESSAGE_ERROR);
     }
 
     @Test
     void addUpdateFalseTest() {
-        Assertions.assertFalse(service.addUpdate(null), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(null), MESSAGE_ERROR);
     }
 
 

@@ -1,6 +1,8 @@
 package es.ies.puerto.mgs.project.service;
+import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
+import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
 import es.ies.puerto.mgs.project.service.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
@@ -102,16 +104,16 @@ public class WeaponServiceTest extends TestUtilities {
     }
 
     @Test
-    void updateTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.save(new Weapon(1))).thenReturn(new Weapon(1));
-
-        Assertions.assertTrue(service.update(new WeaponDTO(1)), MESSAGE_ERROR);
+    void updateTest() throws Exception {
+        when(daoMock.save(any(Weapon.class))).thenReturn(new Weapon());
+        when(daoMock.findById(1)).thenReturn(Optional.of(new Weapon()));
+        Assertions.assertTrue(service.update(1,new WeaponDTO(1)), MESSAGE_ERROR);
     }
 
     @Test
-    void updateNonexistentTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
-        Assertions.assertTrue(service.update(new WeaponDTO(1)), MESSAGE_ERROR);
+    void updateFalseTest() throws Exception {
+        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
     }
+
+
 }

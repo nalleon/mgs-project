@@ -4,6 +4,7 @@ import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.service.impl.MGSCharacterService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     /**
      * Properties
      */
-    private MGSCharacterService mgsCharacterService;
+    private MGSCharacterService service;
 
     /**
      * Default constructor of the class
@@ -26,56 +27,60 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
 
     /**
      * Constructor of the class
-     * @param mgsCharacterService
+     * @param service
      */
-    public MGSCharacterController(MGSCharacterService mgsCharacterService) {
-        this.mgsCharacterService = mgsCharacterService;
+    public MGSCharacterController(MGSCharacterService service) {
+        this.service = service;
     }
 
     /**
      * Setter of the service
-     * @param mgsCharacterService
+     * @param service
      */
     @Autowired
-    public void setMgsCharacterService(MGSCharacterService mgsCharacterService) {
-        this.mgsCharacterService = mgsCharacterService;
+    public void setMgsCharacterService(MGSCharacterService service) {
+        this.service = service;
     }
 
     @Override
     @PostMapping("/")
     @Operation(summary = "Insert character")
     public ResponseEntity add(MGSCharacterDTO mgsCharacterDTO) {
-        mgsCharacterService.addUpdate(mgsCharacterDTO);
+        service.add(mgsCharacterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/")
+    @PutMapping("/{id}")
     @Operation(summary = "Update character")
     @Override
-    public ResponseEntity update(MGSCharacterDTO mgsCharacterDTO) {
-        mgsCharacterService.addUpdate(mgsCharacterDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity update(@PathVariable(value = "id") int id, @Valid @RequestBody MGSCharacterDTO mgsCharacterDTO) {
+        try {
+            service.update(id, mgsCharacterDTO);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/")
     @Operation(summary = "Get all characters")
     @Override
     public ResponseEntity<List<MGSCharacterDTO>> getAll() {
-        return ResponseEntity.ok(mgsCharacterService.getAll());
+        return ResponseEntity.ok(service.getAll());
     }
 
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get character by ID")
     public ResponseEntity<MGSCharacterDTO> getById(int id) {
-        return ResponseEntity.ok(mgsCharacterService.getById(id));
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete character")
     public ResponseEntity delete(int id) {
-        mgsCharacterService.delete(id);
+        service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

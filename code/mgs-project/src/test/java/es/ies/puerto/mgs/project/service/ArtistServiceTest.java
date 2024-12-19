@@ -2,9 +2,7 @@ package es.ies.puerto.mgs.project.service;
 
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
 import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.service.impl.ArtistService;
 import es.ies.puerto.mgs.project.service.impl.ArtistService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -17,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -81,12 +80,24 @@ public class ArtistServiceTest extends TestUtilities {
     @Test
     void addUpdateTest() {
         when(daoMock.save(any(Artist.class))).thenReturn(new Artist());
-        Assertions.assertTrue(service.addUpdate(new ArtistDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new ArtistDTO(1)), MESSAGE_ERROR);
     }
 
     @Test
     void addUpdateFalseTest() {
-        Assertions.assertFalse(service.addUpdate(null), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(null), MESSAGE_ERROR);
+    }
+
+    @Test
+    void updateTest() throws Exception {
+        when(daoMock.save(any(Artist.class))).thenReturn(new Artist());
+        when(daoMock.findById(1)).thenReturn(Optional.of(new Artist()));
+        Assertions.assertTrue(service.update(1,new ArtistDTO(1)), MESSAGE_ERROR);
+    }
+
+    @Test
+    void updateFalseTest() throws Exception {
+        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
     }
 
 

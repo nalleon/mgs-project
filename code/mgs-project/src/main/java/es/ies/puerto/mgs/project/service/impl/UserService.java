@@ -1,8 +1,10 @@
 package es.ies.puerto.mgs.project.service.impl;
 
 import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
+import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import org.slf4j.Logger;
@@ -23,7 +25,7 @@ public class UserService implements IServiceJPA<UserDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
-    private IDaoUser iDaoUser;
+    private IDaoUser repository;
 
     /**
      * Default constructor of the class
@@ -32,26 +34,45 @@ public class UserService implements IServiceJPA<UserDTO> {
 
     /**
      * Setter of the dao
-     * @param iDaoUser
+     * @param repository
      */
     @Autowired
-    public void setIDaoUser(IDaoUser iDaoUser) {
-        this.iDaoUser = iDaoUser;
+    public void setIDaoUser(IDaoUser repository) {
+        this.repository = repository;
     }
 
     @Override
-    public boolean addUpdate(UserDTO userDTO) {
+    public boolean add(UserDTO userDTO) {
         if (userDTO == null){
             return false;
         }
-        iDaoUser.save(IUserMapper.INSTANCE.toEntity(userDTO));
+        repository.save(IUserMapper.INSTANCE.toEntity(userDTO));
         return true;
+    }
+
+    @Override
+    public boolean update(int id, UserDTO userDTO) throws Exception {
+        try {
+            User toUpdate = repository.findById(id).orElseThrow(() ->
+                    new Exception("Element not found for this id :: " + id));
+
+            User aux = IUserMapper.INSTANCE.toEntity(userDTO);
+            toUpdate.setName(aux.getName());
+            toUpdate.setEmail(aux.getEmail());
+            toUpdate.setRole(aux.getRole());
+            toUpdate.setPassword(aux.getPassword());
+            repository.save(toUpdate);
+            return true;
+
+        } catch (Exception e){
+            return false;
+        }
     }
 
 
     @Override
     public List<UserDTO> getAll() {
-        List<User> users = iDaoUser.findAll();
+        List<User> users = repository.findAll();
         List<UserDTO> userDTOS = new ArrayList<>();
         for (User user : users){
             userDTOS.add(IUserMapper.INSTANCE.toDTO(user));
@@ -61,7 +82,7 @@ public class UserService implements IServiceJPA<UserDTO> {
 
     @Override
     public UserDTO getById(int id) {
-        if (!iDaoUser.existsById(id)) {
+        if (!repository.existsById(id)) {
             return null;
         }
 
@@ -80,10 +101,10 @@ public class UserService implements IServiceJPA<UserDTO> {
 
     @Override
     public boolean delete(int id) {
-        if (!iDaoUser.existsById(id)) {
+        if (!repository.existsById(id)) {
             return false;
         }
-        iDaoUser.deleteById(id);
+        repository.deleteById(id);
         return true;
     }
 }

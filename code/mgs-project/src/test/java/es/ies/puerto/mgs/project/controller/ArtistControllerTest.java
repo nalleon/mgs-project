@@ -1,10 +1,8 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.ArtistController;
-import es.ies.puerto.mgs.project.controller.impl.MGSCharacterController;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.service.impl.ArtistService;
-import es.ies.puerto.mgs.project.service.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +57,7 @@ public class ArtistControllerTest extends TestUtilities {
 
     @Test
     void addTest() {
-        when(serviceMock.addUpdate(any(ArtistDTO.class))).thenReturn(true);
+        when(serviceMock.add(any(ArtistDTO.class))).thenReturn(true);
         ArtistDTO dto = new ArtistDTO(1);
         ResponseEntity responseEntity = controller.add(dto);
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
@@ -76,8 +74,8 @@ public class ArtistControllerTest extends TestUtilities {
     @Test
     void updateTest() {
         ArtistDTO dto = new ArtistDTO(1);
-        when(serviceMock.addUpdate(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(dto);
+        when(serviceMock.add(dto)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, dto);
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 

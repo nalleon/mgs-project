@@ -1,8 +1,10 @@
 package es.ies.puerto.mgs.project.service.impl;
 
 import es.ies.puerto.mgs.project.dto.RoleDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import org.slf4j.Logger;
@@ -23,7 +25,7 @@ public class RoleService implements IServiceJPA<RoleDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(RoleService.class);
 
-    private IDaoRole iDaoRole;
+    private IDaoRole repository;
 
     /**
      * Default constructor of the class
@@ -32,26 +34,42 @@ public class RoleService implements IServiceJPA<RoleDTO> {
 
     /**
      * Setter of the dao
-     * @param iDaoRole
+     * @param repository
      */
     @Autowired
-    public void setIDaoRole(IDaoRole iDaoRole) {
-        this.iDaoRole = iDaoRole;
+    public void setIDaoRole(IDaoRole repository) {
+        this.repository = repository;
     }
 
     @Override
-    public boolean addUpdate(RoleDTO roleDTO) {
+    public boolean add(RoleDTO roleDTO) {
         if (roleDTO == null){
             return false;
         }
-        iDaoRole.save(IRoleMapper.INSTANCE.toEntity(roleDTO));
+        repository.save(IRoleMapper.INSTANCE.toEntity(roleDTO));
         return true;
+    }
+
+    @Override
+    public boolean update(int id, RoleDTO roleDTO) throws Exception {
+        try {
+            Role toUpdate = repository.findById(id).orElseThrow(() ->
+                    new Exception("Element not found for this id :: " + id));
+
+            Role aux = IRoleMapper.INSTANCE.toEntity(roleDTO);
+            toUpdate.setName(aux.getName());
+            repository.save(toUpdate);
+            return true;
+
+        } catch (Exception e){
+            return false;
+        }
     }
 
 
     @Override
     public List<RoleDTO> getAll() {
-        List<Role> roles = iDaoRole.findAll();
+        List<Role> roles = repository.findAll();
         List<RoleDTO> roleDTOS = new ArrayList<>();
         for (Role role : roles){
             roleDTOS.add(IRoleMapper.INSTANCE.toDTO(role));
@@ -61,7 +79,7 @@ public class RoleService implements IServiceJPA<RoleDTO> {
 
     @Override
     public RoleDTO getById(int id) {
-        if (!iDaoRole.existsById(id)) {
+        if (!repository.existsById(id)) {
             return null;
         }
 
@@ -80,10 +98,10 @@ public class RoleService implements IServiceJPA<RoleDTO> {
 
     @Override
     public boolean delete(int id) {
-        if (!iDaoRole.existsById(id)) {
+        if (!repository.existsById(id)) {
             return false;
         }
-        iDaoRole.deleteById(id);
+        repository.deleteById(id);
         return true;
     }
 }

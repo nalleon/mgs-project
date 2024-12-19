@@ -24,7 +24,7 @@ public class ArtistService implements IServiceJPA<ArtistDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(ArtistService.class);
 
-    private IDaoArtist iDaoArtist;
+    private IDaoArtist repository;
 
     /**
      * Default constructor of the class
@@ -33,26 +33,41 @@ public class ArtistService implements IServiceJPA<ArtistDTO> {
 
     /**
      * Setter of the dao
-     * @param iDaoArtist
+     * @param repository
      */
     @Autowired
-    public void setiDaoArtist(IDaoArtist iDaoArtist) {
-        this.iDaoArtist = iDaoArtist;
+    public void setiDaoArtist(IDaoArtist repository) {
+        this.repository = repository;
     }
 
     @Override
-    public boolean addUpdate(ArtistDTO artistDTO) {
+    public boolean add(ArtistDTO artistDTO) {
         if (artistDTO == null){
             return false;
         }
-        iDaoArtist.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
+        repository.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
         return true;
+    }
+
+    @Override
+    public boolean update(int id, ArtistDTO artistDTO) throws Exception {
+        try {
+            Artist toUpdate = repository.findById(id).orElseThrow(() ->
+                    new Exception("Element not found for this id :: " + id));
+
+            toUpdate.setFullName(artistDTO.getFullName());
+            repository.save(toUpdate);
+            return true;
+
+        } catch (Exception e){
+            return false;
+        }
     }
 
 
     @Override
     public List<ArtistDTO> getAll() {
-        List<Artist> artists = iDaoArtist.findAll();
+        List<Artist> artists = repository.findAll();
         List<ArtistDTO> artistDTOS = new ArrayList<>();
         for (Artist artist : artists){
             artistDTOS.add(IArtistMapper.INSTANCE.toDTO(artist));
@@ -62,7 +77,7 @@ public class ArtistService implements IServiceJPA<ArtistDTO> {
 
     @Override
     public ArtistDTO getById(int id) {
-        if (!iDaoArtist.existsById(id)) {
+        if (!repository.existsById(id)) {
             return null;
         }
 
@@ -81,10 +96,10 @@ public class ArtistService implements IServiceJPA<ArtistDTO> {
 
     @Override
     public boolean delete(int id) {
-        if (!iDaoArtist.existsById(id)) {
+        if (!repository.existsById(id)) {
             return false;
         }
-        iDaoArtist.deleteById(id);
+        repository.deleteById(id);
         return true;
     }
 }

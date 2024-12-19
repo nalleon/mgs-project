@@ -1,10 +1,8 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.MGSCharacterController;
-import es.ies.puerto.mgs.project.controller.impl.WeaponController;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.service.impl.MGSCharacterService;
-import es.ies.puerto.mgs.project.service.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -60,7 +58,7 @@ public class MGSCharacterControllerTest extends TestUtilities {
 
     @Test
     void addTest() {
-        when(serviceMock.addUpdate(any(MGSCharacterDTO.class))).thenReturn(true);
+        when(serviceMock.add(any(MGSCharacterDTO.class))).thenReturn(true);
         MGSCharacterDTO dto = new MGSCharacterDTO(1);
         ResponseEntity responseEntity = controller.add(dto);
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
@@ -77,8 +75,8 @@ public class MGSCharacterControllerTest extends TestUtilities {
     @Test
     void updateTest() {
         MGSCharacterDTO dto = new MGSCharacterDTO(1);
-        when(serviceMock.addUpdate(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(dto);
+        when(serviceMock.add(dto)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, dto);
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 

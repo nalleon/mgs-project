@@ -1,10 +1,7 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.RoleController;
-import es.ies.puerto.mgs.project.controller.impl.MGSCharacterController;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
-import es.ies.puerto.mgs.project.service.impl.ArtistService;
-import es.ies.puerto.mgs.project.service.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.service.impl.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -60,7 +57,7 @@ public class RoleControllerTest extends TestUtilities {
 
     @Test
     void addTest() {
-        when(serviceMock.addUpdate(any(RoleDTO.class))).thenReturn(true);
+        when(serviceMock.add(any(RoleDTO.class))).thenReturn(true);
         RoleDTO dto = new RoleDTO(1, "Admin");
         ResponseEntity responseEntity = controller.add(dto);
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
@@ -77,8 +74,8 @@ public class RoleControllerTest extends TestUtilities {
     @Test
     void updateTest() {
         RoleDTO dto = new RoleDTO(1, "Admin");
-        when(serviceMock.addUpdate(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(dto);
+        when(serviceMock.add(dto)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, dto);
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 

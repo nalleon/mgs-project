@@ -4,6 +4,7 @@ import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.service.impl.GameService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class GameController implements IController<GameDTO> {
      * Properties
      */
 
-    private GameService gameService;
+    private GameService service;
 
     /**
      * Default constructor of the class
@@ -27,56 +28,60 @@ public class GameController implements IController<GameDTO> {
 
     /**
      * Constructor of the class
-     * @param gameService
+     * @param service
      */
-    public GameController(GameService gameService) {
-        this.gameService = gameService;
+    public GameController(GameService service) {
+        this.service = service;
     }
 
     /**
      * Setter of the service
-     * @param gameService
+     * @param service
      */
     @Autowired
-    public void setGameService(GameService gameService) {
-        this.gameService = gameService;
+    public void setGameService(GameService service) {
+        this.service = service;
     }
 
     @Override
     @PostMapping("/")
     @Operation(summary = "Insert game")
     public ResponseEntity add(GameDTO gameDTO) {
-        gameService.addUpdate(gameDTO);
+        service.add(gameDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/")
+    @PutMapping("/{id}")
     @Operation(summary = "Update game")
     @Override
-    public ResponseEntity update(GameDTO gameDTO) {
-        gameService.addUpdate(gameDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity update(@PathVariable(value = "id") int id, @Valid @RequestBody GameDTO gameDTO) {
+        try {
+            service.update(id, gameDTO);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/")
     @Operation(summary = "Get all games")
     @Override
     public ResponseEntity<List<GameDTO>> getAll() {
-        return ResponseEntity.ok(gameService.getAll());
+        return ResponseEntity.ok(service.getAll());
     }
 
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get game by ID")
     public ResponseEntity<GameDTO> getById(int id) {
-        return ResponseEntity.ok(gameService.getById(id));
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete game")
     public ResponseEntity delete(int id) {
-        gameService.delete(id);
+        service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

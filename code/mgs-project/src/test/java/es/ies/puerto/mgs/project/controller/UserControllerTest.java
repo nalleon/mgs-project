@@ -1,10 +1,7 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.UserController;
-import es.ies.puerto.mgs.project.controller.impl.MGSCharacterController;
 import es.ies.puerto.mgs.project.dto.UserDTO;
-import es.ies.puerto.mgs.project.service.impl.ArtistService;
-import es.ies.puerto.mgs.project.service.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.service.impl.UserService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -60,7 +57,7 @@ public class UserControllerTest extends TestUtilities {
 
     @Test
     void addTest() {
-        when(serviceMock.addUpdate(any(UserDTO.class))).thenReturn(true);
+        when(serviceMock.add(any(UserDTO.class))).thenReturn(true);
         UserDTO dto = new UserDTO(1, "example@email.com");
         ResponseEntity responseEntity = controller.add(dto);
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
@@ -77,8 +74,8 @@ public class UserControllerTest extends TestUtilities {
     @Test
     void updateTest() {
         UserDTO dto = new UserDTO(1, "example@email.com");
-        when(serviceMock.addUpdate(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(dto);
+        when(serviceMock.add(dto)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, dto);
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 

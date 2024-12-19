@@ -1,13 +1,11 @@
 package es.ies.puerto.mgs.project.service;
 
+import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.GameDTO;
-import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
+import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.model.entities.Game;
-import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.impl.GameService;
-import es.ies.puerto.mgs.project.service.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -83,15 +82,25 @@ public class GameServiceTest extends TestUtilities {
     @Test
     void addUpdateTest() {
         when(daoMock.save(any(Game.class))).thenReturn(new Game());
-        Assertions.assertTrue(service.addUpdate(new GameDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new GameDTO(1)), MESSAGE_ERROR);
     }
 
     @Test
     void addUpdateFalseTest() {
-        Assertions.assertFalse(service.addUpdate(null), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(null), MESSAGE_ERROR);
     }
 
+    @Test
+    void updateTest() throws Exception {
+        when(daoMock.save(any(Game.class))).thenReturn(new Game());
+        when(daoMock.findById(1)).thenReturn(Optional.of(new Game()));
+        Assertions.assertTrue(service.update(1,new GameDTO(1)), MESSAGE_ERROR);
+    }
 
+    @Test
+    void updateFalseTest() throws Exception {
+        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
+    }
     @Test
     void deleteTest() {
         when(daoMock.existsById(1)).thenReturn(true);

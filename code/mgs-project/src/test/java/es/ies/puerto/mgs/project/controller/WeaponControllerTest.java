@@ -77,8 +77,8 @@ public class WeaponControllerTest extends TestUtilities {
     @Test
     void updateTest() {
         WeaponDTO dto = new WeaponDTO(1);
-        when(serviceMock.update(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(dto);
+        when(serviceMock.update(1, dto)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, dto);
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 

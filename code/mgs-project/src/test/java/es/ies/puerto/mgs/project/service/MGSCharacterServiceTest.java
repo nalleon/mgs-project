@@ -1,13 +1,11 @@
 package es.ies.puerto.mgs.project.service;
 
+import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
-import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
-import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
+import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
-import es.ies.puerto.mgs.project.model.entities.Weapon;
 import es.ies.puerto.mgs.project.service.impl.MGSCharacterService;
-import es.ies.puerto.mgs.project.service.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.MapperHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,9 +18,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -88,14 +87,25 @@ public class MGSCharacterServiceTest extends MapperHelper {
     @Test
     void addUpdateTest() {
         when(daoMock.save(any(MGSCharacter.class))).thenReturn(new MGSCharacter());
-        Assertions.assertTrue(service.addUpdate(new MGSCharacterDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new MGSCharacterDTO(1)), MESSAGE_ERROR);
     }
 
     @Test
     void addUpdateFalseTest() {
-        Assertions.assertFalse(service.addUpdate(null), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(null), MESSAGE_ERROR);
     }
 
+    @Test
+    void updateTest() throws Exception {
+        when(daoMock.save(any(MGSCharacter.class))).thenReturn(new MGSCharacter());
+        when(daoMock.findById(1)).thenReturn(Optional.of(new MGSCharacter()));
+        Assertions.assertTrue(service.update(1,new MGSCharacterDTO(1)), MESSAGE_ERROR);
+    }
+
+    @Test
+    void updateFalseTest() throws Exception {
+        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
+    }
 
     @Test
     void deleteTest() {

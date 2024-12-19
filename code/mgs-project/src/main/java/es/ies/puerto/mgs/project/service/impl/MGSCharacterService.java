@@ -3,9 +3,11 @@ package es.ies.puerto.mgs.project.service.impl;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
+import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import org.slf4j.Logger;
@@ -27,7 +29,7 @@ public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(MGSCharacterService.class);
 
-    private IDaoMGSCharacter iDaoMGSCharacter;
+    private IDaoMGSCharacter repository;
 
     /**
      * Default constructor of the class
@@ -36,26 +38,46 @@ public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
 
     /**
      * Setter of the dao
-     * @param iDaoMGSCharacter
+     * @param repository
      */
     @Autowired
-    public void setiDaoMGSCharacter(IDaoMGSCharacter iDaoMGSCharacter) {
-        this.iDaoMGSCharacter = iDaoMGSCharacter;
+    public void setiDaoMGSCharacter(IDaoMGSCharacter repository) {
+        this.repository = repository;
     }
 
     @Override
-    public boolean addUpdate(MGSCharacterDTO mgsCharacterDTO) {
+    public boolean add(MGSCharacterDTO mgsCharacterDTO) {
         if (mgsCharacterDTO == null){
             return false;
         }
-        iDaoMGSCharacter.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
+        repository.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
         return true;
+    }
+
+    @Override
+    public boolean update(int id, MGSCharacterDTO mgsCharacterDTO) throws Exception {
+        try {
+            MGSCharacter toUpdate = repository.findById(id).orElseThrow(() ->
+                    new Exception("Element not found for this id :: " + id));
+
+            MGSCharacter aux = IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO);
+            toUpdate.setCodename(aux.getCodename());
+            toUpdate.setName(aux.getName());
+            toUpdate.setAge(aux.getAge());
+            toUpdate.setArtist(aux.getArtist());
+            toUpdate.setStatus(aux.isStatus());
+            repository.save(toUpdate);
+            return true;
+
+        } catch (Exception e){
+            return false;
+        }
     }
 
 
     @Override
     public List<MGSCharacterDTO> getAll() {
-        List<MGSCharacter> mgsCharacters = iDaoMGSCharacter.findAll();
+        List<MGSCharacter> mgsCharacters = repository.findAll();
         List<MGSCharacterDTO> mgsCharacterDTOS = new ArrayList<>();
         for (MGSCharacter mgsCharacter : mgsCharacters){
             mgsCharacterDTOS.add(IMGSCharacterMapper.INSTANCE.toDTO(mgsCharacter));
@@ -65,7 +87,7 @@ public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
 
     @Override
     public MGSCharacterDTO getById(int id) {
-        if (!iDaoMGSCharacter.existsById(id)) {
+        if (!repository.existsById(id)) {
             return null;
         }
 
@@ -84,10 +106,10 @@ public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
 
     @Override
     public boolean delete(int id) {
-        if (!iDaoMGSCharacter.existsById(id)) {
+        if (!repository.existsById(id)) {
             return false;
         }
-        iDaoMGSCharacter.deleteById(id);
+        repository.deleteById(id);
         return true;
 
     }
