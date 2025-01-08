@@ -1,10 +1,8 @@
-package es.ies.puerto.mgs.project.service.impl;
+package es.ies.puerto.mgs.project.service.rest;
 
 import es.ies.puerto.mgs.project.dto.RoleDTO;
-import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
-import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import org.slf4j.Logger;

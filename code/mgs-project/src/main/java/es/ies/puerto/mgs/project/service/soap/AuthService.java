@@ -1,4 +1,4 @@
-package es.ies.puerto.mgs.project.service.impl;
+package es.ies.puerto.mgs.project.service.soap;
 /*
 import es.ies.puerto.mgs.project.security.jwt.AuthResponse;
 import es.ies.puerto.mgs.project.security.jwt.JwtService;

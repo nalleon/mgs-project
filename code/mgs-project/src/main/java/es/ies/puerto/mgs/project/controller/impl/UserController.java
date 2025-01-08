@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller.impl;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.UserDTO;
-import es.ies.puerto.mgs.project.service.impl.UserService;
+import es.ies.puerto.mgs.project.service.rest.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

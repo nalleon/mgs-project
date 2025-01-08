@@ -1,17 +1,12 @@
-package es.ies.puerto.mgs.project.service.impl;
+package es.ies.puerto.mgs.project.service.rest;
 
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
-import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
-import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
-import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceMongoDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;

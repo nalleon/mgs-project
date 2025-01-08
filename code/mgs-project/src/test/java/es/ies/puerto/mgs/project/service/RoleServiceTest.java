@@ -1,11 +1,9 @@
 package es.ies.puerto.mgs.project.service;
 
-import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
-import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.Role;
-import es.ies.puerto.mgs.project.service.impl.RoleService;
+import es.ies.puerto.mgs.project.service.rest.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
