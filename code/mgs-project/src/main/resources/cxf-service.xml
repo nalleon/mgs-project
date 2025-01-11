@@ -8,12 +8,10 @@
 
     <!-- Definición del servicio -->
     <jaxws:endpoint id="artistServiceEndpoint"
-                    implementor="#artistService"
-                    address="/artists">
-    </jaxws:endpoint>
+                    implementor="#artistServiceSoapImpl"
+                    address="/artists"/>
 
-    <!-- Bean del servicio implementado -->
-    <bean id="artistService" class="es.ies.puerto.mgs.project.service.soap.ArtistServiceSoap"/>
+    <bean id="artistServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.ArtistServiceSoap"/>
 
 
 </beans>

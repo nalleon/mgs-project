@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.DirectorController;
 import es.ies.puerto.mgs.project.dto.DirectorDTO;
-import es.ies.puerto.mgs.project.service.rest.DirectorService;
+import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -3,7 +3,7 @@ package es.ies.puerto.mgs.project.service;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
-import es.ies.puerto.mgs.project.service.rest.MGSCharacterService;
+import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.utilities.MapperHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

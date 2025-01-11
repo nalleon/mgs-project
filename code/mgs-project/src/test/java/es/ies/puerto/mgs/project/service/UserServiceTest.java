@@ -3,7 +3,7 @@ package es.ies.puerto.mgs.project.service;
 import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.entities.User;
-import es.ies.puerto.mgs.project.service.rest.UserService;
+import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

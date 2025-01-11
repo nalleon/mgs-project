@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.service;
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
-import es.ies.puerto.mgs.project.service.rest.WeaponService;
+import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

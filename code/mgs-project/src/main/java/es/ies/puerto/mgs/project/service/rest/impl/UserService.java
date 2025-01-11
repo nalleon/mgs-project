@@ -1,34 +1,34 @@
-package es.ies.puerto.mgs.project.service.soap;
+package es.ies.puerto.mgs.project.service.rest.impl;
 
 import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.entities.User;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
 
 /**
  * @author nalleon
  */
 @Component
-public class UserServiceSoap implements IServiceJPA<UserDTO> {
+public class UserService implements IService<UserDTO> {
     /**
      * Properties
      */
-    private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceSoap.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     private IDaoUser repository;
 
     /**
      * Default constructor of the class
      */
-    public UserServiceSoap(){}
+    public UserService(){}
 
     /**
      * Setter of the dao

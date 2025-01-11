@@ -1,9 +1,9 @@
-package es.ies.puerto.mgs.project.service.rest;
+package es.ies.puerto.mgs.project.service.rest.impl;
 import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
 import es.ies.puerto.mgs.project.model.entities.Director;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class DirectorService implements IServiceJPA<DirectorDTO> {
+public class DirectorService implements IService<DirectorDTO> {
     /**
      * Properties
      */

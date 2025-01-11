@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.MGSCharacterController;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
-import es.ies.puerto.mgs.project.service.rest.MGSCharacterService;
+import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

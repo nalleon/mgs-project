@@ -3,7 +3,7 @@ package es.ies.puerto.mgs.project.service;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
 import es.ies.puerto.mgs.project.model.entities.Game;
-import es.ies.puerto.mgs.project.service.rest.GameService;
+import es.ies.puerto.mgs.project.service.rest.impl.GameService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,9 +1,9 @@
-package es.ies.puerto.mgs.project.service.rest;
+package es.ies.puerto.mgs.project.service.rest.impl;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
 import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class ArtistService implements IServiceJPA<ArtistDTO> {
+public class ArtistService implements IService<ArtistDTO> {
     /**
      * Properties
      */

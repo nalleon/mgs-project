@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller.impl;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
-import es.ies.puerto.mgs.project.service.rest.RoleService;
+import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
-package es.ies.puerto.mgs.project.service.rest;
+package es.ies.puerto.mgs.project.service.rest.impl;
 
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @author nalleon
  */
 @Component
-public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
+public class MGSCharacterService implements IService<MGSCharacterDTO> {
     /**
      * Properties
      */

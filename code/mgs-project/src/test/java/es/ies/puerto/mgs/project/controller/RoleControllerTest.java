@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.RoleController;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
-import es.ies.puerto.mgs.project.service.rest.RoleService;
+import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

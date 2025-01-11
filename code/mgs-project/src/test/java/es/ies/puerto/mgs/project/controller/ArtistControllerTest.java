@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.ArtistController;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
-import es.ies.puerto.mgs.project.service.rest.ArtistService;
+import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

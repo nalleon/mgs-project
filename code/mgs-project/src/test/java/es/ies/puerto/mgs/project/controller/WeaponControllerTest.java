@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.WeaponController;
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
-import es.ies.puerto.mgs.project.service.rest.WeaponService;
+import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

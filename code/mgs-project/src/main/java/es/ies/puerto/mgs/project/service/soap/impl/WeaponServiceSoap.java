@@ -1,30 +1,31 @@
-package es.ies.puerto.mgs.project.service.rest;
+package es.ies.puerto.mgs.project.service.soap.impl;
 
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceMongoDb;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class WeaponService implements IServiceMongoDb<WeaponDTO> {
+public class WeaponServiceSoap implements IServiceMongoDb<WeaponDTO> {
     /**
      * Properties
      */
-    private final static Logger LOGGER = LoggerFactory.getLogger(WeaponService.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(WeaponServiceSoap.class);
 
     private IDaoWeapon repository;
 
     /**
      * Default constructor of the class
      */
-    public WeaponService(){}
+    public WeaponServiceSoap(){}
 
     /**
      * Setter of the dao

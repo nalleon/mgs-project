@@ -5,7 +5,7 @@ import java.util.List;
  */
 
 // TODO: update add and update to separate methods and use id for update
-public interface IServiceJPA<T> {
+public interface IService<T> {
     public boolean add(T t);
     public boolean update(int id, T t) throws Exception;
     public List<T> getAll();

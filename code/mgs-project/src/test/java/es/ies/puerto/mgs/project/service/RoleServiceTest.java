@@ -3,7 +3,7 @@ package es.ies.puerto.mgs.project.service;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
 import es.ies.puerto.mgs.project.model.entities.Role;
-import es.ies.puerto.mgs.project.service.rest.RoleService;
+import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

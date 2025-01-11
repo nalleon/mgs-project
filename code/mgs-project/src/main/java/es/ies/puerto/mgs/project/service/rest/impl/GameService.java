@@ -1,9 +1,9 @@
-package es.ies.puerto.mgs.project.service.soap;
+package es.ies.puerto.mgs.project.service.rest.impl;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
 import es.ies.puerto.mgs.project.model.entities.Game;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +16,18 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class GameServiceSoap implements IServiceJPA<GameDTO> {
+public class GameService implements IService<GameDTO> {
     /**
      * Properties
      */
-    private final static Logger LOGGER = LoggerFactory.getLogger(GameServiceSoap.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(GameService.class);
 
     private IDaoGame repository;
 
     /**
      * Default constructor of the class
      */
-    public GameServiceSoap(){}
+    public GameService(){}
 
     /**
      * Setter of the dao
