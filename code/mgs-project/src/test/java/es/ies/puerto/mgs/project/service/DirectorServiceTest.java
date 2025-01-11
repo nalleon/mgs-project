@@ -1,11 +1,9 @@
 package es.ies.puerto.mgs.project.service;
 
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
-import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Director;
-import es.ies.puerto.mgs.project.service.impl.DirectorService;
+import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
