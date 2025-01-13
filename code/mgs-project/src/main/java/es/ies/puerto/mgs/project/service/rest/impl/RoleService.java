@@ -37,7 +37,7 @@ public class RoleService implements IService<RoleDTO> {
      * @param repository
      */
     @Autowired
-    public void setIDaoRole(IDaoRole repository) {
+    public void setDao(IDaoRole repository) {
         this.repository = repository;
     }
 

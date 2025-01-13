@@ -35,7 +35,7 @@ public class WeaponService implements IService<WeaponDTO> {
      */
 
     @Autowired
-    public void setiDaoWeapon(IDaoWeapon repository) {
+    public void setDao(IDaoWeapon repository) {
         this.repository = repository;
     }
 
@@ -43,7 +43,7 @@ public class WeaponService implements IService<WeaponDTO> {
     public boolean add(WeaponDTO weaponDTO) {
         if (!repository.existsById(weaponDTO.getId())){
             repository.insert(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
-        } else{
+        } else {
             repository.save(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
         }
         return true;
@@ -60,7 +60,6 @@ public class WeaponService implements IService<WeaponDTO> {
             toUpdate.setType(aux.getType());
             repository.save(toUpdate);
             return true;
-
         } catch (Exception e){
             return false;
         }
@@ -100,6 +99,7 @@ public class WeaponService implements IService<WeaponDTO> {
         if (!repository.existsById(id)) {
             return false;
         }
+
         repository.deleteById(id);
         return true;
     }

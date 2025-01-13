@@ -36,7 +36,7 @@ public class DirectorService implements IService<DirectorDTO> {
      * @param repository
      */
     @Autowired
-    public void setiDaoDirector(IDaoDirector repository) {
+    public void setDao(IDaoDirector repository) {
         this.repository = repository;
     }
 

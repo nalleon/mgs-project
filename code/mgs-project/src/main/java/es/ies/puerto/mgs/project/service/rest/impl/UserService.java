@@ -37,7 +37,7 @@ public class UserService implements IService<UserDTO> {
      * @param repository
      */
     @Autowired
-    public void setIDaoUser(IDaoUser repository) {
+    public void setDao(IDaoUser repository) {
         this.repository = repository;
     }
 

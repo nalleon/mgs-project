@@ -1,9 +1,10 @@
-package es.ies.puerto.mgs.project.service;
+package es.ies.puerto.mgs.project.service.soap;
 
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
+import es.ies.puerto.mgs.project.service.soap.impl.MGSCharacterServiceSoap;
 import es.ies.puerto.mgs.project.utilities.MapperHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,20 +25,25 @@ import java.util.Optional;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class MGSCharacterServiceTest extends MapperHelper {
+public class MGSCharacterServiceSoapTest extends MapperHelper {
 
     @Mock
     IDaoMGSCharacter daoMock;
 
+    @Mock
+    MGSCharacterService restServiceMock;
+
     @InjectMocks
-    MGSCharacterService service;
+    MGSCharacterServiceSoap service;
 
 
     @BeforeEach
     public void beforeEach (){
         MockitoAnnotations.openMocks(this);
-        service = new MGSCharacterService();
-        service.setiDaoMGSCharacter(daoMock);
+        service = new MGSCharacterServiceSoap();
+        restServiceMock = new MGSCharacterService();
+        restServiceMock.setDao(daoMock);
+        service.setService(restServiceMock);
     }
     @Test
     void getAllTest() {
@@ -97,12 +103,12 @@ public class MGSCharacterServiceTest extends MapperHelper {
     void updateTest() throws Exception {
         when(daoMock.save(any(MGSCharacter.class))).thenReturn(new MGSCharacter());
         when(daoMock.findById(1)).thenReturn(Optional.of(new MGSCharacter()));
-        Assertions.assertTrue(service.update(1,new MGSCharacterDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.update(new MGSCharacterDTO(1)), MESSAGE_ERROR);
     }
 
     @Test
     void updateFalseTest() throws Exception {
-        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
+        Assertions.assertFalse(service.update(new MGSCharacterDTO()), MESSAGE_ERROR);
     }
 
     @Test

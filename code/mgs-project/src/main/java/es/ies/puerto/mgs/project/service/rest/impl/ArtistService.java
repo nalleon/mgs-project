@@ -36,7 +36,7 @@ public class ArtistService implements IService<ArtistDTO> {
      * @param repository
      */
     @Autowired
-    public void setiDaoArtist(IDaoArtist repository) {
+    public void setDao(IDaoArtist repository) {
         this.repository = repository;
     }
 

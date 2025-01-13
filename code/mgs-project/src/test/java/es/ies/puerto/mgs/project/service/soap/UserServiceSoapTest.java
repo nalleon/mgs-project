@@ -1,9 +1,14 @@
-package es.ies.puerto.mgs.project.service;
+package es.ies.puerto.mgs.project.service.soap;
 
-import es.ies.puerto.mgs.project.dto.GameDTO;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
-import es.ies.puerto.mgs.project.model.entities.Game;
-import es.ies.puerto.mgs.project.service.rest.impl.GameService;
+import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
+import es.ies.puerto.mgs.project.model.entities.User;
+import es.ies.puerto.mgs.project.model.entities.User;
+import es.ies.puerto.mgs.project.service.rest.impl.UserService;
+import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
+import es.ies.puerto.mgs.project.service.soap.impl.UserServiceSoap;
+import es.ies.puerto.mgs.project.service.soap.impl.WeaponServiceSoap;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,26 +25,31 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class GameServiceTest extends TestUtilities {
+public class UserServiceSoapTest extends TestUtilities {
     @Mock
-    IDaoGame daoMock;
+    UserService restServiceMock;
+    @Mock
+    IDaoUser daoMock;
 
     @InjectMocks
-    GameService service;
+    UserServiceSoap service;
 
 
     @BeforeEach
     public void beforeEach (){
         MockitoAnnotations.openMocks(this);
-        service = new GameService();
-        service.setiDaoGame(daoMock);
+
+        service = new UserServiceSoap();
+        restServiceMock = new UserService();
+        restServiceMock.setDao(daoMock);
+        service.setService(restServiceMock);
     }
     @Test
     void getAllTest() {
-        List<Game> list = new ArrayList<>();
-        list.add(new Game(1));
-        list.add(new Game(2));
-        list.add(new Game(3));
+        List<User> list = new ArrayList<>();
+        list.add(new User(1, "example@email.com"));
+        list.add(new User(2, "example2@email.com"));
+        list.add(new User(3, "example3@email.com"));
         when(daoMock.findAll()).thenReturn(list);
         Assertions.assertNotNull(service.getAll(), MESSAGE_ERROR);
     }
@@ -61,26 +71,25 @@ public class GameServiceTest extends TestUtilities {
     @Test
     void getByIdListWithoutObjectTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new Game(2), new Game(3))));
-
+        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new User(2, "example2@email.com"), new User(3, "example3@email.com"))));
         Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void getOneTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        List<Game> list = new ArrayList<>();
-        list.add(new Game(1));
-        list.add(new Game(2));
-        list.add(new Game(3));
+        List<User> list = new ArrayList<>();
+        list.add(new User(1, "example@email.com"));
+        list.add(new User(2, "example2@email.com"));
+        list.add(new User(3, "example3@email.com"));
         when(daoMock.findAll()).thenReturn(list);
         Assertions.assertNotNull(service.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void addUpdateTest() {
-        when(daoMock.save(any(Game.class))).thenReturn(new Game());
-        Assertions.assertTrue(service.add(new GameDTO(1)), MESSAGE_ERROR);
+        when(daoMock.save(any(User.class))).thenReturn(new User());
+        Assertions.assertTrue(service.add(new UserDTO(1, "example@email.com")), MESSAGE_ERROR);
     }
 
     @Test
@@ -90,14 +99,16 @@ public class GameServiceTest extends TestUtilities {
 
     @Test
     void updateTest() throws Exception {
-        when(daoMock.save(any(Game.class))).thenReturn(new Game());
-        when(daoMock.findById(1)).thenReturn(Optional.of(new Game()));
-        Assertions.assertTrue(service.update(1,new GameDTO(1)), MESSAGE_ERROR);
+        UserDTO dto = new UserDTO(1, "example@email.com");
+        when(daoMock.save(any(User.class))).thenReturn(new User());
+        when(daoMock.findById(1)).thenReturn(Optional.of(new User()));
+        Assertions.assertTrue(service.update(dto), MESSAGE_ERROR);
     }
 
     @Test
     void updateFalseTest() throws Exception {
-        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
+        Assertions.assertFalse(service.update(new UserDTO(1, "example@email.com")), MESSAGE_ERROR);
+    
     }
     @Test
     void deleteTest() {
