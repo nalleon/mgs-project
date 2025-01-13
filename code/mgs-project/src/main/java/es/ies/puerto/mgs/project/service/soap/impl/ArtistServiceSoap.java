@@ -4,6 +4,7 @@ import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +23,19 @@ public class ArtistServiceSoap implements IServiceSoap<ArtistDTO> {
     private IService<ArtistDTO> service;
 
     @Autowired
-    public void setRepository(IService<ArtistDTO> service) {
+    public void setRepository(ArtistService service) {
         this.service = service;
     }
 
     @Override
-    public boolean add(ArtistDTO artistDTO) {
+    public boolean add(@WebParam(name = "artist") ArtistDTO artistDTO) {
         return service.add(artistDTO);
     }
 
-    /**@Override
+    //@Override
     public boolean update(int id, ArtistDTO artistDTO) throws Exception {
         return false;
-    }*/
+    }
 
     @WebResult(name="artist")
     @Override
@@ -49,6 +50,6 @@ public class ArtistServiceSoap implements IServiceSoap<ArtistDTO> {
 
     @Override
     public boolean delete(int id) {
-        return delete(id);
+        return service.delete(id);
     }
 }

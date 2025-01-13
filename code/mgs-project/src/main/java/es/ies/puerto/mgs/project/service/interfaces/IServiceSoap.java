@@ -12,8 +12,9 @@ import java.util.List;
 public interface IServiceSoap<T> {
     @WebMethod
     boolean add(T t);
-    //@WebMethod
-    //boolean update(@WebParam(name = "id") int id, @WebParam(name = "item") T t) throws Exception;
+   /** @WebMethod
+    boolean update(@WebParam(name = "id") int id, @WebParam(name = "item") T t) throws Exception;
+    */
     @WebMethod
     List<T> getAll();
     @WebMethod

@@ -17,18 +17,18 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class RoleServiceSopa implements IService<RoleDTO> {
+public class RoleServiceSoap implements IService<RoleDTO> {
     /**
      * Properties
      */
-    private final static Logger LOGGER = LoggerFactory.getLogger(RoleServiceSopa.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(RoleServiceSoap.class);
 
     private IDaoRole repository;
 
     /**
      * Default constructor of the class
      */
-    public RoleServiceSopa(){}
+    public RoleServiceSoap(){}
 
     /**
      * Setter of the dao
