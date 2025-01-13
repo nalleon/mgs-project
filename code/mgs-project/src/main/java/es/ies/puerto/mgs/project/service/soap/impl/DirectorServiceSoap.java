@@ -1,9 +1,14 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
+import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
+import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,89 +21,48 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class DirectorServiceSoap implements IService<DirectorDTO> {
+@WebService(endpointInterface = "es.ies.puerto.mgs.project.service.interfaces.IServiceSoap")
+public class DirectorServiceSoap implements IServiceSoap<DirectorDTO> {
     /**
      * Properties
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(DirectorServiceSoap.class);
 
-    private IDaoDirector repository;
+    private IService<DirectorDTO> service;
 
     /**
-     * Default constructor of the class
-     */
-    public DirectorServiceSoap(){}
-
-    /**
-     * Setter of the dao
-     * @param repository
+     * Setter of the service
+     * @param service
      */
     @Autowired
-    public void setiDaoDirector(IDaoDirector repository) {
-        this.repository = repository;
+    public void setService(DirectorService service) {
+        this.service = service;
     }
 
     @Override
     public boolean add(DirectorDTO directorDTO) {
-        if (directorDTO == null){
-            return false;
-        }
-
-        repository.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
-        return true;
+        return service.add(directorDTO);
     }
 
     @Override
-    public boolean update(int id, DirectorDTO directorDTO) throws Exception {
-        try {
-            Director toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
-
-            toUpdate.setFullName(directorDTO.getFullName());
-            repository.save(toUpdate);
-            return true;
-
-        } catch (Exception e){
-            return false;
-        }
+    public boolean update(DirectorDTO directorDTO) throws Exception {
+        return service.update(directorDTO.getDirectorId(), directorDTO);
     }
 
+    @WebResult(name="director")
 
     @Override
     public List<DirectorDTO> getAll() {
-        List<Director> directors = repository.findAll();
-        List<DirectorDTO> directorDTOS = new ArrayList<>();
-        for (Director director : directors){
-            directorDTOS.add(IDirectorMapper.INSTANCE.toDTO(director));
-        }
-        return directorDTOS;
+       return service.getAll();
     }
 
     @Override
     public DirectorDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
-        }
-
-        DirectorDTO result = null;
-
-        List<DirectorDTO> list = getAll();
-
-        for (DirectorDTO directorDTO: list){
-            if (directorDTO.getDirectorId() == id){
-                result = directorDTO;
-                break;
-            }
-        }
-        return result;
+        return service.getById(id);
     }
 
     @Override
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
+        return service.delete(id);
     }
 }

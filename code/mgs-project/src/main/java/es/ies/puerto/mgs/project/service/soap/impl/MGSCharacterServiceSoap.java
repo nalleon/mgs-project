@@ -1,10 +1,15 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
+import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +22,14 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class MGSCharacterServiceSoap implements IService<MGSCharacterDTO> {
+@WebService(endpointInterface = "es.ies.puerto.mgs.project.service.interfaces.IServiceSoap")
+public class MGSCharacterServiceSoap implements IServiceSoap<MGSCharacterDTO> {
     /**
      * Properties
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(MGSCharacterServiceSoap.class);
 
-    private IDaoMGSCharacter repository;
+    private IService<MGSCharacterDTO> service;
 
     /**
      * Default constructor of the class
@@ -31,80 +37,37 @@ public class MGSCharacterServiceSoap implements IService<MGSCharacterDTO> {
     public MGSCharacterServiceSoap(){}
 
     /**
-     * Setter of the dao
-     * @param repository
+     * Setter of the service
+     * @param service
      */
     @Autowired
-    public void setiDaoMGSCharacter(IDaoMGSCharacter repository) {
-        this.repository = repository;
+    public void setService(MGSCharacterService service) {
+        this.service = service;
     }
 
     @Override
     public boolean add(MGSCharacterDTO mgsCharacterDTO) {
-        if (mgsCharacterDTO == null){
-            return false;
-        }
-        repository.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
-        return true;
+        return service.add(mgsCharacterDTO);
     }
 
     @Override
-    public boolean update(int id, MGSCharacterDTO mgsCharacterDTO) throws Exception {
-        try {
-            MGSCharacter toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
-
-            MGSCharacter aux = IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO);
-            toUpdate.setCodename(aux.getCodename());
-            toUpdate.setName(aux.getName());
-            toUpdate.setAge(aux.getAge());
-            toUpdate.setArtist(aux.getArtist());
-            toUpdate.setStatus(aux.isStatus());
-            repository.save(toUpdate);
-            return true;
-
-        } catch (Exception e){
-            return false;
-        }
+    public boolean update(MGSCharacterDTO mgsCharacterDTO) throws Exception {
+        return service.update(mgsCharacterDTO.getId(), mgsCharacterDTO);
     }
 
-
+    @WebResult(name="mgsCharacter")
     @Override
     public List<MGSCharacterDTO> getAll() {
-        List<MGSCharacter> mgsCharacters = repository.findAll();
-        List<MGSCharacterDTO> mgsCharacterDTOS = new ArrayList<>();
-        for (MGSCharacter mgsCharacter : mgsCharacters){
-            mgsCharacterDTOS.add(IMGSCharacterMapper.INSTANCE.toDTO(mgsCharacter));
-        }
-        return mgsCharacterDTOS;
+        return service.getAll();
     }
 
     @Override
     public MGSCharacterDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
-        }
-
-        MGSCharacterDTO result = null;
-
-        List<MGSCharacterDTO> list = getAll();
-
-        for (MGSCharacterDTO mgsCharacterDTO: list){
-            if (mgsCharacterDTO.getId() == id){
-                result = mgsCharacterDTO;
-                break;
-            }
-        }
-        return result;
+        return service.getById(id);
     }
 
     @Override
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
-
+        return service.delete(id);
     }
 }

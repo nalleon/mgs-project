@@ -1,9 +1,14 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 import es.ies.puerto.mgs.project.dto.GameDTO;
+import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
 import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
+import es.ies.puerto.mgs.project.service.rest.impl.GameService;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +21,14 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class GameServiceSoap implements IService<GameDTO> {
+@WebService(endpointInterface = "es.ies.puerto.mgs.project.service.interfaces.IServiceSoap")
+public class GameServiceSoap implements IServiceSoap<GameDTO> {
     /**
      * Properties
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(GameServiceSoap.class);
 
-    private IDaoGame repository;
+    private IService<GameDTO> service;
 
     /**
      * Default constructor of the class
@@ -30,79 +36,38 @@ public class GameServiceSoap implements IService<GameDTO> {
     public GameServiceSoap(){}
 
     /**
-     * Setter of the dao
-     * @param repository
+     * Setter of the service
+     * @param service
      */
     @Autowired
-    public void setiDaoGame(IDaoGame repository) {
-        this.repository = repository;
+    public void setService(GameService service) {
+        this.service = service;
     }
 
     @Override
     public boolean add(GameDTO gameDTO) {
-        if (gameDTO == null){
-            return false;
-        }
-        repository.save(IGameMapper.INSTANCE.toEntity(gameDTO));
-        return true;
+        return service.add(gameDTO);
     }
 
     @Override
-    public boolean update(int id, GameDTO gameDTO) throws Exception {
-        try {
-            Game toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
-
-            Game aux = IGameMapper.INSTANCE.toEntity(gameDTO);
-            toUpdate.setDirector(aux.getDirector());
-            toUpdate.setName(aux.getName());
-            toUpdate.setGameCharacters(aux.getGameCharacters());
-
-            repository.save(toUpdate);
-            return true;
-
-        } catch (Exception e){
-            return false;
-        }
+    public boolean update(GameDTO gameDTO) throws Exception {
+        return service.update(gameDTO.getId(), gameDTO);
     }
 
+    @WebResult(name="game")
 
     @Override
     public List<GameDTO> getAll() {
-        List<Game> games = repository.findAll();
-        List<GameDTO> gameDTOS = new ArrayList<>();
-        for (Game game : games){
-            gameDTOS.add(IGameMapper.INSTANCE.toDTO(game));
-        }
-        return gameDTOS;
+        return service.getAll();
     }
 
     @Override
     public GameDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
-        }
-
-        GameDTO result = null;
-
-        List<GameDTO> list = getAll();
-
-        for (GameDTO gameDTO: list){
-            if (gameDTO.getId() == id){
-                result = gameDTO;
-                break;
-            }
-        }
-        return result;
-
+        return service.getById(id);
     }
 
     @Override
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
+        return service.delete(id);
     }
 }

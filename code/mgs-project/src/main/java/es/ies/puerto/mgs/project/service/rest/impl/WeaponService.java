@@ -4,16 +4,19 @@ import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceMongoDb;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class WeaponService implements IServiceMongoDb<WeaponDTO> {
+@Transactional()
+public class WeaponService implements IService<WeaponDTO> {
     /**
      * Properties
      */

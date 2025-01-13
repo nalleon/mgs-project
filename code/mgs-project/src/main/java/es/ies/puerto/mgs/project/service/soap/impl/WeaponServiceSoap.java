@@ -1,26 +1,27 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
-import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
-import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
-import es.ies.puerto.mgs.project.model.entities.Weapon;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceMongoDb;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
+import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class WeaponServiceSoap implements IServiceMongoDb<WeaponDTO> {
+@WebService(endpointInterface = "es.ies.puerto.mgs.project.service.interfaces.IServiceSoap")
+public class WeaponServiceSoap implements IServiceSoap<WeaponDTO> {
     /**
      * Properties
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(WeaponServiceSoap.class);
 
-    private IDaoWeapon repository;
+    private IService<WeaponDTO> service;
 
     /**
      * Default constructor of the class
@@ -28,77 +29,37 @@ public class WeaponServiceSoap implements IServiceMongoDb<WeaponDTO> {
     public WeaponServiceSoap(){}
 
     /**
-     * Setter of the dao
-     * @param repository
+     * Setter of the service
+     * @param service
      */
-
     @Autowired
-    public void setiDaoWeapon(IDaoWeapon repository) {
-        this.repository = repository;
+    public void setService(WeaponService service) {
+        this.service = service;
     }
 
     @Override
     public boolean add(WeaponDTO weaponDTO) {
-        if (!repository.existsById(weaponDTO.getId())){
-            repository.insert(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
-        } else{
-            repository.save(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
-        }
-        return true;
+        return service.add(weaponDTO);
     }
 
     @Override
-    public boolean update(int id, WeaponDTO weaponDTO) {
-        try {
-            Weapon toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
-
-            Weapon aux = IWeaponMapper.INSTANCE.toEntity(weaponDTO);
-            toUpdate.setName(aux.getName());
-            toUpdate.setType(aux.getType());
-            repository.save(toUpdate);
-            return true;
-
-        } catch (Exception e){
-            return false;
-        }
+    public boolean update(WeaponDTO weaponDTO) throws Exception {
+        return service.update(weaponDTO.getId(), weaponDTO);
     }
 
+    @WebResult(name="weapon")
     @Override
     public List<WeaponDTO> getAll() {
-        List<Weapon> weapons = repository.findAll();
-        List<WeaponDTO> weaponDTOS = new ArrayList<>();
-        for (Weapon weapon : weapons){
-            weaponDTOS.add(IWeaponMapper.INSTANCE.toDTO(weapon));
-        }
-        return weaponDTOS;
+        return service.getAll();
     }
 
     @Override
     public WeaponDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
-        }
-
-        WeaponDTO result = null;
-
-        List<WeaponDTO> list = getAll();
-
-        for (WeaponDTO weaponDTO: list){
-            if (weaponDTO.getId() == id){
-                result = weaponDTO;
-                break;
-            }
-        }
-        return result;
+        return service.getById(id);
     }
 
     @Override
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
+        return service.delete(id);
     }
 }

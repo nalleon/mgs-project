@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author nalleon
  */
 @Component
+@Transactional()
 public class MGSCharacterService implements IService<MGSCharacterDTO> {
     /**
      * Properties

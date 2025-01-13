@@ -1,10 +1,15 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
 import es.ies.puerto.mgs.project.dto.RoleDTO;
+import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
+import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
+import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +22,14 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class RoleServiceSoap implements IService<RoleDTO> {
+@WebService(endpointInterface = "es.ies.puerto.mgs.project.service.interfaces.IServiceSoap")
+public class RoleServiceSoap implements IServiceSoap<RoleDTO> {
     /**
      * Properties
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(RoleServiceSoap.class);
 
-    private IDaoRole repository;
+    private IService<RoleDTO> service;
 
     /**
      * Default constructor of the class
@@ -31,75 +37,37 @@ public class RoleServiceSoap implements IService<RoleDTO> {
     public RoleServiceSoap(){}
 
     /**
-     * Setter of the dao
-     * @param repository
+     * Setter of the service
+     * @param service
      */
     @Autowired
-    public void setIDaoRole(IDaoRole repository) {
-        this.repository = repository;
+    public void setService(RoleService service) {
+        this.service = service;
     }
 
     @Override
     public boolean add(RoleDTO roleDTO) {
-        if (roleDTO == null){
-            return false;
-        }
-        repository.save(IRoleMapper.INSTANCE.toEntity(roleDTO));
-        return true;
+        return service.add(roleDTO);
     }
 
     @Override
-    public boolean update(int id, RoleDTO roleDTO) throws Exception {
-        try {
-            Role toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
-
-            Role aux = IRoleMapper.INSTANCE.toEntity(roleDTO);
-            toUpdate.setName(aux.getName());
-            repository.save(toUpdate);
-            return true;
-
-        } catch (Exception e){
-            return false;
-        }
+    public boolean update(RoleDTO roleDTO) throws Exception {
+        return service.update(roleDTO.getId(), roleDTO);
     }
 
-
+    @WebResult(name="role")
     @Override
     public List<RoleDTO> getAll() {
-        List<Role> roles = repository.findAll();
-        List<RoleDTO> roleDTOS = new ArrayList<>();
-        for (Role role : roles){
-            roleDTOS.add(IRoleMapper.INSTANCE.toDTO(role));
-        }
-        return roleDTOS;
+        return service.getAll();
     }
 
     @Override
     public RoleDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
-        }
-
-        RoleDTO result = null;
-
-        List<RoleDTO> list = getAll();
-
-        for (RoleDTO roleDTO: list){
-            if (roleDTO.getId() == id){
-                result = roleDTO;
-                break;
-            }
-        }
-        return result;
+        return service.getById(id);
     }
 
     @Override
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
+        return service.delete(id);
     }
 }
