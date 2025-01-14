@@ -4,7 +4,7 @@ import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author nalleon
  */
 @Component
-public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
+@Transactional()
+public class MGSCharacterService implements IService<MGSCharacterDTO> {
     /**
      * Properties
      */
@@ -35,7 +37,7 @@ public class MGSCharacterService implements IServiceJPA<MGSCharacterDTO> {
      * @param repository
      */
     @Autowired
-    public void setiDaoMGSCharacter(IDaoMGSCharacter repository) {
+    public void setDao(IDaoMGSCharacter repository) {
         this.repository = repository;
     }
 

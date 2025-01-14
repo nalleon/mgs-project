@@ -1,4 +1,4 @@
-package es.ies.puerto.mgs.project.service;
+package es.ies.puerto.mgs.project.service.rest;
 
 import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -31,7 +32,7 @@ public class UserServiceTest extends TestUtilities {
     public void beforeEach (){
         MockitoAnnotations.openMocks(this);
         service = new UserService();
-        service.setIDaoUser(daoMock);
+        service.setDao(daoMock);
     }
     @Test
     void getAllTest() {
@@ -86,7 +87,17 @@ public class UserServiceTest extends TestUtilities {
         Assertions.assertFalse(service.add(null), MESSAGE_ERROR);
     }
 
+    @Test
+    void updateTest() throws Exception {
+        when(daoMock.save(any(User.class))).thenReturn(new User());
+        when(daoMock.findById(1)).thenReturn(Optional.of(new User()));
+        Assertions.assertTrue(service.update(1,new UserDTO(1, "admin")), MESSAGE_ERROR);
+    }
 
+    @Test
+    void updateFalseTest() throws Exception {
+        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
+    }
     @Test
     void deleteTest() {
         when(daoMock.existsById(1)).thenReturn(true);

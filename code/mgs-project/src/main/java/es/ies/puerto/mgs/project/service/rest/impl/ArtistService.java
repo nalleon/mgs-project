@@ -3,12 +3,12 @@ import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
 import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,8 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class ArtistService implements IServiceJPA<ArtistDTO> {
+@Transactional()
+public class ArtistService implements IService<ArtistDTO> {
     /**
      * Properties
      */
@@ -34,7 +35,7 @@ public class ArtistService implements IServiceJPA<ArtistDTO> {
      * @param repository
      */
     @Autowired
-    public void setiDaoArtist(IDaoArtist repository) {
+    public void setDao(IDaoArtist repository) {
         this.repository = repository;
     }
 

@@ -3,11 +3,12 @@ import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
 import es.ies.puerto.mgs.project.model.entities.Director;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,8 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-public class DirectorService implements IServiceJPA<DirectorDTO> {
+@Transactional()
+public class DirectorService implements IService<DirectorDTO> {
     /**
      * Properties
      */
@@ -34,7 +36,7 @@ public class DirectorService implements IServiceJPA<DirectorDTO> {
      * @param repository
      */
     @Autowired
-    public void setiDaoDirector(IDaoDirector repository) {
+    public void setDao(IDaoDirector repository) {
         this.repository = repository;
     }
 

@@ -1,9 +1,13 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
-import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.dto.RoleDTO;
+import es.ies.puerto.mgs.project.dto.RoleDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
+import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
+import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
-import es.ies.puerto.mgs.project.service.rest.impl.UserService;
+import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import org.slf4j.Logger;
@@ -11,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,46 +23,46 @@ import java.util.List;
  */
 @Component
 @WebService(endpointInterface = "es.ies.puerto.mgs.project.service.interfaces.IServiceSoap")
-public class UserServiceSoap implements IServiceSoap<UserDTO> {
+public class RoleServiceSoap implements IServiceSoap<RoleDTO> {
     /**
      * Properties
      */
-    private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceSoap.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(RoleServiceSoap.class);
 
-    private IService<UserDTO> service;
+    private IService<RoleDTO> service;
 
     /**
      * Default constructor of the class
      */
-    public UserServiceSoap(){}
+    public RoleServiceSoap(){}
 
     /**
      * Setter of the service
      * @param service
      */
     @Autowired
-    public void setService(UserService service) {
+    public void setService(RoleService service) {
         this.service = service;
     }
 
     @Override
-    public boolean add(UserDTO userDTO) {
-        return service.add(userDTO);
+    public boolean add(RoleDTO roleDTO) {
+        return service.add(roleDTO);
     }
 
     @Override
-    public boolean update(UserDTO userDTO) throws Exception {
-        return service.update(userDTO.getId(), userDTO);
+    public boolean update(RoleDTO roleDTO) throws Exception {
+        return service.update(roleDTO.getId(), roleDTO);
     }
 
-    @WebResult(name="user")
+    @WebResult(name="role")
     @Override
-    public List<UserDTO> getAll() {
+    public List<RoleDTO> getAll() {
         return service.getAll();
     }
 
     @Override
-    public UserDTO getById(int id) {
+    public RoleDTO getById(int id) {
         return service.getById(id);
     }
 

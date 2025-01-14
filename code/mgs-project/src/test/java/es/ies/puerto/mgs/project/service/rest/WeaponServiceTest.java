@@ -1,9 +1,8 @@
-package es.ies.puerto.mgs.project.service;
-
-import es.ies.puerto.mgs.project.dto.DirectorDTO;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
-import es.ies.puerto.mgs.project.model.entities.Director;
-import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;
+package es.ies.puerto.mgs.project.service.rest;
+import es.ies.puerto.mgs.project.dto.WeaponDTO;
+import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
+import es.ies.puerto.mgs.project.model.entities.Weapon;
+import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,26 +19,27 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class DirectorServiceTest extends TestUtilities {
+public class WeaponServiceTest extends TestUtilities {
+
     @Mock
-    IDaoDirector daoMock;
+    IDaoWeapon daoMock;
 
     @InjectMocks
-    DirectorService service;
+    WeaponService service;
 
 
     @BeforeEach
     public void beforeEach (){
         MockitoAnnotations.openMocks(this);
-        service = new DirectorService();
-        service.setiDaoDirector(daoMock);
+        service = new WeaponService();
+        service.setDao(daoMock);
     }
     @Test
     void getAllTest() {
-        List<Director> list = new ArrayList<>();
-        list.add(new Director(1));
-        list.add(new Director(2));
-        list.add(new Director(3));
+        List<Weapon> list = new ArrayList<>();
+        list.add(new Weapon(1));
+        list.add(new Weapon(2));
+        list.add(new Weapon(3));
         when(daoMock.findAll()).thenReturn(list);
         Assertions.assertNotNull(service.getAll(), MESSAGE_ERROR);
     }
@@ -61,7 +61,7 @@ public class DirectorServiceTest extends TestUtilities {
     @Test
     void getByIdListWithoutObjectTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new Director(2), new Director(3))));
+        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new Weapon(2), new Weapon(3))));
 
         Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
@@ -69,35 +69,27 @@ public class DirectorServiceTest extends TestUtilities {
     @Test
     void getOneTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        List<Director> list = new ArrayList<>();
-        list.add(new Director(1));
-        list.add(new Director(2));
-        list.add(new Director(3));
+        List<Weapon> list = new ArrayList<>();
+        list.add(new Weapon(1));
+        list.add(new Weapon(2));
+        list.add(new Weapon(3));
         when(daoMock.findAll()).thenReturn(list);
         Assertions.assertNotNull(service.getById(1), MESSAGE_ERROR);
     }
 
     @Test
-    void addUpdateTest() {
-        when(daoMock.save(any(Director.class))).thenReturn(new Director());
-        Assertions.assertTrue(service.add(new DirectorDTO(1)), MESSAGE_ERROR);
+    void addTest() {
+        when(daoMock.insert(any(Weapon.class))).thenReturn(new Weapon());
+        Assertions.assertTrue(service.add(new WeaponDTO(1)), MESSAGE_ERROR);
     }
 
     @Test
-    void addUpdateFalseTest() {
-        Assertions.assertFalse(service.add(null), MESSAGE_ERROR);
-    }
+    void addDupeTest() {
+        when(daoMock.save(any(Weapon.class))).thenReturn(new Weapon());
+        when(daoMock.existsById(1)).thenReturn(true);
 
-    @Test
-    void updateTest() throws Exception {
-        when(daoMock.save(any(Director.class))).thenReturn(new Director());
-        when(daoMock.findById(1)).thenReturn(Optional.of(new Director()));
-        Assertions.assertTrue(service.update(1,new DirectorDTO(1)), MESSAGE_ERROR);
-    }
+        Assertions.assertTrue(service.add(new WeaponDTO(1, "test", "testing")), MESSAGE_ERROR);
 
-    @Test
-    void updateFalseTest() throws Exception {
-        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
     }
 
     @Test
@@ -111,4 +103,18 @@ public class DirectorServiceTest extends TestUtilities {
         when(daoMock.existsById(1)).thenReturn(false);
         Assertions.assertFalse(service.delete(1), MESSAGE_ERROR);
     }
+
+    @Test
+    void updateTest() throws Exception {
+        when(daoMock.save(any(Weapon.class))).thenReturn(new Weapon());
+        when(daoMock.findById(1)).thenReturn(Optional.of(new Weapon()));
+        Assertions.assertTrue(service.update(1,new WeaponDTO(1)), MESSAGE_ERROR);
+    }
+
+    @Test
+    void updateFalseTest() throws Exception {
+        Assertions.assertFalse(service.update(0, null), MESSAGE_ERROR);
+    }
+
+
 }

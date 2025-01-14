@@ -1,9 +1,10 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
-
-import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
-import es.ies.puerto.mgs.project.service.rest.impl.UserService;
+import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
+
+import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import org.slf4j.Logger;
@@ -18,46 +19,40 @@ import java.util.List;
  */
 @Component
 @WebService(endpointInterface = "es.ies.puerto.mgs.project.service.interfaces.IServiceSoap")
-public class UserServiceSoap implements IServiceSoap<UserDTO> {
+public class ArtistServiceSoap implements IServiceSoap<ArtistDTO> {
     /**
      * Properties
      */
-    private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceSoap.class);
-
-    private IService<UserDTO> service;
-
-    /**
-     * Default constructor of the class
-     */
-    public UserServiceSoap(){}
+    private final static Logger LOGGER = LoggerFactory.getLogger(ArtistServiceSoap.class);
+    private IService<ArtistDTO> service;
 
     /**
      * Setter of the service
      * @param service
      */
     @Autowired
-    public void setService(UserService service) {
+    public void setService(ArtistService service) {
         this.service = service;
     }
 
     @Override
-    public boolean add(UserDTO userDTO) {
-        return service.add(userDTO);
+    public boolean add(@WebParam(name = "artist") ArtistDTO artistDTO) {
+        return service.add(artistDTO);
     }
 
     @Override
-    public boolean update(UserDTO userDTO) throws Exception {
-        return service.update(userDTO.getId(), userDTO);
+    public boolean update(ArtistDTO artistDTO) throws Exception {
+        return service.update(artistDTO.getArtistId(), artistDTO);
     }
 
-    @WebResult(name="user")
+    @WebResult(name="artist")
     @Override
-    public List<UserDTO> getAll() {
+    public List<ArtistDTO> getAll() {
         return service.getAll();
     }
 
     @Override
-    public UserDTO getById(int id) {
+    public ArtistDTO getById(int id) {
         return service.getById(id);
     }
 

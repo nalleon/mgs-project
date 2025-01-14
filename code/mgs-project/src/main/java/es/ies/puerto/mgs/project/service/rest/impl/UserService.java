@@ -4,7 +4,7 @@ import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.entities.User;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author nalleon
  */
 @Component
-public class UserService implements IServiceJPA<UserDTO> {
+@Transactional()
+public class UserService implements IService<UserDTO> {
     /**
      * Properties
      */
@@ -35,7 +37,7 @@ public class UserService implements IServiceJPA<UserDTO> {
      * @param repository
      */
     @Autowired
-    public void setIDaoUser(IDaoUser repository) {
+    public void setDao(IDaoUser repository) {
         this.repository = repository;
     }
 

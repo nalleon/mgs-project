@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+           http://cxf.apache.org/jaxws https://cxf.apache.org/schemas/jaxws.xsd">
+
+    <!-- Definición del servicio -->
+    <jaxws:endpoint id="artistServiceEndpoint"
+                    implementor="#artistServiceSoapImpl"
+                    address="/artists"/>
+    <jaxws:endpoint id="directorServiceEndpoint"
+                    implementor="#directorServiceSoapImpl"
+                    address="/directors"/>
+    <jaxws:endpoint id="gameServiceEndpoint"
+                    implementor="#gameServiceSoapImpl"
+                    address="/games"/>
+    <jaxws:endpoint id="mgsCharacterServiceEndpoint"
+                    implementor="#mgsCharacterServiceSoapImpl"
+                    address="/characters"/>
+    <jaxws:endpoint id="roleServiceEndpoint"
+                    implementor="#roleServiceSoapImpl"
+                    address="/roles"/>
+    <jaxws:endpoint id="userServiceEndpoint"
+                    implementor="#userServiceSoapImpl"
+                    address="/users"/>
+    <jaxws:endpoint id="weaponServiceEndpoint"
+                    implementor="#weaponServiceSoapImpl"
+                    address="/weapons"/>
+
+    <!-- Definición de los beans -->
+    <bean id="artistServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.ArtistServiceSoap"/>
+    <bean id="directorServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.DirectorServiceSoap"/>
+    <bean id="gameServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.GameServiceSoap"/>
+    <bean id="mgsCharacterServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.MGSCharacterServiceSoap"/>
+    <bean id="roleServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.RoleServiceSoap"/>
+    <bean id="userServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.UserServiceSoap"/>
+    <bean id="weaponServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.WeaponServiceSoap"/>
+
+
+</beans>
+

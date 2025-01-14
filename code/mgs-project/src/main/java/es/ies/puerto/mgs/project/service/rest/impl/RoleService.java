@@ -4,7 +4,7 @@ import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
 import es.ies.puerto.mgs.project.model.entities.Role;
-import es.ies.puerto.mgs.project.service.interfaces.IServiceJPA;
+import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author nalleon
  */
 @Component
-public class RoleService implements IServiceJPA<RoleDTO> {
+@Transactional()
+public class RoleService implements IService<RoleDTO> {
     /**
      * Properties
      */
@@ -35,7 +37,7 @@ public class RoleService implements IServiceJPA<RoleDTO> {
      * @param repository
      */
     @Autowired
-    public void setIDaoRole(IDaoRole repository) {
+    public void setDao(IDaoRole repository) {
         this.repository = repository;
     }
 
