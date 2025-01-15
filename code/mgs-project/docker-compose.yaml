@@ -1,0 +1,16 @@
+version: '3'
+services:
+  tomcat-app:
+    image: tomcat:latest
+    container_name: tomcat-container
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./target:/usr/local/tomcat/webapps/
+      - ./src/main/resources/mgs.db:/usr/local/tomcat/mgs.db
+    networks:
+      - mgs-network
+volumes:
+  mgs-volume:
+networks:
+  mgs-network:
