@@ -41,7 +41,7 @@ public class ArtistController implements IController<ArtistDTO> {
      * @param service
      */
     @Autowired
-    public void setArtistService(ArtistService service) {
+    public void setArtistService(@RequestBody ArtistService service) {
         this.service = service;
     }
 

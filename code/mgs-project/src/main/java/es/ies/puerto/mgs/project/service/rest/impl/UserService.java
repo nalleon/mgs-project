@@ -1,8 +1,11 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
+import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
+import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
@@ -18,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author nalleon
  */
 @Component
-@Transactional()
+//@Transactional()
 public class UserService implements IService<UserDTO> {
     /**
      * Properties
@@ -46,7 +49,10 @@ public class UserService implements IService<UserDTO> {
         if (userDTO == null){
             return false;
         }
-        repository.save(IUserMapper.INSTANCE.toEntity(userDTO));
+        Role aux = IRoleMapper.INSTANCE.toEntity(userDTO.getRole());
+        User entityAux = IUserMapper.INSTANCE.toEntity(userDTO);
+        entityAux.setRole(aux);
+        repository.save(entityAux);
         return true;
     }
 

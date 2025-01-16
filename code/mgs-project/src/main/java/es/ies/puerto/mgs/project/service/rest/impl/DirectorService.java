@@ -17,7 +17,7 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-@Transactional()
+//@Transactional()
 public class DirectorService implements IService<DirectorDTO> {
     /**
      * Properties

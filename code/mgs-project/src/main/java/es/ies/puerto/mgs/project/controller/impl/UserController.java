@@ -46,14 +46,14 @@ public class UserController implements IController<UserDTO> {
     }
 
 
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "Insert user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User created successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request")
     })
     @Override
-    public ResponseEntity add(UserDTO dto) {
+    public ResponseEntity add(@RequestBody UserDTO dto) {
         service.add(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -74,7 +74,7 @@ public class UserController implements IController<UserDTO> {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping
     @Operation(summary = "Get all users")
     @Override
     public ResponseEntity<List<UserDTO>> getAll() {

@@ -46,7 +46,7 @@ public class GameController implements IController<GameDTO> {
     @Override
     @PostMapping("/")
     @Operation(summary = "Insert game")
-    public ResponseEntity add(GameDTO gameDTO) {
+    public ResponseEntity add(@RequestBody GameDTO gameDTO) {
         service.add(gameDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

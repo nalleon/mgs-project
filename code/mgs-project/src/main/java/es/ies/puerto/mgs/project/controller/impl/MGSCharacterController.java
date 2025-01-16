@@ -45,7 +45,7 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     @Override
     @PostMapping("/")
     @Operation(summary = "Insert character")
-    public ResponseEntity add(MGSCharacterDTO mgsCharacterDTO) {
+    public ResponseEntity add(@RequestBody MGSCharacterDTO mgsCharacterDTO) {
         service.add(mgsCharacterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

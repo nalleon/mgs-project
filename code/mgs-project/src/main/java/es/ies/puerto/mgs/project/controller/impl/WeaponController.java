@@ -46,7 +46,7 @@ public class WeaponController implements IController<WeaponDTO> {
     @Override
     @PostMapping("/")
     @Operation(summary = "Insert weapon")
-    public ResponseEntity add(WeaponDTO weaponDTO) {
+    public ResponseEntity add(@RequestBody WeaponDTO weaponDTO) {
         service.add(weaponDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

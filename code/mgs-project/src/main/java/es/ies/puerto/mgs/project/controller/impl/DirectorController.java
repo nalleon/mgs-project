@@ -46,7 +46,7 @@ public class DirectorController implements IController<DirectorDTO> {
     @Override
     @PostMapping("/")
     @Operation(summary = "Insert director")
-    public ResponseEntity add(DirectorDTO directorDTO) {
+    public ResponseEntity add(@RequestBody DirectorDTO directorDTO) {
         service.add(directorDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

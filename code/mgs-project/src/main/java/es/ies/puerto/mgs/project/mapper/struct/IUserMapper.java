@@ -8,7 +8,8 @@ import org.mapstruct.factory.Mappers;
 /**
  * @author nalleon
  */
-@Mapper
+@Mapper(uses = {IRoleMapper.class})
+
 public interface IUserMapper {
     IUserMapper INSTANCE = Mappers.getMapper(IUserMapper.class);
 
