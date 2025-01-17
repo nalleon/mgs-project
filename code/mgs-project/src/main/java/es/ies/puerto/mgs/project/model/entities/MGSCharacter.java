@@ -24,7 +24,8 @@ public class MGSCharacter implements Serializable {
     String codename;
     int age;
     boolean status;
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "artist_artist_id")
     Artist artist;
     @ManyToMany(mappedBy = "gameCharacters", cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     Set<Game> games;

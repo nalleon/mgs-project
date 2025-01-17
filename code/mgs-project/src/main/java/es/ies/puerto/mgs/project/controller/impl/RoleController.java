@@ -28,14 +28,6 @@ public class RoleController implements IController<RoleDTO> {
     }
 
     /**
-     * Constructor of the class
-     * @param service
-     */
-    public RoleController(RoleService service) {
-        this.service = service;
-    }
-
-    /**
      * Setter of the service
      * @param service
      */
@@ -47,15 +39,15 @@ public class RoleController implements IController<RoleDTO> {
     @Override
     @PostMapping("/{id}")
     @Operation(summary = "Insert role")
-    public ResponseEntity add(RoleDTO dto) {
+    public ResponseEntity add(@RequestBody RoleDTO dto) {
         service.add(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/")
+    @PutMapping("/{id}")
     @Operation(summary = "Update role")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @Valid @RequestBody RoleDTO dto) {
+    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody RoleDTO dto) {
         try {
             service.update(id, dto);
             return ResponseEntity.ok().build();
@@ -74,14 +66,14 @@ public class RoleController implements IController<RoleDTO> {
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get role by ID")
-    public ResponseEntity<RoleDTO> getById(int id) {
+    public ResponseEntity<RoleDTO> getById(@PathVariable(value = "id")int id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete role")
-    public ResponseEntity delete(int id) {
+    public ResponseEntity delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

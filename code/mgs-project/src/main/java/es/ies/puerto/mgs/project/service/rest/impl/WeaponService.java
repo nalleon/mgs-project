@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-//@Transactional()
+@Transactional()
 public class WeaponService implements IService<WeaponDTO> {
     /**
      * Properties

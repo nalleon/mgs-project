@@ -28,13 +28,6 @@ public class UserController implements IController<UserDTO> {
     public UserController() {
     }
 
-    /**
-     * Constructor of the class
-     * @param service
-     */
-    public UserController(UserService service) {
-        this.service = service;
-    }
 
     /**
      * Setter of the service
@@ -65,7 +58,7 @@ public class UserController implements IController<UserDTO> {
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @Valid @RequestBody UserDTO dto) {
+    public ResponseEntity <?> update(@PathVariable(value = "id") int id, @RequestBody UserDTO dto) {
         try {
             service.update(id, dto);
             return ResponseEntity.ok().build();
@@ -88,7 +81,7 @@ public class UserController implements IController<UserDTO> {
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getById(int id) {
+    public ResponseEntity<UserDTO> getById(@PathVariable(value = "id") int id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
@@ -99,7 +92,7 @@ public class UserController implements IController<UserDTO> {
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(int id) {
+    public ResponseEntity delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

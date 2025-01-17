@@ -26,16 +26,22 @@ INSERT INTO mgscharacters (id, age, codename, name, status, artist_artist_id) VA
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (1, 1); -- Solid Snake
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (1, 4); -- Revolver Ocelot
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (1, 5); -- Meryl
+INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (1, 10); -- Liquid Snake
+INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (1, 14); -- Otacon
 
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (2, 1); -- Solid Snake
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (2, 3); -- Raiden
+INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (2, 9); -- Rose Mary
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (2, 6); -- Vamp
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (2, 7); -- Solidus Snake
+INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (2, 14); -- Otacon
 
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (3, 2); -- Naked Snake
+INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (3, 4); -- Revolver Ocelot
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (3, 11); -- The Boss
 
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (4, 1); -- Solid Snake
+INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (4, 3); -- Raiden
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (4, 4); -- Revolver Ocelot
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (4, 5); -- Meryl
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (4, 14); -- Otacon
@@ -43,6 +49,8 @@ INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (4, 14); -- O
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (5, 8); -- Kazuhira Miller
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (5, 12); -- Venom Snake
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (5, 13); -- Quiet
+INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (5, 4); -- Revolver Ocelot
+
 
 INSERT INTO roles (id, name) VALUES (1, 'Admin');
 INSERT INTO roles (id, name) VALUES (2, 'User');

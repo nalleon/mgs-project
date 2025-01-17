@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author nalleon
  */
 @Component
-//@Transactional()
+@Transactional()
 public class MGSCharacterService implements IService<MGSCharacterDTO> {
     /**
      * Properties

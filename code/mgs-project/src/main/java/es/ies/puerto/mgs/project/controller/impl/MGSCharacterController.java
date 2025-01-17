@@ -26,14 +26,6 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     }
 
     /**
-     * Constructor of the class
-     * @param service
-     */
-    public MGSCharacterController(MGSCharacterService service) {
-        this.service = service;
-    }
-
-    /**
      * Setter of the service
      * @param service
      */
@@ -53,7 +45,7 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update character")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @Valid @RequestBody MGSCharacterDTO mgsCharacterDTO) {
+    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody MGSCharacterDTO mgsCharacterDTO) {
         try {
             service.update(id, mgsCharacterDTO);
             return ResponseEntity.ok().build();
@@ -72,14 +64,14 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get character by ID")
-    public ResponseEntity<MGSCharacterDTO> getById(int id) {
+    public ResponseEntity<MGSCharacterDTO> getById(@PathVariable(value = "id") int id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete character")
-    public ResponseEntity delete(int id) {
+    public ResponseEntity delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

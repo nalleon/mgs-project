@@ -16,7 +16,7 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-//@Transactional()
+@Transactional()
 public class ArtistService implements IService<ArtistDTO> {
     /**
      * Properties

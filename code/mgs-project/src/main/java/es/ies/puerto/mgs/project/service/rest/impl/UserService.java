@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author nalleon
  */
 @Component
-//@Transactional()
+@Transactional()
 public class UserService implements IService<UserDTO> {
     /**
      * Properties
@@ -49,10 +49,7 @@ public class UserService implements IService<UserDTO> {
         if (userDTO == null){
             return false;
         }
-        Role aux = IRoleMapper.INSTANCE.toEntity(userDTO.getRole());
-        User entityAux = IUserMapper.INSTANCE.toEntity(userDTO);
-        entityAux.setRole(aux);
-        repository.save(entityAux);
+        repository.save(IUserMapper.INSTANCE.toEntity(userDTO));
         return true;
     }
 

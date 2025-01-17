@@ -18,7 +18,7 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-//@Transactional()
+@Transactional()
 public class GameService implements IService<GameDTO> {
     /**
      * Properties

@@ -27,14 +27,6 @@ public class DirectorController implements IController<DirectorDTO> {
     }
 
     /**
-     * Constructor of the class
-     * @param service
-     */
-    public DirectorController(DirectorService service) {
-        this.service = service;
-    }
-
-    /**
      * Setter of the service
      * @param service
      */
@@ -54,7 +46,7 @@ public class DirectorController implements IController<DirectorDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update director")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @Valid @RequestBody DirectorDTO directorDTO) {
+    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody DirectorDTO directorDTO) {
         try {
             service.update(id, directorDTO);
             return ResponseEntity.ok().build();
@@ -73,14 +65,14 @@ public class DirectorController implements IController<DirectorDTO> {
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get director by ID")
-    public ResponseEntity<DirectorDTO> getById(int id) {
+    public ResponseEntity<DirectorDTO> getById(@PathVariable(value = "id") int id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete director")
-    public ResponseEntity delete(int id) {
+    public ResponseEntity delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

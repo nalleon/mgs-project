@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
-@RequestMapping("api/v1/artists")
+@RequestMapping("/v1/artists")
 public class ArtistController implements IController<ArtistDTO> {
     /**
      * Properties
@@ -24,15 +24,6 @@ public class ArtistController implements IController<ArtistDTO> {
      * Default constructor of the class
      */
     public ArtistController() {
-    }
-
-    /**
-     * Constructor of the class
-     *
-     * @param service
-     */
-    public ArtistController(ArtistService service) {
-        this.service = service;
     }
 
     /**
@@ -48,7 +39,7 @@ public class ArtistController implements IController<ArtistDTO> {
     @Override
     @Operation(summary = "Insert artist")
     @PostMapping("/")
-    public ResponseEntity add(ArtistDTO artistDTO) {
+    public ResponseEntity add(@RequestBody ArtistDTO artistDTO) {
         service.add(artistDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -56,7 +47,7 @@ public class ArtistController implements IController<ArtistDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update artist")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @Valid @RequestBody ArtistDTO artistDTO) {
+    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody ArtistDTO artistDTO) {
         try {
             service.update(id, artistDTO);
             return ResponseEntity.ok().build();
@@ -75,14 +66,14 @@ public class ArtistController implements IController<ArtistDTO> {
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get artist by ID")
-    public ResponseEntity<ArtistDTO> getById(int id) {
+    public ResponseEntity<ArtistDTO> getById(@PathVariable(value = "id") int id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     @Override
     @Operation(summary = "Delete artist")
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(int id) {
+    public ResponseEntity delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

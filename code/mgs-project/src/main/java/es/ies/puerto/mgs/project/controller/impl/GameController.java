@@ -26,13 +26,6 @@ public class GameController implements IController<GameDTO> {
     public GameController() {
     }
 
-    /**
-     * Constructor of the class
-     * @param service
-     */
-    public GameController(GameService service) {
-        this.service = service;
-    }
 
     /**
      * Setter of the service
@@ -54,7 +47,7 @@ public class GameController implements IController<GameDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update game")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @Valid @RequestBody GameDTO gameDTO) {
+    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody GameDTO gameDTO) {
         try {
             service.update(id, gameDTO);
             return ResponseEntity.ok().build();
@@ -73,14 +66,14 @@ public class GameController implements IController<GameDTO> {
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get game by ID")
-    public ResponseEntity<GameDTO> getById(int id) {
+    public ResponseEntity<GameDTO> getById(@PathVariable(value = "id") int id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete game")
-    public ResponseEntity delete(int id) {
+    public ResponseEntity delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
