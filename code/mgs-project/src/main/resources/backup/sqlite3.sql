@@ -1,3 +1,52 @@
+CREATE TABLE artists (
+    artist_id INTEGER NOT NULL PRIMARY KEY,
+    full_name VARCHAR(255)
+);
+
+CREATE TABLE directors (
+    director_id INTEGER NOT NULL PRIMARY KEY,
+    full_name VARCHAR(255)
+);
+
+CREATE TABLE games (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name VARCHAR(255),
+    director_director_id INTEGER,
+    FOREIGN KEY (director_director_id) REFERENCES directors(director_id) ON DELETE SET NULL
+);
+
+CREATE TABLE games_mgscharacters (
+    game_id INTEGER NOT NULL,
+    mgs_character_id INTEGER NOT NULL,
+    PRIMARY KEY (game_id, mgs_character_id),
+    FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE,
+    FOREIGN KEY (mgs_character_id) REFERENCES mgscharacters(id) ON DELETE CASCADE
+);
+
+CREATE TABLE mgscharacters (
+    id INTEGER NOT NULL PRIMARY KEY,
+    age INTEGER NOT NULL,
+    codename VARCHAR(255),
+    name VARCHAR(255),
+    status BOOLEAN NOT NULL,
+    artist_artist_id INTEGER,
+    FOREIGN KEY (artist_artist_id) REFERENCES artists(artist_id) ON DELETE SET NULL
+);
+
+CREATE TABLE roles (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name VARCHAR(255)
+);
+
+CREATE TABLE users (
+    id INTEGER NOT NULL PRIMARY KEY,
+    email VARCHAR(255),
+    name VARCHAR(255),
+    password VARCHAR(255),
+    role_id INTEGER,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
+);
+
 INSERT INTO artists (artist_id, full_name) VALUES (1, 'Yoji Shinkawa');
 INSERT INTO artists (artist_id, full_name) VALUES (2, 'Yoji Shinkawa');
 INSERT INTO artists (artist_id, full_name) VALUES (3, 'Yushi Yamaguchi');
