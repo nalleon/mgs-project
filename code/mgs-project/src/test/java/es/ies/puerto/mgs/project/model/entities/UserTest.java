@@ -44,16 +44,19 @@ public class UserTest extends TestUtilities {
     @Test
     public void equalsTest(){
         User equals = new User(USER_ID, EMAIL);
-        User notEquals = new User(2, "anotheremail@gmail.com");
+        User differentEmail = new User(USER_ID, "different@gmail.com");
+        User differentId = new User(2, EMAIL);
+        User completelyDifferent = new User(3, "another@gmail.com");
         String str = "str";
         User nullObject = null;
 
-        Assertions.assertTrue(user.equals(equals), MESSAGE_ERROR);
-        Assertions.assertTrue(user.equals(user), MESSAGE_ERROR);
-        Assertions.assertEquals(user.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(user, equals, MESSAGE_ERROR);
-        Assertions.assertFalse(user.equals(nullObject), MESSAGE_ERROR);
-        Assertions.assertFalse(user.equals(notEquals), MESSAGE_ERROR);
-        Assertions.assertFalse(user.equals(str), MESSAGE_ERROR);
+        Assertions.assertEquals(user, user, MESSAGE_ERROR);
+        Assertions.assertEquals(user.hashCode(), equals.hashCode(), MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, differentEmail, MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, differentId, MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, completelyDifferent, MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, nullObject, MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, str, MESSAGE_ERROR);
     }
 }

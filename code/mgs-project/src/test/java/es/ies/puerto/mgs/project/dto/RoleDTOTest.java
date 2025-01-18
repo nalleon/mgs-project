@@ -32,16 +32,19 @@ public class RoleDTOTest extends TestUtilities {
     @Test
     public void equalsTest(){
         RoleDTO equals = new RoleDTO(ROLE_ID, NAME);
-        RoleDTO notEquals = new RoleDTO(2, "anotherName");
+        RoleDTO differentName = new RoleDTO(ROLE_ID, "DifferentName");
+        RoleDTO differentId = new RoleDTO(2, NAME);
+        RoleDTO completelyDifferent = new RoleDTO(3, "AnotherName");
         String str = "str";
         RoleDTO nullObject = null;
 
-        Assertions.assertTrue(role.equals(equals), MESSAGE_ERROR);
-        Assertions.assertTrue(role.equals(role), MESSAGE_ERROR);
-        Assertions.assertEquals(role.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(role, equals, MESSAGE_ERROR);
-        Assertions.assertFalse(role.equals(nullObject), MESSAGE_ERROR);
-        Assertions.assertFalse(role.equals(notEquals), MESSAGE_ERROR);
-        Assertions.assertFalse(role.equals(str), MESSAGE_ERROR);
+        Assertions.assertEquals(role, role, MESSAGE_ERROR);
+        Assertions.assertEquals(role.hashCode(), equals.hashCode(), MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, differentName, MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, differentId, MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, completelyDifferent, MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, nullObject, MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, str, MESSAGE_ERROR);
     }
 }

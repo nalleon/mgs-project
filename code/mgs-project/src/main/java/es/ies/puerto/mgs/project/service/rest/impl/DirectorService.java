@@ -1,7 +1,9 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 import es.ies.puerto.mgs.project.dto.DirectorDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
+import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
@@ -17,7 +19,6 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-@Transactional()
 public class DirectorService implements IService<DirectorDTO> {
     /**
      * Properties
@@ -41,8 +42,13 @@ public class DirectorService implements IService<DirectorDTO> {
     }
 
     @Override
+    @Transactional
+
     public boolean add(DirectorDTO directorDTO) {
         if (directorDTO == null){
+            return false;
+        }
+        if(repository.existsById(directorDTO.getDirectorId())){
             return false;
         }
 
@@ -51,16 +57,20 @@ public class DirectorService implements IService<DirectorDTO> {
     }
 
     @Override
+    @Transactional
     public boolean update(int id, DirectorDTO directorDTO) throws Exception {
         try {
-            Director toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
+            Director toUpdate = repository.findById(id).orElse(null);
 
-            toUpdate.setFullName(directorDTO.getFullName());
-            repository.save(toUpdate);
-            return true;
+            if(toUpdate!= null){
+                toUpdate.setFullName(directorDTO.getFullName());
+                return true;
+            } else {
+                return false;
+            }
 
-        } catch (Exception e){
+
+        } catch (RuntimeException e){
             return false;
         }
     }
@@ -68,39 +78,27 @@ public class DirectorService implements IService<DirectorDTO> {
 
     @Override
     public List<DirectorDTO> getAll() {
-        List<Director> directors = repository.findAll();
-        List<DirectorDTO> directorDTOS = new ArrayList<>();
-        for (Director director : directors){
-            directorDTOS.add(IDirectorMapper.INSTANCE.toDTO(director));
-        }
-        return directorDTOS;
+        return repository.findAll()
+                .stream()
+                .map(IDirectorMapper.INSTANCE::toDTO)
+                .toList();
     }
 
     @Override
     public DirectorDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
+        Director result = repository.findById(id).orElse(null);;
+
+        if(result != null) {
+            return IDirectorMapper.INSTANCE.toDTO(result);
         }
 
-        DirectorDTO result = null;
-
-        List<DirectorDTO> list = getAll();
-
-        for (DirectorDTO directorDTO: list){
-            if (directorDTO.getDirectorId() == id){
-                result = directorDTO;
-                break;
-            }
-        }
-        return result;
+        return null;
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
+        int quantity = repository.deleteItemById(id);
+        return quantity > 0;
     }
 }

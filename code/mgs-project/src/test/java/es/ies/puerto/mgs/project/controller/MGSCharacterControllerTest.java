@@ -2,6 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.MGSCharacterController;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -78,6 +79,13 @@ public class MGSCharacterControllerTest extends TestUtilities {
         when(serviceMock.add(dto)).thenReturn(true);
         ResponseEntity responseEntity = controller.update(1, dto);
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
+    }
+
+    @Test
+    void updateExceptionTest() throws Exception {
+        MGSCharacterDTO dto = new MGSCharacterDTO(1);
+        when(serviceMock.update(1, new MGSCharacterDTO(1))).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
     }
 
 }

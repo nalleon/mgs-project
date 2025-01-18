@@ -1,7 +1,11 @@
 package es.ies.puerto.mgs.project.service.rest;
 
+import es.ies.puerto.mgs.project.dto.ArtistDTO;
+import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
+import es.ies.puerto.mgs.project.model.entities.Artist;
+import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
@@ -46,52 +50,43 @@ public class UserServiceTest extends TestUtilities {
 
     @Test
     void getByIdNullTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
         Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
-    @Test
-    void getByIdEmptyListTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>());
-
-        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
-    }
-
-    @Test
-    void getByIdListWithoutObjectTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new User(2, "example2@email.com"), new User(3, "example3@email.com"))));
-        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
-    }
 
     @Test
     void getOneTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        List<User> list = new ArrayList<>();
-        list.add(new User(1, "example@email.com"));
-        list.add(new User(2, "example2@email.com"));
-        list.add(new User(3, "example3@email.com"));
-        when(daoMock.findAll()).thenReturn(list);
+        when(daoMock.findById(1)).thenReturn(Optional.of(new User()));
         Assertions.assertNotNull(service.getById(1), MESSAGE_ERROR);
     }
 
     @Test
-    void addUpdateTest() {
+    void addTest() {
+        when(daoMock.existsById(1)).thenReturn(false);
         when(daoMock.save(any(User.class))).thenReturn(new User());
-        Assertions.assertTrue(service.add(new UserDTO(1, "example@email.com")), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new UserDTO(1, "example@example.com")), MESSAGE_ERROR);
     }
 
     @Test
-    void addUpdateFalseTest() {
+    void addDupeTest() {
+        when(daoMock.existsById(1)).thenReturn(true);
+        Assertions.assertFalse(service.add(new UserDTO(1, "example@example.com")), MESSAGE_ERROR);
+    }
+
+    @Test
+    void addNullTest() {
         Assertions.assertFalse(service.add(null), MESSAGE_ERROR);
     }
 
     @Test
+    void updateExceptionTest() throws Exception {
+        when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertFalse(service.update(1, new UserDTO(1, "example@email.com")), MESSAGE_ERROR);
+    }
+    @Test
     void updateTest() throws Exception {
-        when(daoMock.save(any(User.class))).thenReturn(new User());
         when(daoMock.findById(1)).thenReturn(Optional.of(new User()));
-        Assertions.assertTrue(service.update(1,new UserDTO(1, "admin")), MESSAGE_ERROR);
+        Assertions.assertTrue(service.update(1,new UserDTO(1, "example@email.com")), MESSAGE_ERROR);
     }
 
     @Test
@@ -100,13 +95,13 @@ public class UserServiceTest extends TestUtilities {
     }
     @Test
     void deleteTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
+        when(daoMock.deleteItemById(1)).thenReturn(1);
         Assertions.assertTrue(service.delete(1), MESSAGE_ERROR);
     }
 
     @Test
     void deleteNonExistentTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
+        when(daoMock.deleteItemById(1)).thenReturn(0);
         Assertions.assertFalse(service.delete(1), MESSAGE_ERROR);
     }
 }

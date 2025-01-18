@@ -1,8 +1,12 @@
 package es.ies.puerto.mgs.project.service.rest;
 
+import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
+import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
+import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Role;
+import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -46,50 +50,42 @@ public class RoleServiceTest extends TestUtilities {
 
     @Test
     void getByIdNullTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
         Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
-    @Test
-    void getByIdEmptyListTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>());
-
-        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
-    }
-
-    @Test
-    void getByIdListWithoutObjectTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new Role(2, "User"), new Role(3, "Guest"))));
-        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
-    }
 
     @Test
     void getOneTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        List<Role> list = new ArrayList<>();
-        list.add(new Role(1, "Admin"));
-        list.add(new Role(2, "User"));
-        list.add(new Role(3, "Guest"));
-        when(daoMock.findAll()).thenReturn(list);
+        when(daoMock.findById(1)).thenReturn(Optional.of(new Role()));
         Assertions.assertNotNull(service.getById(1), MESSAGE_ERROR);
     }
 
+
     @Test
-    void addUpdateTest() {
+    void addTest() {
+        when(daoMock.existsById(1)).thenReturn(false);
         when(daoMock.save(any(Role.class))).thenReturn(new Role());
         Assertions.assertTrue(service.add(new RoleDTO(1, "Admin")), MESSAGE_ERROR);
     }
 
     @Test
-    void addUpdateFalseTest() {
+    void addNullTest() {
         Assertions.assertFalse(service.add(null), MESSAGE_ERROR);
     }
 
     @Test
+    void addDupeTest() {
+        when(daoMock.existsById(1)).thenReturn(true);
+        Assertions.assertFalse(service.add(new RoleDTO(1, "Admin")), MESSAGE_ERROR);
+    }
+
+    @Test
+    void updateExceptionTest() throws Exception {
+        when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertFalse(service.update(1, new RoleDTO(1, "Admin")), MESSAGE_ERROR);
+    }
+    @Test
     void updateTest() throws Exception {
-        when(daoMock.save(any(Role.class))).thenReturn(new Role());
         when(daoMock.findById(1)).thenReturn(Optional.of(new Role()));
         Assertions.assertTrue(service.update(1,new RoleDTO(1, "admin")), MESSAGE_ERROR);
     }
@@ -101,13 +97,13 @@ public class RoleServiceTest extends TestUtilities {
 
     @Test
     void deleteTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
+        when(daoMock.deleteItemById(1)).thenReturn(1);
         Assertions.assertTrue(service.delete(1), MESSAGE_ERROR);
     }
 
     @Test
     void deleteNonExistentTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
+        when(daoMock.deleteItemById(1)).thenReturn(0);
         Assertions.assertFalse(service.delete(1), MESSAGE_ERROR);
     }
 }

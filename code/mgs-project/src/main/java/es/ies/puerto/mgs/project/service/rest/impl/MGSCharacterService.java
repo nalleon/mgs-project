@@ -1,8 +1,11 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
+import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
@@ -42,30 +45,38 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
     }
 
     @Override
+    @Transactional
     public boolean add(MGSCharacterDTO mgsCharacterDTO) {
         if (mgsCharacterDTO == null){
             return false;
         }
+        if(repository.existsById(mgsCharacterDTO.getId())){
+            return false;
+        }
+
         repository.save(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
         return true;
     }
 
     @Override
+    @Transactional
     public boolean update(int id, MGSCharacterDTO mgsCharacterDTO) throws Exception {
         try {
-            MGSCharacter toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
+            MGSCharacter toUpdate = repository.findById(id).orElse(null);
 
-            MGSCharacter aux = IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO);
-            toUpdate.setCodename(aux.getCodename());
-            toUpdate.setName(aux.getName());
-            toUpdate.setAge(aux.getAge());
-            toUpdate.setArtist(aux.getArtist());
-            toUpdate.setStatus(aux.isStatus());
-            repository.save(toUpdate);
-            return true;
+            if(toUpdate!= null){
+                MGSCharacter aux = IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO);
+                toUpdate.setCodename(aux.getCodename());
+                toUpdate.setName(aux.getName());
+                toUpdate.setAge(aux.getAge());
+                toUpdate.setArtist(aux.getArtist());
+                toUpdate.setStatus(aux.isStatus());
+                return true;
+            } else {
+                return false;
+            }
 
-        } catch (Exception e){
+        } catch (RuntimeException e){
             return false;
         }
     }
@@ -73,40 +84,27 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
 
     @Override
     public List<MGSCharacterDTO> getAll() {
-        List<MGSCharacter> mgsCharacters = repository.findAll();
-        List<MGSCharacterDTO> mgsCharacterDTOS = new ArrayList<>();
-        for (MGSCharacter mgsCharacter : mgsCharacters){
-            mgsCharacterDTOS.add(IMGSCharacterMapper.INSTANCE.toDTO(mgsCharacter));
-        }
-        return mgsCharacterDTOS;
+        return repository.findAll()
+                .stream()
+                .map(IMGSCharacterMapper.INSTANCE::toDTO)
+                .toList();
     }
 
     @Override
     public MGSCharacterDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
+        MGSCharacter result = repository.findById(id).orElse(null);;
+
+        if(result != null) {
+            return IMGSCharacterMapper.INSTANCE.toDTO(result);
         }
 
-        MGSCharacterDTO result = null;
-
-        List<MGSCharacterDTO> list = getAll();
-
-        for (MGSCharacterDTO mgsCharacterDTO: list){
-            if (mgsCharacterDTO.getId() == id){
-                result = mgsCharacterDTO;
-                break;
-            }
-        }
-        return result;
+        return null;
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
-
+        int quantity = repository.deleteItemById(id);
+        return quantity > 0;
     }
 }

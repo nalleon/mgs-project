@@ -30,18 +30,22 @@ public class RoleTest extends TestUtilities {
     }
 
     @Test
-    public void equalsTest(){
+    public void equalsTest() {
         Role equals = new Role(ROLE_ID, NAME);
-        Role notEquals = new Role(2, "anotherName");
+        Role differentName = new Role(ROLE_ID, "DifferentName");
+        Role differentId = new Role(2, NAME);
+        Role completelyDifferent = new Role(3, "AnotherName");
         String str = "str";
         Role nullObject = null;
 
-        Assertions.assertTrue(role.equals(equals), MESSAGE_ERROR);
-        Assertions.assertTrue(role.equals(role), MESSAGE_ERROR);
-        Assertions.assertEquals(role.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(role, equals, MESSAGE_ERROR);
-        Assertions.assertFalse(role.equals(nullObject), MESSAGE_ERROR);
-        Assertions.assertFalse(role.equals(notEquals), MESSAGE_ERROR);
-        Assertions.assertFalse(role.equals(str), MESSAGE_ERROR);
+        Assertions.assertEquals(role, role, MESSAGE_ERROR);
+        Assertions.assertEquals(role.hashCode(), equals.hashCode(), MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, differentName, MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, differentId, MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, completelyDifferent, MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, nullObject, MESSAGE_ERROR);
+        Assertions.assertNotEquals(role, str, MESSAGE_ERROR);
     }
+
 }

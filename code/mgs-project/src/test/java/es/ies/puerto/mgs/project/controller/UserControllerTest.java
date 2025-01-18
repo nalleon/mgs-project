@@ -1,6 +1,7 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.UserController;
+import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
@@ -77,6 +78,13 @@ public class UserControllerTest extends TestUtilities {
         when(serviceMock.add(dto)).thenReturn(true);
         ResponseEntity responseEntity = controller.update(1, dto);
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
+    }
+
+    @Test
+    void updateExceptionTest() throws Exception {
+        UserDTO dto = new UserDTO(1, "example@email.com");
+        when(serviceMock.update(1, dto)).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
     }
 
 }

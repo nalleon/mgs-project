@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.stubbing.OngoingStubbing;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,34 +52,17 @@ public class ArtistServiceSoapTest extends TestUtilities {
 
     @Test
     void getByIdNullTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
-        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
-    }
-
-    @Test
-    void getByIdEmptyListTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>());
-
         Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void getByIdListWithoutObjectTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new Artist(2), new Artist(3))));
-
         Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void getOneTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        List<Artist> list = new ArrayList<>();
-        list.add(new Artist(1));
-        list.add(new Artist(2));
-        list.add(new Artist(3));
-        when(daoMock.findAll()).thenReturn(list);
+        when(daoMock.findById(1)).thenReturn(Optional.of(new Artist()));
         Assertions.assertNotNull(service.getById(1), MESSAGE_ERROR);
     }
 
@@ -94,8 +78,12 @@ public class ArtistServiceSoapTest extends TestUtilities {
     }
 
     @Test
+    void updateExceptionTest() throws Exception {
+        when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertFalse(service.update(new ArtistDTO(1)), MESSAGE_ERROR);
+    }
+    @Test
     void updateTest() throws Exception {
-        when(daoMock.save(any(Artist.class))).thenReturn(new Artist());
         when(daoMock.findById(1)).thenReturn(Optional.of(new Artist()));
         Assertions.assertTrue(service.update(new ArtistDTO(1)), MESSAGE_ERROR);
     }
@@ -108,13 +96,13 @@ public class ArtistServiceSoapTest extends TestUtilities {
 
     @Test
     void deleteTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
+        when(daoMock.deleteItemById(1)).thenReturn(1);
         Assertions.assertTrue(service.delete(1), MESSAGE_ERROR);
     }
 
     @Test
     void deleteNonExistentTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
+        when(daoMock.deleteItemById(1)).thenReturn(0);
         Assertions.assertFalse(service.delete(1), MESSAGE_ERROR);
     }
 }

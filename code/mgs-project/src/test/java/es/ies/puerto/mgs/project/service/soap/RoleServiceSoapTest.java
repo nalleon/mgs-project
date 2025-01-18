@@ -53,33 +53,13 @@ public class RoleServiceSoapTest extends TestUtilities {
 
     @Test
     void getByIdNullTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
         Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
-    @Test
-    void getByIdEmptyListTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>());
-
-        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
-    }
-
-    @Test
-    void getByIdListWithoutObjectTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new Role(2, "User"), new Role(3, "Guest"))));
-        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
-    }
 
     @Test
     void getOneTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        List<Role> list = new ArrayList<>();
-        list.add(new Role(1, "Admin"));
-        list.add(new Role(2, "User"));
-        list.add(new Role(3, "Guest"));
-        when(daoMock.findAll()).thenReturn(list);
+        when(daoMock.findById(1)).thenReturn(Optional.of(new Role()));
         Assertions.assertNotNull(service.getById(1), MESSAGE_ERROR);
     }
 
@@ -95,8 +75,12 @@ public class RoleServiceSoapTest extends TestUtilities {
     }
 
     @Test
+    void updateExceptionTest() throws Exception {
+        when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertFalse(service.update(new RoleDTO(1, "Admin")), MESSAGE_ERROR);
+    }
+    @Test
     void updateTest() throws Exception {
-        when(daoMock.save(any(Role.class))).thenReturn(new Role());
         when(daoMock.findById(1)).thenReturn(Optional.of(new Role()));
         Assertions.assertTrue(service.update(new RoleDTO(1, "admin")), MESSAGE_ERROR);
     }
@@ -108,13 +92,13 @@ public class RoleServiceSoapTest extends TestUtilities {
 
     @Test
     void deleteTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
+        when(daoMock.deleteItemById(1)).thenReturn(1);
         Assertions.assertTrue(service.delete(1), MESSAGE_ERROR);
     }
 
     @Test
     void deleteNonExistentTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
+        when(daoMock.deleteItemById(1)).thenReturn(0);
         Assertions.assertFalse(service.delete(1), MESSAGE_ERROR);
     }
 }

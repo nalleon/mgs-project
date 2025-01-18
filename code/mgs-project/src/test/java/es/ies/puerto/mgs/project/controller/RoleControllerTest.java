@@ -2,6 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.RoleController;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
+import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -78,5 +79,13 @@ public class RoleControllerTest extends TestUtilities {
         ResponseEntity responseEntity = controller.update(1, dto);
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
+
+    @Test
+    void updateExceptionTest() throws Exception {
+        RoleDTO dto = new RoleDTO(1, "Admin");
+        when(serviceMock.update(1, dto)).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
+    }
+
 
 }

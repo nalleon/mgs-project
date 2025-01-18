@@ -79,4 +79,12 @@ public class ArtistControllerTest extends TestUtilities {
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
+
+    @Test
+    void updateExceptionTest() throws Exception {
+        ArtistDTO dto = new ArtistDTO(1);
+        when(serviceMock.update(1, new ArtistDTO(1))).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
+    }
+
 }

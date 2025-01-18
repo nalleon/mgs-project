@@ -44,16 +44,19 @@ public class UserDTOTest extends TestUtilities {
     @Test
     public void equalsTest(){
         UserDTO equals = new UserDTO(USER_ID, EMAIL);
-        UserDTO notEquals = new UserDTO(2, "anotheremail@gmail.com");
+        UserDTO differentEmail = new UserDTO(USER_ID, "different@gmail.com");
+        UserDTO differentId = new UserDTO(2, EMAIL);
+        UserDTO completelyDifferent = new UserDTO(3, "another@gmail.com");
         String str = "str";
         UserDTO nullObject = null;
 
-        Assertions.assertTrue(user.equals(equals), MESSAGE_ERROR);
-        Assertions.assertTrue(user.equals(user), MESSAGE_ERROR);
-        Assertions.assertEquals(user.hashCode(), equals.hashCode(), MESSAGE_ERROR);
         Assertions.assertEquals(user, equals, MESSAGE_ERROR);
-        Assertions.assertFalse(user.equals(nullObject), MESSAGE_ERROR);
-        Assertions.assertFalse(user.equals(notEquals), MESSAGE_ERROR);
-        Assertions.assertFalse(user.equals(str), MESSAGE_ERROR);
+        Assertions.assertEquals(user, user, MESSAGE_ERROR);
+        Assertions.assertEquals(user.hashCode(), equals.hashCode(), MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, differentEmail, MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, differentId, MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, completelyDifferent, MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, nullObject, MESSAGE_ERROR);
+        Assertions.assertNotEquals(user, str, MESSAGE_ERROR);
     }
 }

@@ -1,6 +1,7 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
@@ -16,7 +17,6 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-@Transactional()
 public class ArtistService implements IService<ArtistDTO> {
     /**
      * Properties
@@ -40,25 +40,34 @@ public class ArtistService implements IService<ArtistDTO> {
     }
 
     @Override
+    @Transactional
     public boolean add(ArtistDTO artistDTO) {
         if (artistDTO == null){
             return false;
         }
+        if(repository.existsById(artistDTO.getArtistId())){
+            return false;
+        }
+
         repository.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
         return true;
     }
 
     @Override
+    @Transactional
     public boolean update(int id, ArtistDTO artistDTO) throws Exception {
         try {
-            Artist toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
+            Artist toUpdate = repository.findById(id).orElse(null);
 
-            toUpdate.setFullName(artistDTO.getFullName());
-            repository.save(toUpdate);
-            return true;
+            if(toUpdate!= null){
+                toUpdate.setFullName(artistDTO.getFullName());
+                return true;
+            } else {
+                return false;
+            }
 
-        } catch (Exception e){
+
+        } catch (RuntimeException e){
             return false;
         }
     }
@@ -66,39 +75,27 @@ public class ArtistService implements IService<ArtistDTO> {
 
     @Override
     public List<ArtistDTO> getAll() {
-        List<Artist> artists = repository.findAll();
-        List<ArtistDTO> artistDTOS = new ArrayList<>();
-        for (Artist artist : artists){
-            artistDTOS.add(IArtistMapper.INSTANCE.toDTO(artist));
-        }
-        return artistDTOS;
+        return repository.findAll()
+                .stream()
+                .map(IArtistMapper.INSTANCE::toDTO)
+                .toList();
     }
 
     @Override
     public ArtistDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
-        }
+        Artist result = repository.findById(id).orElse(null);;
 
-        ArtistDTO result = null;
+         if(result != null) {
+             return IArtistMapper.INSTANCE.toDTO(result);
+         }
 
-        List<ArtistDTO> list = getAll();
-
-        for (ArtistDTO artistDTO: list){
-            if (artistDTO.getArtistId() == id){
-                result = artistDTO;
-                break;
-            }
-        }
-        return result;
+         return null;
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
+        int quantity = repository.deleteItemById(id);
+        return quantity > 0;
     }
 }

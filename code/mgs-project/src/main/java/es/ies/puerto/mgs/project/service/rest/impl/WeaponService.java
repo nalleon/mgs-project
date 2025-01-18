@@ -1,8 +1,11 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
+import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
 
 import es.ies.puerto.mgs.project.service.interfaces.IService;
@@ -42,67 +45,61 @@ public class WeaponService implements IService<WeaponDTO> {
     }
 
     @Override
+    @Transactional
     public boolean add(WeaponDTO weaponDTO) {
-        if (!repository.existsById(weaponDTO.getId())){
-            repository.insert(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
-        } else {
-            repository.save(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
+        if (weaponDTO == null){
+            return false;
         }
+        if(repository.existsById(weaponDTO.getId())){
+            return false;
+        }
+
+        repository.save(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
         return true;
     }
 
     @Override
+    @Transactional
     public boolean update(int id, WeaponDTO weaponDTO) {
         try {
-            Weapon toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
+            Weapon toUpdate = repository.findById(id).orElse(null);
+            if(toUpdate!= null) {
+                Weapon aux = IWeaponMapper.INSTANCE.toEntity(weaponDTO);
+                toUpdate.setName(aux.getName());
+                toUpdate.setType(aux.getType());
+                return true;
+            } else {
+                return false;
+            }
 
-            Weapon aux = IWeaponMapper.INSTANCE.toEntity(weaponDTO);
-            toUpdate.setName(aux.getName());
-            toUpdate.setType(aux.getType());
-            repository.save(toUpdate);
-            return true;
-        } catch (Exception e){
+        } catch (RuntimeException e){
             return false;
         }
     }
 
     @Override
     public List<WeaponDTO> getAll() {
-        List<Weapon> weapons = repository.findAll();
-        List<WeaponDTO> weaponDTOS = new ArrayList<>();
-        for (Weapon weapon : weapons){
-            weaponDTOS.add(IWeaponMapper.INSTANCE.toDTO(weapon));
-        }
-        return weaponDTOS;
+        return repository.findAll()
+                .stream()
+                .map(IWeaponMapper.INSTANCE::toDTO)
+                .toList();
     }
 
     @Override
     public WeaponDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
+        Weapon result = repository.findById(id).orElse(null);;
+
+        if(result != null) {
+            return IWeaponMapper.INSTANCE.toDTO(result);
         }
 
-        WeaponDTO result = null;
-
-        List<WeaponDTO> list = getAll();
-
-        for (WeaponDTO weaponDTO: list){
-            if (weaponDTO.getId() == id){
-                result = weaponDTO;
-                break;
-            }
-        }
-        return result;
+        return null;
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-
-        repository.deleteById(id);
-        return true;
+        int quantity = repository.deleteItemById(id);
+        return quantity > 0;
     }
 }

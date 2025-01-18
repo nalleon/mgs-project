@@ -2,6 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.WeaponController;
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
+import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -80,4 +81,10 @@ public class WeaponControllerTest extends TestUtilities {
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
+    @Test
+    void updateExceptionTest() throws Exception {
+        WeaponDTO dto = new WeaponDTO(1);
+        when(serviceMock.update(1, new WeaponDTO(1))).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
+    }
 }

@@ -53,34 +53,12 @@ public class WeaponServiceSoapTest extends TestUtilities {
 
     @Test
     void getByIdNullTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
-        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
-    }
-
-    @Test
-    void getByIdEmptyListTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>());
-
-        Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
-    }
-
-    @Test
-    void getByIdListWithoutObjectTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        when(daoMock.findAll()).thenReturn(new ArrayList<>(Arrays.asList(new Weapon(2), new Weapon(3))));
-
         Assertions.assertNull(service.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void getOneTest() {
-        when(daoMock.existsById(1)).thenReturn(true);
-        List<Weapon> list = new ArrayList<>();
-        list.add(new Weapon(1));
-        list.add(new Weapon(2));
-        list.add(new Weapon(3));
-        when(daoMock.findAll()).thenReturn(list);
+        when(daoMock.findById(1)).thenReturn(Optional.of(new Weapon()));
         Assertions.assertNotNull(service.getById(1), MESSAGE_ERROR);
     }
 
@@ -92,40 +70,38 @@ public class WeaponServiceSoapTest extends TestUtilities {
 
     @Test
     void addDupeTest() {
-        when(daoMock.save(any(Weapon.class))).thenReturn(new Weapon());
         when(daoMock.existsById(1)).thenReturn(true);
-
-        Assertions.assertTrue(service.add(new WeaponDTO(1, "test", "testing")), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(new WeaponDTO(1)), MESSAGE_ERROR);
     }
 
     @Test
     void deleteTest() {
-        List<WeaponDTO> list = new ArrayList<>();
-        list.add(new WeaponDTO(1));
-        when(restServiceMock.getAll()).thenReturn(list);
-        when(daoMock.existsById(1)).thenReturn(true);
-
+        when(daoMock.deleteItemById(1)).thenReturn(1);
         Assertions.assertTrue(service.delete(1), MESSAGE_ERROR);
     }
 
     @Test
     void deleteNonExistentTest() {
-        when(daoMock.existsById(1)).thenReturn(false);
+        when(daoMock.deleteItemById(1)).thenReturn(0);
         Assertions.assertFalse(service.delete(1), MESSAGE_ERROR);
     }
 
     @Test
     void updateTest() throws Exception {
-        WeaponDTO dto = new WeaponDTO(1, "UpdatedName", "UpdatedType");
-        when(daoMock.save(any(Weapon.class))).thenReturn(new Weapon());
         when(daoMock.findById(1)).thenReturn(Optional.of(new Weapon()));
-        Assertions.assertTrue(service.update(dto), MESSAGE_ERROR);
+        Assertions.assertTrue(service.update(new WeaponDTO(1)), MESSAGE_ERROR);
     }
 
     @Test
-    void updateFalseTest() throws Exception {
-        Assertions.assertFalse(service.update(new WeaponDTO(1)), MESSAGE_ERROR);
+    void updateExceptionTest() throws Exception {
+        when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertFalse(service.update( new WeaponDTO(1)), MESSAGE_ERROR);
     }
+    @Test
+    void updateFalseTest() throws Exception {
+        Assertions.assertFalse(service.update(new WeaponDTO()), MESSAGE_ERROR);
+    }
+
 
 
 

@@ -1,7 +1,10 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 import es.ies.puerto.mgs.project.dto.GameDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
+import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
@@ -18,7 +21,6 @@ import java.util.List;
  * @author nalleon
  */
 @Component
-@Transactional()
 public class GameService implements IService<GameDTO> {
     /**
      * Properties
@@ -42,29 +44,36 @@ public class GameService implements IService<GameDTO> {
     }
 
     @Override
+    @Transactional
     public boolean add(GameDTO gameDTO) {
         if (gameDTO == null){
             return false;
         }
+        if(repository.existsById(gameDTO.getId())){
+            return false;
+        }
+
         repository.save(IGameMapper.INSTANCE.toEntity(gameDTO));
         return true;
     }
 
     @Override
+    @Transactional
     public boolean update(int id, GameDTO gameDTO) throws Exception {
         try {
-            Game toUpdate = repository.findById(id).orElseThrow(() ->
-                    new Exception("Element not found for this id :: " + id));
+            Game toUpdate = repository.findById(id).orElse(null);
 
-            Game aux = IGameMapper.INSTANCE.toEntity(gameDTO);
-            toUpdate.setDirector(aux.getDirector());
-            toUpdate.setName(aux.getName());
-            toUpdate.setGameCharacters(aux.getGameCharacters());
+            if(toUpdate!= null){
+                Game aux = IGameMapper.INSTANCE.toEntity(gameDTO);
+                toUpdate.setDirector(aux.getDirector());
+                toUpdate.setName(aux.getName());
+                toUpdate.setGameCharacters(aux.getGameCharacters());
+                return true;
+            } else {
+                return false;
+            }
 
-            repository.save(toUpdate);
-            return true;
-
-        } catch (Exception e){
+        } catch (RuntimeException e){
             return false;
         }
     }
@@ -72,40 +81,28 @@ public class GameService implements IService<GameDTO> {
 
     @Override
     public List<GameDTO> getAll() {
-        List<Game> games = repository.findAll();
-        List<GameDTO> gameDTOS = new ArrayList<>();
-        for (Game game : games){
-            gameDTOS.add(IGameMapper.INSTANCE.toDTO(game));
-        }
-        return gameDTOS;
+        return repository.findAll()
+                .stream()
+                .map(IGameMapper.INSTANCE::toDTO)
+                .toList();
     }
 
     @Override
     public GameDTO getById(int id) {
-        if (!repository.existsById(id)) {
-            return null;
+        Game result = repository.findById(id).orElse(null);;
+
+        if(result != null) {
+            return IGameMapper.INSTANCE.toDTO(result);
         }
 
-        GameDTO result = null;
-
-        List<GameDTO> list = getAll();
-
-        for (GameDTO gameDTO: list){
-            if (gameDTO.getId() == id){
-                result = gameDTO;
-                break;
-            }
-        }
-        return result;
+        return null;
 
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
-        if (!repository.existsById(id)) {
-            return false;
-        }
-        repository.deleteById(id);
-        return true;
+        int quantity = repository.deleteItemById(id);
+        return quantity > 0;
     }
 }
