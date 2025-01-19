@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author nalleon
  */
 @Component
+@Transactional
 public class RoleService implements IService<RoleDTO> {
     /**
      * Properties
@@ -44,7 +45,6 @@ public class RoleService implements IService<RoleDTO> {
     }
 
     @Override
-    @Transactional
     public boolean add(RoleDTO roleDTO) {
         if (roleDTO == null){
             return false;
@@ -58,13 +58,13 @@ public class RoleService implements IService<RoleDTO> {
     }
 
     @Override
-    @Transactional
     public boolean update(int id, RoleDTO roleDTO) throws Exception {
         try {
             Role toUpdate = repository.findById(id).orElse(null);
 
             if(toUpdate!= null){
                 toUpdate.setName(roleDTO.getName());
+                repository.save(toUpdate);
                 return true;
             } else {
                 return false;
@@ -96,7 +96,6 @@ public class RoleService implements IService<RoleDTO> {
     }
 
     @Override
-    @Transactional
     public boolean delete(int id) {
         int quantity = repository.deleteItemById(id);
         return quantity > 0;

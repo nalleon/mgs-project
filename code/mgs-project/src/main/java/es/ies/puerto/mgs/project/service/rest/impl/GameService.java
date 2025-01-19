@@ -21,6 +21,7 @@ import java.util.List;
  * @author nalleon
  */
 @Component
+@Transactional
 public class GameService implements IService<GameDTO> {
     /**
      * Properties
@@ -44,7 +45,6 @@ public class GameService implements IService<GameDTO> {
     }
 
     @Override
-    @Transactional
     public boolean add(GameDTO gameDTO) {
         if (gameDTO == null){
             return false;
@@ -58,7 +58,6 @@ public class GameService implements IService<GameDTO> {
     }
 
     @Override
-    @Transactional
     public boolean update(int id, GameDTO gameDTO) throws Exception {
         try {
             Game toUpdate = repository.findById(id).orElse(null);
@@ -68,6 +67,7 @@ public class GameService implements IService<GameDTO> {
                 toUpdate.setDirector(aux.getDirector());
                 toUpdate.setName(aux.getName());
                 toUpdate.setGameCharacters(aux.getGameCharacters());
+                repository.save(toUpdate);
                 return true;
             } else {
                 return false;
@@ -100,7 +100,6 @@ public class GameService implements IService<GameDTO> {
     }
 
     @Override
-    @Transactional
     public boolean delete(int id) {
         int quantity = repository.deleteItemById(id);
         return quantity > 0;

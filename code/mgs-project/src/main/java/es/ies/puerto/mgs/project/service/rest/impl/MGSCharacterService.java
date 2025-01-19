@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author nalleon
  */
 @Component
-@Transactional()
+@Transactional
 public class MGSCharacterService implements IService<MGSCharacterDTO> {
     /**
      * Properties
@@ -45,7 +45,6 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
     }
 
     @Override
-    @Transactional
     public boolean add(MGSCharacterDTO mgsCharacterDTO) {
         if (mgsCharacterDTO == null){
             return false;
@@ -59,7 +58,6 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
     }
 
     @Override
-    @Transactional
     public boolean update(int id, MGSCharacterDTO mgsCharacterDTO) throws Exception {
         try {
             MGSCharacter toUpdate = repository.findById(id).orElse(null);
@@ -71,6 +69,7 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
                 toUpdate.setAge(aux.getAge());
                 toUpdate.setArtist(aux.getArtist());
                 toUpdate.setStatus(aux.isStatus());
+                repository.save(toUpdate);
                 return true;
             } else {
                 return false;
@@ -102,7 +101,6 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
     }
 
     @Override
-    @Transactional
     public boolean delete(int id) {
         int quantity = repository.deleteItemById(id);
         return quantity > 0;

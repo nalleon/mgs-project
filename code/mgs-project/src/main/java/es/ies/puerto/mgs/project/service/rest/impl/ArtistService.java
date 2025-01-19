@@ -17,6 +17,7 @@ import java.util.List;
  * @author nalleon
  */
 @Component
+@Transactional
 public class ArtistService implements IService<ArtistDTO> {
     /**
      * Properties
@@ -40,7 +41,6 @@ public class ArtistService implements IService<ArtistDTO> {
     }
 
     @Override
-    @Transactional
     public boolean add(ArtistDTO artistDTO) {
         if (artistDTO == null){
             return false;
@@ -54,13 +54,13 @@ public class ArtistService implements IService<ArtistDTO> {
     }
 
     @Override
-    @Transactional
     public boolean update(int id, ArtistDTO artistDTO) throws Exception {
         try {
             Artist toUpdate = repository.findById(id).orElse(null);
 
             if(toUpdate!= null){
                 toUpdate.setFullName(artistDTO.getFullName());
+                repository.save(toUpdate);
                 return true;
             } else {
                 return false;
@@ -93,7 +93,6 @@ public class ArtistService implements IService<ArtistDTO> {
     }
 
     @Override
-    @Transactional
     public boolean delete(int id) {
         int quantity = repository.deleteItemById(id);
         return quantity > 0;

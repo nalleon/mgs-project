@@ -19,6 +19,7 @@ import java.util.List;
  * @author nalleon
  */
 @Component
+@Transactional
 public class DirectorService implements IService<DirectorDTO> {
     /**
      * Properties
@@ -42,8 +43,6 @@ public class DirectorService implements IService<DirectorDTO> {
     }
 
     @Override
-    @Transactional
-
     public boolean add(DirectorDTO directorDTO) {
         if (directorDTO == null){
             return false;
@@ -57,13 +56,13 @@ public class DirectorService implements IService<DirectorDTO> {
     }
 
     @Override
-    @Transactional
     public boolean update(int id, DirectorDTO directorDTO) throws Exception {
         try {
             Director toUpdate = repository.findById(id).orElse(null);
 
             if(toUpdate!= null){
                 toUpdate.setFullName(directorDTO.getFullName());
+                repository.save(toUpdate);
                 return true;
             } else {
                 return false;
@@ -96,7 +95,6 @@ public class DirectorService implements IService<DirectorDTO> {
     }
 
     @Override
-    @Transactional
     public boolean delete(int id) {
         int quantity = repository.deleteItemById(id);
         return quantity > 0;

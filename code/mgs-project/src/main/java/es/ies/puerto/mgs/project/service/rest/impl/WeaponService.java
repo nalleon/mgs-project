@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Transactional()
+@Transactional
 public class WeaponService implements IService<WeaponDTO> {
     /**
      * Properties
@@ -45,7 +45,6 @@ public class WeaponService implements IService<WeaponDTO> {
     }
 
     @Override
-    @Transactional
     public boolean add(WeaponDTO weaponDTO) {
         if (weaponDTO == null){
             return false;
@@ -59,7 +58,6 @@ public class WeaponService implements IService<WeaponDTO> {
     }
 
     @Override
-    @Transactional
     public boolean update(int id, WeaponDTO weaponDTO) {
         try {
             Weapon toUpdate = repository.findById(id).orElse(null);
@@ -67,6 +65,7 @@ public class WeaponService implements IService<WeaponDTO> {
                 Weapon aux = IWeaponMapper.INSTANCE.toEntity(weaponDTO);
                 toUpdate.setName(aux.getName());
                 toUpdate.setType(aux.getType());
+                repository.save(toUpdate);
                 return true;
             } else {
                 return false;
@@ -97,7 +96,6 @@ public class WeaponService implements IService<WeaponDTO> {
     }
 
     @Override
-    @Transactional
     public boolean delete(int id) {
         int quantity = repository.deleteItemById(id);
         return quantity > 0;

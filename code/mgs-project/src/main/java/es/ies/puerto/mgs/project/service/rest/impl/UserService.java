@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author nalleon
  */
 @Component
+@Transactional
 public class UserService implements IService<UserDTO> {
     /**
      * Properties
@@ -46,7 +47,6 @@ public class UserService implements IService<UserDTO> {
     }
 
     @Override
-    @Transactional
     public boolean add(UserDTO userDTO) {
         if (userDTO == null){
             return false;
@@ -60,7 +60,6 @@ public class UserService implements IService<UserDTO> {
     }
 
     @Override
-    @Transactional
     public boolean update(int id, UserDTO userDTO) throws Exception {
         try {
             User toUpdate = repository.findById(id).orElse(null);
@@ -71,6 +70,7 @@ public class UserService implements IService<UserDTO> {
                 toUpdate.setEmail(aux.getEmail());
                 toUpdate.setRole(aux.getRole());
                 toUpdate.setPassword(aux.getPassword());
+                repository.save(toUpdate);
                 return true;
             } else {
                 return false;
@@ -102,7 +102,6 @@ public class UserService implements IService<UserDTO> {
     }
 
     @Override
-    @Transactional
     public boolean delete(int id) {
         int quantity = repository.deleteItemById(id);
         return quantity > 0;
