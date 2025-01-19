@@ -37,7 +37,7 @@ public class RoleController implements IController<RoleDTO> {
     }
 
     @Override
-    @PostMapping("/{id}")
+    @PostMapping("/")
     @Operation(summary = "Insert role")
     public ResponseEntity add(@RequestBody RoleDTO dto) {
         service.add(dto);
