@@ -37,7 +37,7 @@ public class MGSCharacterService implements IService<MGSCharacterDTO> {
 
     /**
      * Setter of the dao
-     * @param repository
+     * @param repository of the service
      */
     @Autowired
     public void setDao(IDaoMGSCharacter repository) {

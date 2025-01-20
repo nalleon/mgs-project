@@ -12,7 +12,6 @@ import org.hibernate.annotations.FetchMode;
 /**
  * @author nalleon
  */
-
 @Entity
 @Table(name = "directors")
 public class Director implements Serializable {

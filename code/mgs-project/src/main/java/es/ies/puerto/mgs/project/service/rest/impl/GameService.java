@@ -35,9 +35,10 @@ public class GameService implements IService<GameDTO> {
      */
     public GameService(){}
 
+
     /**
      * Setter of the dao
-     * @param repository
+     * @param repository of the service
      */
     @Autowired
     public void setiDaoGame(IDaoGame repository) {

@@ -10,7 +10,6 @@ import org.hibernate.annotations.FetchMode;
 /**
  * @author nalleon
  */
-
 @Entity
 @Table(name = "artists")
 public class Artist implements Serializable {

@@ -4,9 +4,10 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 
-
+/**
+ * @author nalleon
+ */
 public class UserDTO {
-    @Id
     private int id;
     private String name;
     private String email;

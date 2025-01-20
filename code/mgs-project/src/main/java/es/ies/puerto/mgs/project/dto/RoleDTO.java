@@ -5,12 +5,12 @@ import jakarta.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
-
+/**
+ * @author nalleon
+ */
 public class RoleDTO {
-    @Id
 
     private int id;
-
     private String name;
 
     /**

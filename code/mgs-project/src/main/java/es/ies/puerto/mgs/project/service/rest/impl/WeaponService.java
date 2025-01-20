@@ -36,9 +36,8 @@ public class WeaponService implements IService<WeaponDTO> {
 
     /**
      * Setter of the dao
-     * @param repository
+     * @param repository of the service
      */
-
     @Autowired
     public void setDao(IDaoWeapon repository) {
         this.repository = repository;

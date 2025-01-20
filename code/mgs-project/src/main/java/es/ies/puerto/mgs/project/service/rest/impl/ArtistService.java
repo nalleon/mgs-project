@@ -31,9 +31,10 @@ public class ArtistService implements IService<ArtistDTO> {
      */
     public ArtistService(){}
 
+
     /**
      * Setter of the dao
-     * @param repository
+     * @param repository of the service
      */
     @Autowired
     public void setDao(IDaoArtist repository) {

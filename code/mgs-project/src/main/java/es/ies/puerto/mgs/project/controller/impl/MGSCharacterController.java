@@ -27,7 +27,7 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
 
     /**
      * Setter of the service
-     * @param service
+     * @param service definicion del parametro
      */
     @Autowired
     public void setMgsCharacterService(MGSCharacterService service) {

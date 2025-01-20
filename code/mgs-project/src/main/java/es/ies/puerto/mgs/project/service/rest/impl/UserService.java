@@ -39,7 +39,7 @@ public class UserService implements IService<UserDTO> {
 
     /**
      * Setter of the dao
-     * @param repository
+     * @param repository of the service
      */
     @Autowired
     public void setDao(IDaoUser repository) {

@@ -35,9 +35,10 @@ public class RoleService implements IService<RoleDTO> {
      */
     public RoleService(){}
 
+
     /**
      * Setter of the dao
-     * @param repository
+     * @param repository of the service
      */
     @Autowired
     public void setDao(IDaoRole repository) {
@@ -95,8 +96,13 @@ public class RoleService implements IService<RoleDTO> {
         return null;
     }
 
+    //TODO: Added custom exceptions
     @Override
     public boolean delete(int id) {
+        if(id == 1){
+            return false;
+        }
+
         int quantity = repository.deleteItemById(id);
         return quantity > 0;
     }
