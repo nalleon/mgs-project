@@ -2,6 +2,8 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.ArtistController;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
+import es.ies.puerto.mgs.project.exception.InvalidResourceException;
+import es.ies.puerto.mgs.project.exception.NotFoundException;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -56,7 +58,7 @@ public class ArtistControllerTest extends TestUtilities {
     }
 
     @Test
-    void addTest() {
+    void addTest() throws InvalidResourceException, NotFoundException {
         when(serviceMock.add(any(ArtistDTO.class))).thenReturn(true);
         ArtistDTO dto = new ArtistDTO(1);
         ResponseEntity responseEntity = controller.add(dto);
@@ -72,7 +74,7 @@ public class ArtistControllerTest extends TestUtilities {
 
 
     @Test
-    void updateTest() {
+    void updateTest() throws InvalidResourceException, NotFoundException {
         ArtistDTO dto = new ArtistDTO(1);
         when(serviceMock.add(dto)).thenReturn(true);
         ResponseEntity responseEntity = controller.update(1, dto);

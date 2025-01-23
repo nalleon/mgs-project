@@ -1,4 +1,6 @@
 package es.ies.puerto.mgs.project.service.interfaces;
+import es.ies.puerto.mgs.project.exception.NotFoundException;
+
 import java.util.List;
 /**
  * @author nalleon

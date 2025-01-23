@@ -1,5 +1,6 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
+import es.ies.puerto.mgs.project.exception.NotFoundException;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
@@ -42,7 +43,7 @@ public class ArtistService implements IService<ArtistDTO> {
     }
 
     @Override
-    public boolean add(ArtistDTO artistDTO) {
+    public boolean add(ArtistDTO artistDTO){
         if (artistDTO == null){
             return false;
         }
