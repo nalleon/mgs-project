@@ -93,9 +93,16 @@ public class UserServiceSoapTest extends TestUtilities {
     }
     @Test
     void deleteTest() {
-        when(daoMock.deleteItemById(1)).thenReturn(1);
-        Assertions.assertTrue(service.delete(1), MESSAGE_ERROR);
+        when(daoMock.deleteItemById(2)).thenReturn(2);
+        Assertions.assertTrue(service.delete(2), MESSAGE_ERROR);
     }
+
+    @Test
+    void deleteAdminTest() {
+        when(daoMock.deleteItemById(1)).thenReturn(1);
+        Assertions.assertFalse(service.delete(1), MESSAGE_ERROR);
+    }
+
 
     @Test
     void deleteNonExistentTest() {

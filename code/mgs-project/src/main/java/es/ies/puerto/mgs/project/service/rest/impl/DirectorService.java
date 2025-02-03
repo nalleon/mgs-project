@@ -1,9 +1,5 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
-import es.ies.puerto.mgs.project.dto.DirectorDTO;
-import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
-import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
-import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
@@ -12,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +15,7 @@ import java.util.List;
  */
 @Component
 @Transactional
-public class DirectorService implements IService<DirectorDTO> {
+public class DirectorService implements IService<Director> {
     /**
      * Properties
      */
@@ -44,25 +39,25 @@ public class DirectorService implements IService<DirectorDTO> {
     }
 
     @Override
-    public boolean add(DirectorDTO directorDTO) {
-        if (directorDTO == null){
+    public boolean add(Director director) {
+        if (director == null){
             return false;
         }
-        if(repository.existsById(directorDTO.getDirectorId())){
+        if(repository.existsById(director.getDirectorId())){
             return false;
         }
 
-        repository.save(IDirectorMapper.INSTANCE.toEntity(directorDTO));
+        repository.save((director));
         return true;
     }
 
     @Override
-    public boolean update(int id, DirectorDTO directorDTO) throws Exception {
+    public boolean update(int id, Director director) throws Exception {
         try {
             Director toUpdate = repository.findById(id).orElse(null);
 
             if(toUpdate!= null){
-                toUpdate.setFullName(directorDTO.getFullName());
+                toUpdate.setFullName(director.getFullName());
                 repository.save(toUpdate);
                 return true;
             } else {
@@ -77,22 +72,13 @@ public class DirectorService implements IService<DirectorDTO> {
 
 
     @Override
-    public List<DirectorDTO> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(IDirectorMapper.INSTANCE::toDTO)
-                .toList();
+    public List<Director> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public DirectorDTO getById(int id) {
-        Director result = repository.findById(id).orElse(null);;
-
-        if(result != null) {
-            return IDirectorMapper.INSTANCE.toDTO(result);
-        }
-
-        return null;
+    public Director getById(int id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override

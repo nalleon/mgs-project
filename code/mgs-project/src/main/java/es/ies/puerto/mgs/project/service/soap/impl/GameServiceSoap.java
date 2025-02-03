@@ -1,9 +1,12 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.dto.GameDTO;
+import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
 import es.ies.puerto.mgs.project.model.entities.Game;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
 import es.ies.puerto.mgs.project.service.rest.impl.GameService;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author nalleon
@@ -28,42 +32,58 @@ public class GameServiceSoap implements IServiceSoap<GameDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(GameServiceSoap.class);
 
-    private IService<GameDTO> service;
+    @Autowired
+    private IService<Game> service;
 
     /**
      * Default constructor of the class
      */
     public GameServiceSoap(){}
 
+
     /**
      * Setter of the service
-     * @param service
+     * @param service restfull
      */
     @Autowired
-    public void setService(GameService service) {
+    public void setService(IService<Game> service) {
         this.service = service;
     }
-
     @Override
     public boolean add(GameDTO gameDTO) {
-        return service.add(gameDTO);
+        return service.add(IGameMapper.INSTANCE.toEntity(gameDTO));
     }
 
     @Override
     public boolean update(GameDTO gameDTO) throws Exception {
-        return service.update(gameDTO.getId(), gameDTO);
+        return service.update(gameDTO.getId(), IGameMapper.INSTANCE.toEntity(gameDTO));
     }
 
     @WebResult(name="game")
 
     @Override
     public List<GameDTO> getAll() {
-        return service.getAll();
+        return service.getAll().stream()
+                .map(item -> new GameDTO(
+                        item.getId(),
+                        item.getName(),
+                        item.getGameCharacters().stream()
+                                .map(ch -> new MGSCharacterDTO(
+                                        ch.getId(),
+                                        ch.getName(),
+                                        ch.getCodename(),
+                                        ch.getAge(),
+                                        ch.isStatus(),
+                                        IArtistMapper.INSTANCE.toDTO(ch.getArtist())
+                                ))
+                                .collect(Collectors.toSet())
+                ))
+                .collect(Collectors.toList());
     }
 
     @Override
     public GameDTO getById(int id) {
-        return service.getById(id);
+        return IGameMapper.INSTANCE.toDTO(service.getById(id));
     }
 
     @Override

@@ -1,8 +1,5 @@
 package es.ies.puerto.mgs.project.service.rest;
 
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
-import es.ies.puerto.mgs.project.dto.UserDTO;
-import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.User;
@@ -64,13 +61,13 @@ public class UserServiceTest extends TestUtilities {
     void addTest() {
         when(daoMock.existsById(1)).thenReturn(false);
         when(daoMock.save(any(User.class))).thenReturn(new User());
-        Assertions.assertTrue(service.add(new UserDTO(1, "example@example.com")), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new User(1, "example@example.com")), MESSAGE_ERROR);
     }
 
     @Test
     void addDupeTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        Assertions.assertFalse(service.add(new UserDTO(1, "example@example.com")), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(new User(1, "example@example.com")), MESSAGE_ERROR);
     }
 
     @Test
@@ -81,12 +78,12 @@ public class UserServiceTest extends TestUtilities {
     @Test
     void updateExceptionTest() throws Exception {
         when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertFalse(service.update(1, new UserDTO(1, "example@email.com")), MESSAGE_ERROR);
+        Assertions.assertFalse(service.update(1, new User(1, "example@email.com")), MESSAGE_ERROR);
     }
     @Test
     void updateTest() throws Exception {
         when(daoMock.findById(1)).thenReturn(Optional.of(new User()));
-        Assertions.assertTrue(service.update(1,new UserDTO(1, "example@email.com")), MESSAGE_ERROR);
+        Assertions.assertTrue(service.update(1,new User(1, "example@email.com")), MESSAGE_ERROR);
     }
 
     @Test

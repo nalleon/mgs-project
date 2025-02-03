@@ -1,5 +1,7 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
+import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author nalleon
@@ -24,36 +27,35 @@ public class ArtistServiceSoap implements IServiceSoap<ArtistDTO> {
      * Properties
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(ArtistServiceSoap.class);
-    private IService<ArtistDTO> service;
-
-    /**
-     * Setter of the service
-     * @param service
-     */
     @Autowired
-    public void setService(ArtistService service) {
+    private IService<Artist> service;
+
+    public void setService(IService<Artist> service) {
         this.service = service;
     }
 
     @Override
     public boolean add(@WebParam(name = "artist") ArtistDTO artistDTO) {
-        return service.add(artistDTO);
+        return service.add(IArtistMapper.INSTANCE.toEntity(artistDTO));
     }
 
     @Override
     public boolean update(ArtistDTO artistDTO) throws Exception {
-        return service.update(artistDTO.getArtistId(), artistDTO);
+        return service.update(artistDTO.getArtistId(), IArtistMapper.INSTANCE.toEntity(artistDTO));
     }
 
     @WebResult(name="artist")
     @Override
     public List<ArtistDTO> getAll() {
-        return service.getAll();
+        return service.getAll().stream()
+                .map(item -> new ArtistDTO(item.getArtistId(), item.getFullName()))
+                .collect(Collectors.toList());
+
     }
 
     @Override
     public ArtistDTO getById(int id) {
-        return service.getById(id);
+        return IArtistMapper.INSTANCE.toDTO(service.getById(id));
     }
 
     @Override

@@ -1,6 +1,8 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
+import es.ies.puerto.mgs.project.model.entities.Weapon;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
 import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @WebService(endpointInterface = "es.ies.puerto.mgs.project.service.interfaces.IServiceSoap")
@@ -21,41 +24,43 @@ public class WeaponServiceSoap implements IServiceSoap<WeaponDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(WeaponServiceSoap.class);
 
-    private IService<WeaponDTO> service;
+    private IService<Weapon> service;
+
+    /**
+     * Setter of the service
+     * @param service restfull
+     */
+    @Autowired
+    public void setService(IService<Weapon> service) {
+        this.service = service;
+    }
 
     /**
      * Default constructor of the class
      */
     public WeaponServiceSoap(){}
 
-    /**
-     * Setter of the service
-     * @param service
-     */
-    @Autowired
-    public void setService(WeaponService service) {
-        this.service = service;
-    }
-
     @Override
     public boolean add(WeaponDTO weaponDTO) {
-        return service.add(weaponDTO);
+        return service.add(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
     }
 
     @Override
     public boolean update(WeaponDTO weaponDTO) throws Exception {
-        return service.update(weaponDTO.getId(), weaponDTO);
+        return service.update(weaponDTO.getId(), IWeaponMapper.INSTANCE.toEntity(weaponDTO));
     }
 
     @WebResult(name="weapon")
     @Override
     public List<WeaponDTO> getAll() {
-        return service.getAll();
+        return service.getAll().stream()
+                .map(item -> new WeaponDTO(item.getId(), item.getType(), item.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
     public WeaponDTO getById(int id) {
-        return service.getById(id);
+        return IWeaponMapper.INSTANCE.toDTO(service.getById(id));
     }
 
     @Override

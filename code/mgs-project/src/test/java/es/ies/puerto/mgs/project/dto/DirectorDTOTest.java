@@ -38,7 +38,7 @@ public class DirectorDTOTest extends TestUtilities {
     @Test
     public void equalsTest(){
         DirectorDTO equals = new DirectorDTO(DIRECTOR_ID);
-        DirectorDTO notEquals = new DirectorDTO(2, FULL_NAME, GAMES_DIRECTED);
+        DirectorDTO notEquals = new DirectorDTO(2, FULL_NAME);
         String str = "str";
         DirectorDTO nullObject = null;
 

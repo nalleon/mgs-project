@@ -1,5 +1,4 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.exception.NotFoundException;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
@@ -19,7 +18,7 @@ import java.util.List;
  */
 @Component
 @Transactional
-public class ArtistService implements IService<ArtistDTO> {
+public class ArtistService implements IService<Artist> {
     /**
      * Properties
      */
@@ -43,25 +42,25 @@ public class ArtistService implements IService<ArtistDTO> {
     }
 
     @Override
-    public boolean add(ArtistDTO artistDTO){
-        if (artistDTO == null){
+    public boolean add(Artist artist){
+        if (artist == null){
             return false;
         }
-        if(repository.existsById(artistDTO.getArtistId())){
+        if(repository.existsById(artist.getArtistId())){
             return false;
         }
 
-        repository.save(IArtistMapper.INSTANCE.toEntity(artistDTO));
+        repository.save(artist);
         return true;
     }
 
     @Override
-    public boolean update(int id, ArtistDTO artistDTO) throws Exception {
+    public boolean update(int id, Artist artist) throws Exception {
         try {
             Artist toUpdate = repository.findById(id).orElse(null);
 
             if(toUpdate!= null){
-                toUpdate.setFullName(artistDTO.getFullName());
+                toUpdate.setFullName(artist.getFullName());
                 repository.save(toUpdate);
                 return true;
             } else {
@@ -76,22 +75,13 @@ public class ArtistService implements IService<ArtistDTO> {
 
 
     @Override
-    public List<ArtistDTO> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(IArtistMapper.INSTANCE::toDTO)
-                .toList();
+    public List<Artist> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public ArtistDTO getById(int id) {
-        Artist result = repository.findById(id).orElse(null);;
-
-         if(result != null) {
-             return IArtistMapper.INSTANCE.toDTO(result);
-         }
-
-         return null;
+    public Artist getById(int id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override

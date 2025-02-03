@@ -1,6 +1,5 @@
 package es.ies.puerto.mgs.project.service.rest;
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
-import es.ies.puerto.mgs.project.dto.WeaponDTO;
+
 import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Weapon;
@@ -61,13 +60,13 @@ public class WeaponServiceTest extends TestUtilities {
     void addTest() {
         when(daoMock.existsById(1)).thenReturn(false);
         when(daoMock.save(any(Weapon.class))).thenReturn(new Weapon());
-        Assertions.assertTrue(service.add(new WeaponDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new Weapon(1)), MESSAGE_ERROR);
     }
 
     @Test
     void addDupeTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        Assertions.assertFalse(service.add(new WeaponDTO(1)), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(new Weapon(1)), MESSAGE_ERROR);
     }
 
     @Test
@@ -90,13 +89,13 @@ public class WeaponServiceTest extends TestUtilities {
     @Test
     void updateTest() throws Exception {
         when(daoMock.findById(1)).thenReturn(Optional.of(new Weapon()));
-        Assertions.assertTrue(service.update(1,new WeaponDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.update(1,new Weapon(1)), MESSAGE_ERROR);
     }
 
     @Test
     void updateExceptionTest() throws Exception {
         when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertFalse(service.update(1, new WeaponDTO(1)), MESSAGE_ERROR);
+        Assertions.assertFalse(service.update(1, new Weapon(1)), MESSAGE_ERROR);
     }
     @Test
     void updateFalseTest() throws Exception {

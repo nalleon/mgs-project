@@ -1,8 +1,8 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.UserController;
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -36,10 +36,10 @@ public class UserControllerTest extends TestUtilities {
     }
     @Test
     void getAllTest() {
-        List<UserDTO> list = new ArrayList<>();
-        list.add(new UserDTO(1, "example@email.com"));
-        list.add(new UserDTO(2, "example2@email.com"));
-        list.add(new UserDTO(3, "example3@email.com"));
+        List<User> list = new ArrayList<>();
+        list.add(new User(1, "example@email.com"));
+        list.add(new User(2, "example2@email.com"));
+        list.add(new User(3, "example3@email.com"));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }
@@ -47,20 +47,20 @@ public class UserControllerTest extends TestUtilities {
 
     @Test
     void getOneTest() {
-        when(serviceMock.getById(1)).thenReturn(new UserDTO(1, "example@email.com"));
-        List<UserDTO> list = new ArrayList<>();
-        list.add(new UserDTO(1, "example@email.com"));
-        list.add(new UserDTO(2, "example2@email.com"));
-        list.add(new UserDTO(3, "example3@email.com"));
+        when(serviceMock.getById(1)).thenReturn(new User(1, "example@email.com"));
+        List<User> list = new ArrayList<>();
+        list.add(new User(1, "example@email.com"));
+        list.add(new User(2, "example2@email.com"));
+        list.add(new User(3, "example3@email.com"));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void addTest() {
-        when(serviceMock.add(any(UserDTO.class))).thenReturn(true);
-        UserDTO dto = new UserDTO(1, "example@email.com");
-        ResponseEntity responseEntity = controller.add(dto);
+        when(serviceMock.add(any(User.class))).thenReturn(true);
+        User aux = new User(1, "example@email.com");
+        ResponseEntity responseEntity = controller.add(new UserDTO(aux.getId(), aux.getName()));
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
@@ -74,17 +74,17 @@ public class UserControllerTest extends TestUtilities {
 
     @Test
     void updateTest() {
-        UserDTO dto = new UserDTO(1, "example@email.com");
-        when(serviceMock.add(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(1, dto);
+        User aux = new User(1, "example@email.com");
+        when(serviceMock.add(aux)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, new UserDTO(aux.getId(), aux.getName()));
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
     @Test
     void updateExceptionTest() throws Exception {
-        UserDTO dto = new UserDTO(1, "example@email.com");
-        when(serviceMock.update(1, dto)).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
+        User aux = new User(1, "example@email.com");
+        when(serviceMock.update(1, aux)).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, new UserDTO(aux.getId(), aux.getName())), MESSAGE_ERROR);
     }
 
 }

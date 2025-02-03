@@ -1,7 +1,10 @@
 package es.ies.puerto.mgs.project.controller.impl;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
+import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -11,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/v1/characters")
 public class MGSCharacterController implements IController<MGSCharacterDTO> {
@@ -38,7 +43,7 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     @PostMapping("/")
     @Operation(summary = "Insert character")
     public ResponseEntity add(@RequestBody MGSCharacterDTO mgsCharacterDTO) {
-        service.add(mgsCharacterDTO);
+        service.add(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -47,7 +52,7 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     @Override
     public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody MGSCharacterDTO mgsCharacterDTO) {
         try {
-            service.update(id, mgsCharacterDTO);
+            service.update(id, IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -58,14 +63,22 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     @Operation(summary = "Get all characters")
     @Override
     public ResponseEntity<List<MGSCharacterDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+        List<MGSCharacterDTO> filteredList = service.getAll().stream()
+                .map(item -> new MGSCharacterDTO(
+                        item.getId(), item.getName(), item.getCodename(),
+                        item.getAge(), item.isStatus(),
+                        IArtistMapper.INSTANCE.toDTO(item.getArtist()))).
+                collect(Collectors.toList());
+
+        return ResponseEntity.ok(filteredList);
     }
 
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get character by ID")
     public ResponseEntity<MGSCharacterDTO> getById(@PathVariable(value = "id") int id) {
-        return ResponseEntity.ok(service.getById(id));
+
+        return ResponseEntity.ok(IMGSCharacterMapper.INSTANCE.toDTO(service.getById(id)));
     }
 
     @Override

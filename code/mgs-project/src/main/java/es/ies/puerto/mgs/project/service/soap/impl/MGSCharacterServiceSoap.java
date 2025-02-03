@@ -2,9 +2,11 @@ package es.ies.puerto.mgs.project.service.soap.impl;
 
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
+import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author nalleon
@@ -29,41 +32,47 @@ public class MGSCharacterServiceSoap implements IServiceSoap<MGSCharacterDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(MGSCharacterServiceSoap.class);
 
-    private IService<MGSCharacterDTO> service;
+    private IService<MGSCharacter> service;
+
+    /**
+     * Setter of the service
+     * @param service restfull
+     */
+    @Autowired
+    public void setService(IService<MGSCharacter> service) {
+        this.service = service;
+    }
 
     /**
      * Default constructor of the class
      */
     public MGSCharacterServiceSoap(){}
 
-    /**
-     * Setter of the service
-     * @param service
-     */
-    @Autowired
-    public void setService(MGSCharacterService service) {
-        this.service = service;
-    }
-
     @Override
     public boolean add(MGSCharacterDTO mgsCharacterDTO) {
-        return service.add(mgsCharacterDTO);
+        return service.add(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
     }
 
     @Override
     public boolean update(MGSCharacterDTO mgsCharacterDTO) throws Exception {
-        return service.update(mgsCharacterDTO.getId(), mgsCharacterDTO);
+        return service.update(mgsCharacterDTO.getId(), IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
     }
 
     @WebResult(name="mgsCharacter")
     @Override
     public List<MGSCharacterDTO> getAll() {
-        return service.getAll();
+        return service.getAll().stream()
+                .map(item -> new MGSCharacterDTO(
+                        item.getId(), item.getName(), item.getCodename(),
+                        item.getAge(), item.isStatus(),
+                        IArtistMapper.INSTANCE.toDTO(item.getArtist()))).
+                collect(Collectors.toList());
+
     }
 
     @Override
     public MGSCharacterDTO getById(int id) {
-        return service.getById(id);
+        return IMGSCharacterMapper.INSTANCE.toDTO(service.getById(id));
     }
 
     @Override

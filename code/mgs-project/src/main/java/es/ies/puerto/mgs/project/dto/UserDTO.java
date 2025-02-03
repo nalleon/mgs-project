@@ -29,6 +29,14 @@ public class UserDTO {
         this.id = id;
     }
 
+    public UserDTO(int id, String name, String email, String password, RoleDTO role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     /**
      * Getters and setters
      */

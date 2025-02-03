@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author nalleon
@@ -28,37 +29,39 @@ public class DirectorServiceSoap implements IServiceSoap<DirectorDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(DirectorServiceSoap.class);
 
-    private IService<DirectorDTO> service;
+    private IService<Director> service;
 
     /**
      * Setter of the service
      * @param service
      */
     @Autowired
-    public void setService(DirectorService service) {
+    public void setService(IService<Director> service) {
         this.service = service;
     }
 
     @Override
     public boolean add(DirectorDTO directorDTO) {
-        return service.add(directorDTO);
+        return service.add(IDirectorMapper.INSTANCE.toEntity(directorDTO));
     }
 
     @Override
     public boolean update(DirectorDTO directorDTO) throws Exception {
-        return service.update(directorDTO.getDirectorId(), directorDTO);
+        return service.update(directorDTO.getDirectorId(), IDirectorMapper.INSTANCE.toEntity(directorDTO));
     }
 
     @WebResult(name="director")
 
     @Override
     public List<DirectorDTO> getAll() {
-       return service.getAll();
+       return service.getAll().stream()
+               .map(item -> new DirectorDTO(item.getDirectorId(), item.getFullName()))
+               .collect(Collectors.toList());
     }
 
     @Override
     public DirectorDTO getById(int id) {
-        return service.getById(id);
+        return IDirectorMapper.INSTANCE.toDTO(service.getById(id));
     }
 
     @Override

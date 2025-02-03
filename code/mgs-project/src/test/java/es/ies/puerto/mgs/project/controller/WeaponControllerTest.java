@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.WeaponController;
 import es.ies.puerto.mgs.project.dto.WeaponDTO;
-import es.ies.puerto.mgs.project.dto.WeaponDTO;
+import es.ies.puerto.mgs.project.model.entities.Weapon;
 import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -37,10 +37,10 @@ public class WeaponControllerTest extends TestUtilities {
     }
     @Test
     void getAllTest() {
-        List<WeaponDTO> list = new ArrayList<>();
-        list.add(new WeaponDTO(1));
-        list.add(new WeaponDTO(2));
-        list.add(new WeaponDTO(3));
+        List<Weapon> list = new ArrayList<>();
+        list.add(new Weapon(1));
+        list.add(new Weapon(2));
+        list.add(new Weapon(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }
@@ -48,20 +48,20 @@ public class WeaponControllerTest extends TestUtilities {
 
     @Test
     void getOneTest() {
-        when(serviceMock.getById(1)).thenReturn(new WeaponDTO(1));
-        List<WeaponDTO> list = new ArrayList<>();
-        list.add(new WeaponDTO(1));
-        list.add(new WeaponDTO(2));
-        list.add(new WeaponDTO(3));
+        when(serviceMock.getById(1)).thenReturn(new Weapon(1));
+        List<Weapon> list = new ArrayList<>();
+        list.add(new Weapon(1));
+        list.add(new Weapon(2));
+        list.add(new Weapon(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void addTest() {
-        when(serviceMock.add(any(WeaponDTO.class))).thenReturn(true);
-        WeaponDTO dto = new WeaponDTO(1);
-        ResponseEntity responseEntity = controller.add(dto);
+        when(serviceMock.add(any(Weapon.class))).thenReturn(true);
+        Weapon aux = new Weapon(1);
+        ResponseEntity responseEntity = controller.add(new WeaponDTO(aux.getId()));
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
@@ -75,16 +75,16 @@ public class WeaponControllerTest extends TestUtilities {
 
     @Test
     void updateTest() {
-        WeaponDTO dto = new WeaponDTO(1);
-        when(serviceMock.update(1, dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(1, dto);
+        Weapon aux = new Weapon(1);
+        when(serviceMock.update(1, aux)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, new WeaponDTO(aux.getId()));
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
     @Test
     void updateExceptionTest() throws Exception {
-        WeaponDTO dto = new WeaponDTO(1);
-        when(serviceMock.update(1, new WeaponDTO(1))).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
+        Weapon aux = new Weapon(1);
+        when(serviceMock.update(1, new Weapon(1))).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, new WeaponDTO(aux.getId())), MESSAGE_ERROR);
     }
 }

@@ -1,8 +1,5 @@
 package es.ies.puerto.mgs.project.service.rest;
 
-import es.ies.puerto.mgs.project.dto.DirectorDTO;
-import es.ies.puerto.mgs.project.dto.DirectorDTO;
-import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.model.entities.Director;
@@ -63,13 +60,13 @@ public class DirectorServiceTest extends TestUtilities {
     void addTest() {
         when(daoMock.existsById(1)).thenReturn(false);
         when(daoMock.save(any(Director.class))).thenReturn(new Director());
-        Assertions.assertTrue(service.add(new DirectorDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new Director(1)), MESSAGE_ERROR);
     }
 
     @Test
     void addDupeTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        Assertions.assertFalse(service.add(new DirectorDTO(1)), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(new Director(1)), MESSAGE_ERROR);
     }
 
     @Test
@@ -81,12 +78,12 @@ public class DirectorServiceTest extends TestUtilities {
     @Test
     void updateExceptionTest() throws Exception {
         when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertFalse(service.update(1, new DirectorDTO(1)), MESSAGE_ERROR);
+        Assertions.assertFalse(service.update(1, new Director(1)), MESSAGE_ERROR);
     }
     @Test
     void updateTest() throws Exception {
         when(daoMock.findById(1)).thenReturn(Optional.of(new Director()));
-        Assertions.assertTrue(service.update(1,new DirectorDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.update(1,new Director(1)), MESSAGE_ERROR);
     }
 
     @Test

@@ -1,7 +1,10 @@
 package es.ies.puerto.mgs.project.controller.impl;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
+import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/v1/users")
 public class UserController implements IController<UserDTO> {
@@ -47,7 +52,7 @@ public class UserController implements IController<UserDTO> {
     })
     @Override
     public ResponseEntity add(@RequestBody UserDTO dto) {
-        service.add(dto);
+        service.add(IUserMapper.INSTANCE.toEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -60,7 +65,7 @@ public class UserController implements IController<UserDTO> {
     @Override
     public ResponseEntity <?> update(@PathVariable(value = "id") int id, @RequestBody UserDTO dto) {
         try {
-            service.update(id, dto);
+            service.update(id, IUserMapper.INSTANCE.toEntity(dto));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -71,7 +76,11 @@ public class UserController implements IController<UserDTO> {
     @Operation(summary = "Get all users")
     @Override
     public ResponseEntity<List<UserDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+        List<UserDTO> filteredList = service.getAll().stream()
+                .map(item -> new UserDTO(item.getId(), item.getName(), item.getEmail(),
+                        null, IRoleMapper.INSTANCE.toDTO(item.getRole())))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(filteredList);
     }
 
     @Override
@@ -82,7 +91,7 @@ public class UserController implements IController<UserDTO> {
     })
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getById(@PathVariable(value = "id") int id) {
-        return ResponseEntity.ok(service.getById(id));
+        return ResponseEntity.ok(IUserMapper.INSTANCE.toDTO(service.getById(id)));
     }
 
     @Override

@@ -1,7 +1,9 @@
 package es.ies.puerto.mgs.project.controller.impl;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
+import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -11,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/v1/roles")
 public class RoleController implements IController<RoleDTO> {
@@ -40,7 +44,7 @@ public class RoleController implements IController<RoleDTO> {
     @PostMapping("/")
     @Operation(summary = "Insert role")
     public ResponseEntity add(@RequestBody RoleDTO dto) {
-        service.add(dto);
+        service.add(IRoleMapper.INSTANCE.toEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -49,7 +53,7 @@ public class RoleController implements IController<RoleDTO> {
     @Override
     public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody RoleDTO dto) {
         try {
-            service.update(id, dto);
+            service.update(id, IRoleMapper.INSTANCE.toEntity(dto));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -60,14 +64,17 @@ public class RoleController implements IController<RoleDTO> {
     @Operation(summary = "Get all roles")
     @Override
     public ResponseEntity<List<RoleDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+        List<RoleDTO> filteredList = service.getAll().stream()
+                .map(item -> new RoleDTO(item.getId(), item.getName()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(filteredList);
     }
 
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get role by ID")
     public ResponseEntity<RoleDTO> getById(@PathVariable(value = "id")int id) {
-        return ResponseEntity.ok(service.getById(id));
+        return ResponseEntity.ok(IRoleMapper.INSTANCE.toDTO(service.getById(id)));
     }
 
     @Override

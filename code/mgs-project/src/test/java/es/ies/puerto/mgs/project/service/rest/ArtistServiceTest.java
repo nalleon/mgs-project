@@ -1,6 +1,5 @@
 package es.ies.puerto.mgs.project.service.rest;
 
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
@@ -57,7 +56,7 @@ public class ArtistServiceTest extends TestUtilities {
     @Test
     void addTest() {
         when(daoMock.save(any(Artist.class))).thenReturn(new Artist());
-        Assertions.assertTrue(service.add(new ArtistDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new Artist(1)), MESSAGE_ERROR);
     }
 
     @Test
@@ -68,19 +67,19 @@ public class ArtistServiceTest extends TestUtilities {
     @Test
     void addDupeTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        Assertions.assertFalse(service.add(new ArtistDTO(1)), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(new Artist(1)), MESSAGE_ERROR);
     }
 
 
     @Test
     void updateExceptionTest() throws Exception {
         when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertFalse(service.update(1, new ArtistDTO(1)), MESSAGE_ERROR);
+        Assertions.assertFalse(service.update(1, new Artist(1)), MESSAGE_ERROR);
     }
     @Test
     void updateTest() throws Exception {
         when(daoMock.findById(1)).thenReturn(Optional.of(new Artist()));
-        Assertions.assertTrue(service.update(1,new ArtistDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.update(1,new Artist(1)), MESSAGE_ERROR);
     }
 
     @Test

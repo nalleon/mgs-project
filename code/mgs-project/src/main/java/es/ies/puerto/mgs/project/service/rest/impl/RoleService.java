@@ -1,17 +1,12 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
-import es.ies.puerto.mgs.project.dto.RoleDTO;
-import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
-import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
-import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
-import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -22,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class RoleService implements IService<RoleDTO> {
+public class RoleService implements IService<Role> {
     /**
      * Properties
      */
@@ -46,25 +41,25 @@ public class RoleService implements IService<RoleDTO> {
     }
 
     @Override
-    public boolean add(RoleDTO roleDTO) {
-        if (roleDTO == null){
+    public boolean add(Role role) {
+        if (role == null){
             return false;
         }
-        if(repository.existsById(roleDTO.getId())){
+        if(repository.existsById(role.getId())){
             return false;
         }
 
-        repository.save(IRoleMapper.INSTANCE.toEntity(roleDTO));
+        repository.save(role);
         return true;
     }
 
     @Override
-    public boolean update(int id, RoleDTO roleDTO) throws Exception {
+    public boolean update(int id, Role role) throws Exception {
         try {
             Role toUpdate = repository.findById(id).orElse(null);
 
             if(toUpdate!= null){
-                toUpdate.setName(roleDTO.getName());
+                toUpdate.setName(role.getName());
                 repository.save(toUpdate);
                 return true;
             } else {
@@ -78,25 +73,15 @@ public class RoleService implements IService<RoleDTO> {
 
 
     @Override
-    public List<RoleDTO> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(IRoleMapper.INSTANCE::toDTO)
-                .toList();
+    public List<Role> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public RoleDTO getById(int id) {
-        Role result = repository.findById(id).orElse(null);;
-
-        if(result != null) {
-            return IRoleMapper.INSTANCE.toDTO(result);
-        }
-
-        return null;
+    public Role getById(int id) {
+        return repository.findById(id).orElse(null);
     }
 
-    //TODO: Added custom exceptions
     @Override
     public boolean delete(int id) {
         if(id == 1){

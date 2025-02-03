@@ -32,10 +32,9 @@ public class DirectorDTO {
      * Full constructor of the class
      * @param directorId of the Director
      * @param fullName of the Director
-     * @param gamesDirected of the Director
      */
 
-    public DirectorDTO(int directorId, String fullName, Set<GameDTO> gamesDirected) {
+    public DirectorDTO(int directorId, String fullName) {
         this.directorId = directorId;
         this.fullName = fullName;
     }

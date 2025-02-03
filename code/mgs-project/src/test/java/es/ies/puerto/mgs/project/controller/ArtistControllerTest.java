@@ -4,6 +4,7 @@ import es.ies.puerto.mgs.project.controller.impl.ArtistController;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.exception.InvalidResourceException;
 import es.ies.puerto.mgs.project.exception.NotFoundException;
+import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -37,10 +38,10 @@ public class ArtistControllerTest extends TestUtilities {
     }
     @Test
     void getAllTest() {
-        List<ArtistDTO> list = new ArrayList<>();
-        list.add(new ArtistDTO(1));
-        list.add(new ArtistDTO(2));
-        list.add(new ArtistDTO(3));
+        List<Artist> list = new ArrayList<>();
+        list.add(new Artist(1));
+        list.add(new Artist(2));
+        list.add(new Artist(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }
@@ -48,20 +49,20 @@ public class ArtistControllerTest extends TestUtilities {
 
     @Test
     void getOneTest() {
-        when(serviceMock.getById(1)).thenReturn(new ArtistDTO(1));
-        List<ArtistDTO> list = new ArrayList<>();
-        list.add(new ArtistDTO(1));
-        list.add(new ArtistDTO(2));
-        list.add(new ArtistDTO(3));
+        when(serviceMock.getById(1)).thenReturn(new Artist(1));
+        List<Artist> list = new ArrayList<>();
+        list.add(new Artist(1));
+        list.add(new Artist(2));
+        list.add(new Artist(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void addTest() throws InvalidResourceException, NotFoundException {
-        when(serviceMock.add(any(ArtistDTO.class))).thenReturn(true);
-        ArtistDTO dto = new ArtistDTO(1);
-        ResponseEntity responseEntity = controller.add(dto);
+        when(serviceMock.add(any(Artist.class))).thenReturn(true);
+        Artist aux = new Artist(1);
+        ResponseEntity responseEntity = controller.add(new ArtistDTO(aux.getArtistId()));
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
@@ -75,18 +76,18 @@ public class ArtistControllerTest extends TestUtilities {
 
     @Test
     void updateTest() throws InvalidResourceException, NotFoundException {
-        ArtistDTO dto = new ArtistDTO(1);
-        when(serviceMock.add(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(1, dto);
+        Artist aux = new Artist(1);
+        when(serviceMock.add(aux)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, new ArtistDTO(aux.getArtistId()));
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
 
     @Test
     void updateExceptionTest() throws Exception {
-        ArtistDTO dto = new ArtistDTO(1);
-        when(serviceMock.update(1, new ArtistDTO(1))).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
+        Artist aux = new Artist(1);
+        when(serviceMock.update(1, new Artist(1))).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, new ArtistDTO(aux.getArtistId())), MESSAGE_ERROR);
     }
 
 }

@@ -2,6 +2,7 @@ package es.ies.puerto.mgs.project.controller.impl;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/v1/artists")
 public class ArtistController implements IController<ArtistDTO> {
@@ -40,7 +43,7 @@ public class ArtistController implements IController<ArtistDTO> {
     @Operation(summary = "Insert artist")
     @PostMapping("/")
     public ResponseEntity add(@RequestBody ArtistDTO artistDTO) {
-        service.add(artistDTO);
+        service.add(IArtistMapper.INSTANCE.toEntity(artistDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -49,7 +52,7 @@ public class ArtistController implements IController<ArtistDTO> {
     @Override
     public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody ArtistDTO artistDTO) {
         try {
-            service.update(id, artistDTO);
+            service.update(id, IArtistMapper.INSTANCE.toEntity(artistDTO));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -60,14 +63,20 @@ public class ArtistController implements IController<ArtistDTO> {
     @Operation(summary = "Get all artist")
     @Override
     public ResponseEntity<List<ArtistDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+        List<ArtistDTO> filteredList = service.getAll().stream()
+                .map(item -> new ArtistDTO(item.getArtistId(), item.getFullName()))
+                .collect(Collectors.toList());
+
+
+        return ResponseEntity.ok(filteredList);
     }
 
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get artist by ID")
     public ResponseEntity<ArtistDTO> getById(@PathVariable(value = "id") int id) {
-        return ResponseEntity.ok(service.getById(id));
+
+        return ResponseEntity.ok(IArtistMapper.INSTANCE.toDTO(service.getById(id)));
     }
 
     @Override

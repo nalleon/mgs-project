@@ -1,8 +1,11 @@
 package es.ies.puerto.mgs.project.service.soap;
 
 import es.ies.puerto.mgs.project.dto.GameDTO;
+import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
+import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.model.entities.Game;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.rest.impl.GameService;
 import es.ies.puerto.mgs.project.service.soap.impl.GameServiceSoap;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
@@ -13,10 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -40,9 +40,9 @@ public class GameServiceSoapTest extends TestUtilities {
     @Test
     void getAllTest() {
         List<Game> list = new ArrayList<>();
-        list.add(new Game(1));
-        list.add(new Game(2));
-        list.add(new Game(3));
+        list.add(new Game(1, "test1",  new HashSet<>(Arrays.asList(new MGSCharacter(1)))));
+        list.add(new Game(2, "test2",  new HashSet<>(Arrays.asList(new MGSCharacter(2)))));
+        list.add(new Game(2, "test3",  new HashSet<>(Arrays.asList(new MGSCharacter(3)))));
         when(daoMock.findAll()).thenReturn(list);
         Assertions.assertNotNull(service.getAll(), MESSAGE_ERROR);
     }

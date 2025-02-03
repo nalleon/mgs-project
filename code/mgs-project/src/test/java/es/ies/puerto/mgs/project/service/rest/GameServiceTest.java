@@ -1,8 +1,5 @@
 package es.ies.puerto.mgs.project.service.rest;
 
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
-import es.ies.puerto.mgs.project.dto.GameDTO;
-import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Game;
@@ -63,13 +60,13 @@ public class GameServiceTest extends TestUtilities {
     void addTest() {
         when(daoMock.existsById(1)).thenReturn(false);
         when(daoMock.save(any(Game.class))).thenReturn(new Game());
-        Assertions.assertTrue(service.add(new GameDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new Game(1)), MESSAGE_ERROR);
     }
 
     @Test
     void addDupeTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        Assertions.assertFalse(service.add(new GameDTO(1)), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(new Game(1)), MESSAGE_ERROR);
     }
 
     @Test
@@ -80,13 +77,13 @@ public class GameServiceTest extends TestUtilities {
     @Test
     void updateExceptionTest() throws Exception {
         when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertFalse(service.update(1, new GameDTO(1)), MESSAGE_ERROR);
+        Assertions.assertFalse(service.update(1, new Game(1)), MESSAGE_ERROR);
     }
     @Test
     void updateTest() throws Exception {
         when(daoMock.save(any(Game.class))).thenReturn(new Game());
         when(daoMock.findById(1)).thenReturn(Optional.of(new Game()));
-        Assertions.assertTrue(service.update(1,new GameDTO(1)), MESSAGE_ERROR);
+        Assertions.assertTrue(service.update(1,new Game(1)), MESSAGE_ERROR);
     }
 
     @Test

@@ -1,8 +1,9 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.RoleController;
+
 import es.ies.puerto.mgs.project.dto.RoleDTO;
-import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -36,10 +37,10 @@ public class RoleControllerTest extends TestUtilities {
     }
     @Test
     void getAllTest() {
-        List<RoleDTO> list = new ArrayList<>();
-        list.add(new RoleDTO(1, "Admin"));
-        list.add(new RoleDTO(2, "User"));
-        list.add(new RoleDTO(3, "Guest"));
+        List<Role> list = new ArrayList<>();
+        list.add(new Role(1, "Admin"));
+        list.add(new Role(2, "User"));
+        list.add(new Role(3, "Guest"));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }
@@ -47,20 +48,20 @@ public class RoleControllerTest extends TestUtilities {
 
     @Test
     void getOneTest() {
-        when(serviceMock.getById(1)).thenReturn(new RoleDTO(1, "Admin"));
-        List<RoleDTO> list = new ArrayList<>();
-        list.add(new RoleDTO(1, "Admin"));
-        list.add(new RoleDTO(2, "User"));
-        list.add(new RoleDTO(3, "Guest"));
+        when(serviceMock.getById(1)).thenReturn(new Role(1, "Admin"));
+        List<Role> list = new ArrayList<>();
+        list.add(new Role(1, "Admin"));
+        list.add(new Role(2, "User"));
+        list.add(new Role(3, "Guest"));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void addTest() {
-        when(serviceMock.add(any(RoleDTO.class))).thenReturn(true);
-        RoleDTO dto = new RoleDTO(1, "Admin");
-        ResponseEntity responseEntity = controller.add(dto);
+        when(serviceMock.add(any(Role.class))).thenReturn(true);
+        RoleDTO aux = new RoleDTO(1, "Admin");
+        ResponseEntity responseEntity = controller.add(aux);
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
@@ -74,17 +75,17 @@ public class RoleControllerTest extends TestUtilities {
 
     @Test
     void updateTest() {
-        RoleDTO dto = new RoleDTO(1, "Admin");
-        when(serviceMock.add(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(1, dto);
+        Role aux = new Role(1, "Admin");
+        when(serviceMock.add(aux)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, new RoleDTO(aux.getId(), aux.getName()));
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
     @Test
     void updateExceptionTest() throws Exception {
-        RoleDTO dto = new RoleDTO(1, "Admin");
-        when(serviceMock.update(1, dto)).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
+        Role aux = new Role(1, "Admin");
+        when(serviceMock.update(1, aux)).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, new RoleDTO(aux.getId(), aux.getName())), MESSAGE_ERROR);
     }
 
 

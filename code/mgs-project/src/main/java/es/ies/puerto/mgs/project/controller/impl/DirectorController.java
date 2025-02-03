@@ -1,7 +1,10 @@
 package es.ies.puerto.mgs.project.controller.impl;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
+import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.dto.DirectorDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -11,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/v1/directors")
 public class DirectorController implements IController<DirectorDTO> {
@@ -39,7 +44,7 @@ public class DirectorController implements IController<DirectorDTO> {
     @PostMapping("/")
     @Operation(summary = "Insert director")
     public ResponseEntity add(@RequestBody DirectorDTO directorDTO) {
-        service.add(directorDTO);
+        service.add(IDirectorMapper.INSTANCE.toEntity(directorDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -48,7 +53,7 @@ public class DirectorController implements IController<DirectorDTO> {
     @Override
     public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody DirectorDTO directorDTO) {
         try {
-            service.update(id, directorDTO);
+            service.update(id, IDirectorMapper.INSTANCE.toEntity(directorDTO));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -59,14 +64,18 @@ public class DirectorController implements IController<DirectorDTO> {
     @Operation(summary = "Get all directors")
     @Override
     public ResponseEntity<List<DirectorDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+        List<DirectorDTO> filteredList = service.getAll().stream()
+                .map(item -> new DirectorDTO(item.getDirectorId(), item.getFullName()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(filteredList);
     }
 
     @Override
     @GetMapping("/{id}")
     @Operation(summary = "Get director by ID")
     public ResponseEntity<DirectorDTO> getById(@PathVariable(value = "id") int id) {
-        return ResponseEntity.ok(service.getById(id));
+        return ResponseEntity.ok(IDirectorMapper.INSTANCE.toDTO(service.getById(id)));
     }
 
     @Override

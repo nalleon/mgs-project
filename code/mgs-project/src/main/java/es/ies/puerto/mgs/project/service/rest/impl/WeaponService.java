@@ -1,6 +1,5 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
-import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
@@ -21,7 +20,7 @@ import java.util.List;
 
 @Component
 @Transactional
-public class WeaponService implements IService<WeaponDTO> {
+public class WeaponService implements IService<Weapon> {
     /**
      * Properties
      */
@@ -44,26 +43,25 @@ public class WeaponService implements IService<WeaponDTO> {
     }
 
     @Override
-    public boolean add(WeaponDTO weaponDTO) {
-        if (weaponDTO == null){
+    public boolean add(Weapon weapon) {
+        if (weapon == null){
             return false;
         }
-        if(repository.existsById(weaponDTO.getId())){
+        if(repository.existsById(weapon.getId())){
             return false;
         }
 
-        repository.save(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
+        repository.save(weapon);
         return true;
     }
 
     @Override
-    public boolean update(int id, WeaponDTO weaponDTO) {
+    public boolean update(int id, Weapon weapon) {
         try {
             Weapon toUpdate = repository.findById(id).orElse(null);
             if(toUpdate!= null) {
-                Weapon aux = IWeaponMapper.INSTANCE.toEntity(weaponDTO);
-                toUpdate.setName(aux.getName());
-                toUpdate.setType(aux.getType());
+                toUpdate.setName(weapon.getName());
+                toUpdate.setType(weapon.getType());
                 repository.save(toUpdate);
                 return true;
             } else {
@@ -76,22 +74,13 @@ public class WeaponService implements IService<WeaponDTO> {
     }
 
     @Override
-    public List<WeaponDTO> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(IWeaponMapper.INSTANCE::toDTO)
-                .toList();
+    public List<Weapon> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public WeaponDTO getById(int id) {
-        Weapon result = repository.findById(id).orElse(null);;
-
-        if(result != null) {
-            return IWeaponMapper.INSTANCE.toDTO(result);
-        }
-
-        return null;
+    public Weapon getById(int id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override

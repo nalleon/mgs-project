@@ -1,6 +1,10 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
 import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
+import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
+import es.ies.puerto.mgs.project.model.entities.User;
+import es.ies.puerto.mgs.project.model.entities.Weapon;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
@@ -12,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author nalleon
@@ -24,41 +29,48 @@ public class UserServiceSoap implements IServiceSoap<UserDTO> {
      */
     private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceSoap.class);
 
-    private IService<UserDTO> service;
+    private IService<User> service;
+
+    /**
+     * Setter of the service
+     * @param service restfull
+     */
+    @Autowired
+    public void setService(IService<User> service) {
+        this.service = service;
+    }
+
 
     /**
      * Default constructor of the class
      */
     public UserServiceSoap(){}
 
-    /**
-     * Setter of the service
-     * @param service
-     */
-    @Autowired
-    public void setService(UserService service) {
-        this.service = service;
-    }
 
     @Override
     public boolean add(UserDTO userDTO) {
-        return service.add(userDTO);
+        return service.add(IUserMapper.INSTANCE.toEntity(userDTO));
     }
 
     @Override
     public boolean update(UserDTO userDTO) throws Exception {
-        return service.update(userDTO.getId(), userDTO);
+        return service.update(userDTO.getId(), IUserMapper.INSTANCE.toEntity(userDTO));
     }
 
     @WebResult(name="user")
     @Override
     public List<UserDTO> getAll() {
-        return service.getAll();
+        List<UserDTO> filteredList = service.getAll().stream()
+                .map(item -> new UserDTO(item.getId(), item.getName(), item.getEmail(),
+                        null, IRoleMapper.INSTANCE.toDTO(item.getRole())))
+                .collect(Collectors.toList());
+
+        return filteredList;
     }
 
     @Override
     public UserDTO getById(int id) {
-        return service.getById(id);
+        return IUserMapper.INSTANCE.toDTO(service.getById(id));
     }
 
     @Override

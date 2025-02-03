@@ -1,8 +1,5 @@
 package es.ies.puerto.mgs.project.service.rest;
 
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
-import es.ies.puerto.mgs.project.dto.RoleDTO;
-import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.model.entities.Role;
@@ -65,7 +62,7 @@ public class RoleServiceTest extends TestUtilities {
     void addTest() {
         when(daoMock.existsById(1)).thenReturn(false);
         when(daoMock.save(any(Role.class))).thenReturn(new Role());
-        Assertions.assertTrue(service.add(new RoleDTO(1, "Admin")), MESSAGE_ERROR);
+        Assertions.assertTrue(service.add(new Role(1, "Admin")), MESSAGE_ERROR);
     }
 
     @Test
@@ -76,18 +73,18 @@ public class RoleServiceTest extends TestUtilities {
     @Test
     void addDupeTest() {
         when(daoMock.existsById(1)).thenReturn(true);
-        Assertions.assertFalse(service.add(new RoleDTO(1, "Admin")), MESSAGE_ERROR);
+        Assertions.assertFalse(service.add(new Role(1, "Admin")), MESSAGE_ERROR);
     }
 
     @Test
     void updateExceptionTest() throws Exception {
         when(daoMock.findById(1)).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertFalse(service.update(1, new RoleDTO(1, "Admin")), MESSAGE_ERROR);
+        Assertions.assertFalse(service.update(1, new Role(1, "Admin")), MESSAGE_ERROR);
     }
     @Test
     void updateTest() throws Exception {
         when(daoMock.findById(1)).thenReturn(Optional.of(new Role()));
-        Assertions.assertTrue(service.update(1,new RoleDTO(1, "admin")), MESSAGE_ERROR);
+        Assertions.assertTrue(service.update(1,new Role(1, "admin")), MESSAGE_ERROR);
     }
 
     @Test

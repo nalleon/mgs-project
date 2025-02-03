@@ -1,19 +1,13 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
-import es.ies.puerto.mgs.project.dto.RoleDTO;
-import es.ies.puerto.mgs.project.dto.UserDTO;
-import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
-import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
-import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
+
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
-import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -24,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class UserService implements IService<UserDTO> {
+public class UserService implements IService<User> {
     /**
      * Properties
      */
@@ -47,29 +41,28 @@ public class UserService implements IService<UserDTO> {
     }
 
     @Override
-    public boolean add(UserDTO userDTO) {
-        if (userDTO == null){
+    public boolean add(User user) {
+        if (user == null){
             return false;
         }
-        if(repository.existsById(userDTO.getId())){
+        if(repository.existsById(user.getId())){
             return false;
         }
 
-        repository.save(IUserMapper.INSTANCE.toEntity(userDTO));
+        repository.save((user));
         return true;
     }
 
     @Override
-    public boolean update(int id, UserDTO userDTO) throws Exception {
+    public boolean update(int id, User user) throws Exception {
         try {
             User toUpdate = repository.findById(id).orElse(null);
 
             if(toUpdate!= null){
-                User aux = IUserMapper.INSTANCE.toEntity(userDTO);
-                toUpdate.setName(aux.getName());
-                toUpdate.setEmail(aux.getEmail());
-                toUpdate.setRole(aux.getRole());
-                toUpdate.setPassword(aux.getPassword());
+                toUpdate.setName(user.getName());
+                toUpdate.setEmail(user.getEmail());
+                toUpdate.setRole(user.getRole());
+                toUpdate.setPassword(user.getPassword());
                 repository.save(toUpdate);
                 return true;
             } else {
@@ -83,26 +76,20 @@ public class UserService implements IService<UserDTO> {
 
 
     @Override
-    public List<UserDTO> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(IUserMapper.INSTANCE::toDTO)
-                .toList();
+    public List<User> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public UserDTO getById(int id) {
-        User result = repository.findById(id).orElse(null);;
-
-        if(result != null) {
-            return IUserMapper.INSTANCE.toDTO(result);
-        }
-
-        return null;
+    public User getById(int id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public boolean delete(int id) {
+        if(id == 1){
+            return false;
+        }
         int quantity = repository.deleteItemById(id);
         return quantity > 0;
     }

@@ -1,8 +1,9 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.GameController;
+
 import es.ies.puerto.mgs.project.dto.GameDTO;
-import es.ies.puerto.mgs.project.dto.GameDTO;
+import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.service.rest.impl.GameService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -36,10 +37,10 @@ public class GameControllerTest extends TestUtilities {
     }
     @Test
     void getAllTest() {
-        List<GameDTO> list = new ArrayList<>();
-        list.add(new GameDTO(1));
-        list.add(new GameDTO(2));
-        list.add(new GameDTO(3));
+        List<Game> list = new ArrayList<>();
+        list.add(new Game(1));
+        list.add(new Game(2));
+        list.add(new Game(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }
@@ -47,20 +48,20 @@ public class GameControllerTest extends TestUtilities {
 
     @Test
     void getOneTest() {
-        when(serviceMock.getById(1)).thenReturn(new GameDTO(1));
-        List<GameDTO> list = new ArrayList<>();
-        list.add(new GameDTO(1));
-        list.add(new GameDTO(2));
-        list.add(new GameDTO(3));
+        when(serviceMock.getById(1)).thenReturn(new Game(1));
+        List<Game> list = new ArrayList<>();
+        list.add(new Game(1));
+        list.add(new Game(2));
+        list.add(new Game(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void addTest() {
-        when(serviceMock.add(any(GameDTO.class))).thenReturn(true);
-        GameDTO dto = new GameDTO(1);
-        ResponseEntity responseEntity = controller.add(dto);
+        when(serviceMock.add(any(Game.class))).thenReturn(true);
+        Game aux = new Game(1);
+        ResponseEntity responseEntity = controller.add(new GameDTO(aux.getId()));
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
@@ -74,16 +75,16 @@ public class GameControllerTest extends TestUtilities {
 
     @Test
     void updateTest() {
-        GameDTO dto = new GameDTO(1);
-        when(serviceMock.add(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(1, dto);
+        Game aux = new Game(1);
+        when(serviceMock.add(aux)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, new GameDTO(aux.getId()));
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
     @Test
     void updateExceptionTest() throws Exception {
-        GameDTO dto = new GameDTO(1);
-        when(serviceMock.update(1, new GameDTO(1))).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
+        Game aux = new Game(1);
+        when(serviceMock.update(1, new Game(1))).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, new GameDTO(aux.getId())), MESSAGE_ERROR);
     }
 }

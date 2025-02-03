@@ -1,5 +1,4 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
-import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
@@ -22,7 +21,7 @@ import java.util.List;
  */
 @Component
 @Transactional
-public class GameService implements IService<GameDTO> {
+public class GameService implements IService<Game> {
     /**
      * Properties
      */
@@ -46,28 +45,27 @@ public class GameService implements IService<GameDTO> {
     }
 
     @Override
-    public boolean add(GameDTO gameDTO) {
-        if (gameDTO == null){
+    public boolean add(Game game) {
+        if (game == null){
             return false;
         }
-        if(repository.existsById(gameDTO.getId())){
+        if(repository.existsById(game.getId())){
             return false;
         }
 
-        repository.save(IGameMapper.INSTANCE.toEntity(gameDTO));
+        repository.save((game));
         return true;
     }
 
     @Override
-    public boolean update(int id, GameDTO gameDTO) throws Exception {
+    public boolean update(int id, Game game) throws Exception {
         try {
             Game toUpdate = repository.findById(id).orElse(null);
 
             if(toUpdate!= null){
-                Game aux = IGameMapper.INSTANCE.toEntity(gameDTO);
-                toUpdate.setDirector(aux.getDirector());
-                toUpdate.setName(aux.getName());
-                toUpdate.setGameCharacters(aux.getGameCharacters());
+                toUpdate.setDirector(game.getDirector());
+                toUpdate.setName(game.getName());
+                toUpdate.setGameCharacters(game.getGameCharacters());
                 repository.save(toUpdate);
                 return true;
             } else {
@@ -81,23 +79,13 @@ public class GameService implements IService<GameDTO> {
 
 
     @Override
-    public List<GameDTO> getAll() {
-        return repository.findAll()
-                .stream()
-                .map(IGameMapper.INSTANCE::toDTO)
-                .toList();
+    public List<Game> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public GameDTO getById(int id) {
-        Game result = repository.findById(id).orElse(null);;
-
-        if(result != null) {
-            return IGameMapper.INSTANCE.toDTO(result);
-        }
-
-        return null;
-
+    public Game getById(int id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override

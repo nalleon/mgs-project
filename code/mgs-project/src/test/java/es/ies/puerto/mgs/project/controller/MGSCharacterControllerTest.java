@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.impl.MGSCharacterController;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
-import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -37,10 +37,10 @@ public class MGSCharacterControllerTest extends TestUtilities {
     }
     @Test
     void getAllTest() {
-        List<MGSCharacterDTO> list = new ArrayList<>();
-        list.add(new MGSCharacterDTO(1));
-        list.add(new MGSCharacterDTO(2));
-        list.add(new MGSCharacterDTO(3));
+        List<MGSCharacter> list = new ArrayList<>();
+        list.add(new MGSCharacter(1));
+        list.add(new MGSCharacter(2));
+        list.add(new MGSCharacter(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }
@@ -48,20 +48,20 @@ public class MGSCharacterControllerTest extends TestUtilities {
 
     @Test
     void getOneTest() {
-        when(serviceMock.getById(1)).thenReturn(new MGSCharacterDTO(1));
-        List<MGSCharacterDTO> list = new ArrayList<>();
-        list.add(new MGSCharacterDTO(1));
-        list.add(new MGSCharacterDTO(2));
-        list.add(new MGSCharacterDTO(3));
+        when(serviceMock.getById(1)).thenReturn(new MGSCharacter(1));
+        List<MGSCharacter> list = new ArrayList<>();
+        list.add(new MGSCharacter(1));
+        list.add(new MGSCharacter(2));
+        list.add(new MGSCharacter(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void addTest() {
-        when(serviceMock.add(any(MGSCharacterDTO.class))).thenReturn(true);
-        MGSCharacterDTO dto = new MGSCharacterDTO(1);
-        ResponseEntity responseEntity = controller.add(dto);
+        when(serviceMock.add(any(MGSCharacter.class))).thenReturn(true);
+        MGSCharacter aux = new MGSCharacter(1);
+        ResponseEntity responseEntity = controller.add(new MGSCharacterDTO(aux.getId()));
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
@@ -75,17 +75,17 @@ public class MGSCharacterControllerTest extends TestUtilities {
 
     @Test
     void updateTest() {
-        MGSCharacterDTO dto = new MGSCharacterDTO(1);
-        when(serviceMock.add(dto)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(1, dto);
+        MGSCharacter aux = new MGSCharacter(1);
+        when(serviceMock.add(aux)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, new MGSCharacterDTO(aux.getId()));
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
     @Test
     void updateExceptionTest() throws Exception {
-        MGSCharacterDTO dto = new MGSCharacterDTO(1);
-        when(serviceMock.update(1, new MGSCharacterDTO(1))).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, dto), MESSAGE_ERROR);
+        MGSCharacter aux = new MGSCharacter(1);
+        when(serviceMock.update(1, new MGSCharacter(1))).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, new MGSCharacterDTO(aux.getId())), MESSAGE_ERROR);
     }
 
 }
