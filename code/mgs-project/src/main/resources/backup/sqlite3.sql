@@ -121,9 +121,9 @@ INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (7, 8); -- Ka
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (8, 3); -- Raiden
 INSERT INTO games_mgscharacters (game_id, mgs_character_id) VALUES (8, 4); -- Jetstream Sam
 
-INSERT INTO roles (id, name) VALUES (1, 'Admin');
-INSERT INTO roles (id, name) VALUES (2, 'User');
-INSERT INTO roles (id, name) VALUES (3, 'Guest');
+INSERT INTO roles (id, name) VALUES (1, 'ROLE_ADMIN');
+INSERT INTO roles (id, name) VALUES (2, 'ROLE_USER');
+INSERT INTO roles (id, name) VALUES (3, 'ROLE_GUEST');
 
 INSERT INTO users (id, name, email, password, role_id) VALUES (1, 'nabil', 'nabil14716@gmail.com', '1q2w3e4r', 1);
 INSERT INTO users (id, name, email, password, role_id) VALUES (2, 'alejandro t.', 'atprod@gmail.com', '1q2w3e4r', 2);
