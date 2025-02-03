@@ -1,9 +1,10 @@
 package es.ies.puerto.mgs.project.controller;
 
-import es.ies.puerto.mgs.project.controller.impl.WeaponController;
-import es.ies.puerto.mgs.project.dto.WeaponDTO;
-import es.ies.puerto.mgs.project.model.entities.Weapon;
-import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
+import es.ies.puerto.mgs.project.controller.v3.DirectorControllerV3;
+
+import es.ies.puerto.mgs.project.dto.DirectorDTO;
+import es.ies.puerto.mgs.project.model.entities.Director;
+import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,27 +21,26 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class WeaponControllerTest extends TestUtilities {
-
+public class DirectorControllerV3Test extends TestUtilities {
     @Mock
-    WeaponService serviceMock;
+    DirectorService serviceMock;
 
     @InjectMocks
-    WeaponController controller;
+    DirectorControllerV3 controller;
 
 
     @BeforeEach
     public void beforeEach (){
         MockitoAnnotations.openMocks(this);
-        controller = new WeaponController();
-        controller.setWeaponService(serviceMock);
+        controller = new DirectorControllerV3();
+        controller.setDirectorService(serviceMock);
     }
     @Test
     void getAllTest() {
-        List<Weapon> list = new ArrayList<>();
-        list.add(new Weapon(1));
-        list.add(new Weapon(2));
-        list.add(new Weapon(3));
+        List<Director> list = new ArrayList<>();
+        list.add(new Director(1));
+        list.add(new Director(2));
+        list.add(new Director(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }
@@ -48,20 +48,20 @@ public class WeaponControllerTest extends TestUtilities {
 
     @Test
     void getOneTest() {
-        when(serviceMock.getById(1)).thenReturn(new Weapon(1));
-        List<Weapon> list = new ArrayList<>();
-        list.add(new Weapon(1));
-        list.add(new Weapon(2));
-        list.add(new Weapon(3));
+        when(serviceMock.getById(1)).thenReturn(new Director(1));
+        List<Director> list = new ArrayList<>();
+        list.add(new Director(1));
+        list.add(new Director(2));
+        list.add(new Director(3));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
     }
 
     @Test
     void addTest() {
-        when(serviceMock.add(any(Weapon.class))).thenReturn(true);
-        Weapon aux = new Weapon(1);
-        ResponseEntity responseEntity = controller.add(new WeaponDTO(aux.getId()));
+        when(serviceMock.add(any(Director.class))).thenReturn(true);
+        Director aux = new Director(1);
+        ResponseEntity responseEntity = controller.add(new DirectorDTO(aux.getDirectorId()));
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
@@ -75,16 +75,16 @@ public class WeaponControllerTest extends TestUtilities {
 
     @Test
     void updateTest() {
-        Weapon aux = new Weapon(1);
-        when(serviceMock.update(1, aux)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(1, new WeaponDTO(aux.getId()));
+        Director aux = new Director(1);
+        when(serviceMock.add(aux)).thenReturn(true);
+        ResponseEntity responseEntity = controller.update(1, new DirectorDTO(aux.getDirectorId()));
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
     @Test
     void updateExceptionTest() throws Exception {
-        Weapon aux = new Weapon(1);
-        when(serviceMock.update(1, new Weapon(1))).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, new WeaponDTO(aux.getId())), MESSAGE_ERROR);
+        Director aux = new Director(1);
+        when(serviceMock.update(1, new Director(1))).thenThrow(new RuntimeException("Database error"));
+        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, new DirectorDTO(aux.getDirectorId())), MESSAGE_ERROR);
     }
 }

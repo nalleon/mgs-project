@@ -1,9 +1,10 @@
 package es.ies.puerto.mgs.project.controller;
 
-import es.ies.puerto.mgs.project.controller.impl.GameController;
+import es.ies.puerto.mgs.project.controller.v3.GameControllerV3;
 
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.model.entities.Game;
+import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.rest.impl.GameService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -16,31 +17,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class GameControllerTest extends TestUtilities {
+public class GameControllerV3Test extends TestUtilities {
     @Mock
     GameService serviceMock;
 
     @InjectMocks
-    GameController controller;
+    GameControllerV3 controller;
 
 
     @BeforeEach
     public void beforeEach (){
         MockitoAnnotations.openMocks(this);
-        controller = new GameController();
+        controller = new GameControllerV3();
         controller.setGameService(serviceMock);
     }
     @Test
     void getAllTest() {
         List<Game> list = new ArrayList<>();
-        list.add(new Game(1));
-        list.add(new Game(2));
-        list.add(new Game(3));
+        list.add(new Game(1, "test1",  new HashSet<>(Arrays.asList(new MGSCharacter(1)))));
+        list.add(new Game(2, "test2",  new HashSet<>(Arrays.asList(new MGSCharacter(2)))));
+        list.add(new Game(2, "test3",  new HashSet<>(Arrays.asList(new MGSCharacter(3)))));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }

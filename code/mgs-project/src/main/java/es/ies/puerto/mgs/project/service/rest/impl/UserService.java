@@ -85,6 +85,15 @@ public class UserService implements IService<User> {
         return repository.findById(id).orElse(null);
     }
 
+    public User getByName(String name) {
+        return repository.findUserByName(name).orElse(null);
+    }
+
+    public User getByEmail(String email) {
+        return repository.findUserByEmail(email).orElse(null);
+    }
+
+
     @Override
     public boolean delete(int id) {
         if(id == 1){

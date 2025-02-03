@@ -1,7 +1,6 @@
-package es.ies.puerto.mgs.project.controller.impl;
+package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.dto.UserDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
@@ -9,7 +8,6 @@ import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +17,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/v1/users")
-public class UserController implements IController<UserDTO> {
+@RequestMapping("/api/v3/users")
+@CrossOrigin
+public class UserControllerV3 implements IController<UserDTO> {
     /**
      * Properties
      */
@@ -30,7 +29,7 @@ public class UserController implements IController<UserDTO> {
     /**
      * Default constructor of the class
      */
-    public UserController() {
+    public UserControllerV3() {
     }
 
 

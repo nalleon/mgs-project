@@ -1,11 +1,10 @@
-package es.ies.puerto.mgs.project.controller.impl;
+package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +14,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/v1/artists")
-public class ArtistController implements IController<ArtistDTO> {
+@RequestMapping("/api/v3/artists")
+@CrossOrigin
+public class ArtistControllerV3 implements IController<ArtistDTO> {
     /**
      * Properties
      */
@@ -26,7 +26,7 @@ public class ArtistController implements IController<ArtistDTO> {
     /**
      * Default constructor of the class
      */
-    public ArtistController() {
+    public ArtistControllerV3() {
     }
 
     /**
@@ -41,7 +41,7 @@ public class ArtistController implements IController<ArtistDTO> {
 
     @Override
     @Operation(summary = "Insert artist")
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity add(@RequestBody ArtistDTO artistDTO) {
         service.add(IArtistMapper.INSTANCE.toEntity(artistDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -59,7 +59,7 @@ public class ArtistController implements IController<ArtistDTO> {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping
     @Operation(summary = "Get all artist")
     @Override
     public ResponseEntity<List<ArtistDTO>> getAll() {

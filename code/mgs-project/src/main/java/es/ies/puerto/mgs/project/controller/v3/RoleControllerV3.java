@@ -1,12 +1,10 @@
-package es.ies.puerto.mgs.project.controller.impl;
+package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +14,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/v1/roles")
-public class RoleController implements IController<RoleDTO> {
+@RequestMapping("/api/v3/roles")
+@CrossOrigin
+public class RoleControllerV3 implements IController<RoleDTO> {
     /**
      * Properties
      */
@@ -28,7 +27,7 @@ public class RoleController implements IController<RoleDTO> {
     /**
      * Default constructor of the class
      */
-    public RoleController() {
+    public RoleControllerV3() {
     }
 
     /**
@@ -41,7 +40,7 @@ public class RoleController implements IController<RoleDTO> {
     }
 
     @Override
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "Insert role")
     public ResponseEntity add(@RequestBody RoleDTO dto) {
         service.add(IRoleMapper.INSTANCE.toEntity(dto));
@@ -59,8 +58,7 @@ public class RoleController implements IController<RoleDTO> {
             throw new RuntimeException(e);
         }
     }
-
-    @GetMapping("/")
+    @GetMapping
     @Operation(summary = "Get all roles")
     @Override
     public ResponseEntity<List<RoleDTO>> getAll() {

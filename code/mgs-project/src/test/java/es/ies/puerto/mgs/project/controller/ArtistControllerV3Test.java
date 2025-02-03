@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.controller;
 
-import es.ies.puerto.mgs.project.controller.impl.ArtistController;
+import es.ies.puerto.mgs.project.controller.v3.ArtistControllerV3;
 import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.exception.InvalidResourceException;
 import es.ies.puerto.mgs.project.exception.NotFoundException;
@@ -22,18 +22,18 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class ArtistControllerTest extends TestUtilities {
+public class ArtistControllerV3Test extends TestUtilities {
     @Mock
     ArtistService serviceMock;
 
     @InjectMocks
-    ArtistController controller;
+    ArtistControllerV3 controller;
 
 
     @BeforeEach
     public void beforeEach (){
         MockitoAnnotations.openMocks(this);
-        controller = new ArtistController();
+        controller = new ArtistControllerV3();
         controller.setArtistService(serviceMock);
     }
     @Test

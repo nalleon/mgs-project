@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.controller;
 
-import es.ies.puerto.mgs.project.controller.impl.RoleController;
+import es.ies.puerto.mgs.project.controller.v3.RoleControllerV3;
 
 import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.model.entities.Role;
@@ -21,18 +21,18 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class RoleControllerTest extends TestUtilities {
+public class RoleControllerV3Test extends TestUtilities {
     @Mock
     RoleService serviceMock;
 
     @InjectMocks
-    RoleController controller;
+    RoleControllerV3 controller;
 
 
     @BeforeEach
     public void beforeEach (){
         MockitoAnnotations.openMocks(this);
-        controller = new RoleController();
+        controller = new RoleControllerV3();
         controller.setRoleService(serviceMock);
     }
     @Test

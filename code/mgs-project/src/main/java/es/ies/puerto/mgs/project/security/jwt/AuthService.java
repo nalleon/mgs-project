@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author Nabil Leon Alvarez <@nalleon>
@@ -61,16 +59,16 @@ public class AuthService {
      * @param password del User
      * @return token si la autenticacion fue exitosa, null si algo fue mal
      */
-//    public String authenticate(String username, String password)  {
-//        String generateToken = null;
-//        User user = service.findByNombre(username);
-//
-//        if (user != null) {
-//            if (passwordEncoder.matches(password, user.getPassword())) {
-//                generateToken = jwtService.generateToken(user.getName(), user.getRole().getName());
-//            }
-//        }
-//
-//        return generateToken;
-//    }
+    public String authenticate(String username, String password)  {
+        String generateToken = null;
+        User user = service.getByName(username);
+
+        if (user != null) {
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                generateToken = jwtService.generateToken(user.getName(), user.getRole().getName());
+            }
+        }
+
+        return generateToken;
+    }
 }

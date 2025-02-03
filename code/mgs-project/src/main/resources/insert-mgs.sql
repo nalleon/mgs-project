@@ -12,15 +12,15 @@ CREATE TABLE games (
     id INTEGER NOT NULL PRIMARY KEY,
     name VARCHAR(255),
     director_director_id INTEGER,
-    FOREIGN KEY (director_director_id) REFERENCES directors(director_id) ON DELETE SET NULL
+    FOREIGN KEY (director_director_id) REFERENCES directors(director_id)
 );
 
 CREATE TABLE games_mgscharacters (
     game_id INTEGER NOT NULL,
     mgs_character_id INTEGER NOT NULL,
     PRIMARY KEY (game_id, mgs_character_id),
-    FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE,
-    FOREIGN KEY (mgs_character_id) REFERENCES mgscharacters(id) ON DELETE CASCADE
+    FOREIGN KEY (game_id) REFERENCES games(id),
+    FOREIGN KEY (mgs_character_id) REFERENCES mgscharacters(id)
 );
 
 CREATE TABLE mgscharacters (
@@ -30,7 +30,7 @@ CREATE TABLE mgscharacters (
     name VARCHAR(255),
     status BOOLEAN NOT NULL,
     artist_artist_id INTEGER,
-    FOREIGN KEY (artist_artist_id) REFERENCES artists(artist_id) ON DELETE SET NULL
+    FOREIGN KEY (artist_artist_id) REFERENCES artists(artist_id)
 );
 
 CREATE TABLE roles (
@@ -44,15 +44,14 @@ CREATE TABLE users (
     name VARCHAR(255),
     password VARCHAR(255),
     role_id INTEGER,
-    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
+    FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
 INSERT INTO artists (artist_id, full_name) VALUES (1, 'Yoji Shinkawa');
-INSERT INTO artists (artist_id, full_name) VALUES (2, 'Yoji Shinkawa');
-INSERT INTO artists (artist_id, full_name) VALUES (3, 'Yushi Yamaguchi');
-INSERT INTO artists (artist_id, full_name) VALUES (4, 'Shoji Yoshida');
-INSERT INTO artists (artist_id, full_name) VALUES (5, 'Katsuya Terada');
-INSERT INTO artists (artist_id, full_name) VALUES (6, 'Yojiro Kato');
+INSERT INTO artists (artist_id, full_name) VALUES (2, 'Yushi Yamaguchi');
+INSERT INTO artists (artist_id, full_name) VALUES (3, 'Shoji Yoshida');
+INSERT INTO artists (artist_id, full_name) VALUES (4, 'Katsuya Terada');
+INSERT INTO artists (artist_id, full_name) VALUES (5, 'Yojiro Kato');
 
 INSERT INTO directors (director_id, full_name) VALUES (1, 'Hideo Kojima');
 
@@ -125,5 +124,5 @@ INSERT INTO roles (id, name) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO roles (id, name) VALUES (2, 'ROLE_USER');
 INSERT INTO roles (id, name) VALUES (3, 'ROLE_GUEST');
 
-INSERT INTO users (id, name, email, password, role_id) VALUES (1, 'nabil', 'nabil14716@gmail.com', '1q2w3e4r', 1);
+INSERT INTO users (id, name, email, password, role_id) VALUES (1, 'nabil', 'nabil14716@gmail.com', '$2a$10$tgK.Ur/OiE2PuQqkgEHkxOt3/6kJWA440Aq7wH8x2z99jyd773AeK', 1);
 INSERT INTO users (id, name, email, password, role_id) VALUES (2, 'alejandro t.', 'atprod@gmail.com', '1q2w3e4r', 2);

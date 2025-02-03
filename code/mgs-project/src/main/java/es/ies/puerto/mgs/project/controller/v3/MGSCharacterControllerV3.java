@@ -1,13 +1,11 @@
-package es.ies.puerto.mgs.project.controller.impl;
+package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +15,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/v1/characters")
-public class MGSCharacterController implements IController<MGSCharacterDTO> {
+@RequestMapping("/api/v3/characters")
+@CrossOrigin
+public class MGSCharacterControllerV3 implements IController<MGSCharacterDTO> {
     /**
      * Properties
      */
@@ -27,7 +26,7 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     /**
      * Default constructor of the class
      */
-    public MGSCharacterController() {
+    public MGSCharacterControllerV3() {
     }
 
     /**
@@ -40,7 +39,7 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
     }
 
     @Override
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "Insert character")
     public ResponseEntity add(@RequestBody MGSCharacterDTO mgsCharacterDTO) {
         service.add(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
@@ -59,7 +58,7 @@ public class MGSCharacterController implements IController<MGSCharacterDTO> {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping
     @Operation(summary = "Get all characters")
     @Override
     public ResponseEntity<List<MGSCharacterDTO>> getAll() {

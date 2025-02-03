@@ -1,15 +1,12 @@
-package es.ies.puerto.mgs.project.controller.impl;
+package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
-import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.GameService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/v1/games")
-public class GameController implements IController<GameDTO> {
+@RequestMapping("/api/v3/games")
+@CrossOrigin
+public class GameControllerV3 implements IController<GameDTO> {
     /**
      * Properties
      */
@@ -30,7 +28,7 @@ public class GameController implements IController<GameDTO> {
     /**
      * Default constructor of the class
      */
-    public GameController() {
+    public GameControllerV3() {
     }
 
 
@@ -44,7 +42,7 @@ public class GameController implements IController<GameDTO> {
     }
 
     @Override
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "Insert game")
     public ResponseEntity add(@RequestBody GameDTO gameDTO) {
         service.add(IGameMapper.INSTANCE.toEntity(gameDTO));
@@ -62,7 +60,7 @@ public class GameController implements IController<GameDTO> {
             throw new RuntimeException(e);
         }
     }
-    @GetMapping("/")
+    @GetMapping
     @Operation(summary = "Get all games")
     @Override
     public ResponseEntity<List<GameDTO>> getAll() {

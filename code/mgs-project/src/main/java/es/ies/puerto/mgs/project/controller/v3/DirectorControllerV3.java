@@ -1,13 +1,10 @@
-package es.ies.puerto.mgs.project.controller.impl;
+package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.dto.DirectorDTO;
-import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +14,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/v1/directors")
-public class DirectorController implements IController<DirectorDTO> {
+@RequestMapping("/api/v3/directors")
+@CrossOrigin
+public class DirectorControllerV3 implements IController<DirectorDTO> {
     /**
      * Properties
      */
@@ -28,7 +26,7 @@ public class DirectorController implements IController<DirectorDTO> {
     /**
      * Default constructor of the class
      */
-    public DirectorController() {
+    public DirectorControllerV3() {
     }
 
     /**
@@ -41,7 +39,7 @@ public class DirectorController implements IController<DirectorDTO> {
     }
 
     @Override
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "Insert director")
     public ResponseEntity add(@RequestBody DirectorDTO directorDTO) {
         service.add(IDirectorMapper.INSTANCE.toEntity(directorDTO));
@@ -60,7 +58,7 @@ public class DirectorController implements IController<DirectorDTO> {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping
     @Operation(summary = "Get all directors")
     @Override
     public ResponseEntity<List<DirectorDTO>> getAll() {
