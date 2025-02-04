@@ -36,15 +36,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(
                                 "/", "/swagger-ui.html",
-                                "/swagger-ui/**", "/v2/**",
-                                "/configuration/**",	"/swagger*/**",
-                                "/webjars/**", "/api/v1/auth/login",
-                                "/api/v1/auth/register", "/v3/**",
-                                "/websocket*/**", "/index.html"
+                                "/swagger-ui/**", "/v2/**", "/v3/**",
+                                "/configuration/**","/swagger*/**",
+                                "/webjars/**", "/api/v1/auth/**",
+                                "/websocket*/**", "/index.html",
+                                "/services/**"
                         ).permitAll()
-
-
-                        .requestMatchers("/api/v2/**").authenticated()
                         .requestMatchers("/api/v3/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

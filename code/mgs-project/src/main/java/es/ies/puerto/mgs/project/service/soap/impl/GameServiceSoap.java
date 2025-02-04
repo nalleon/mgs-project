@@ -1,4 +1,5 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
+import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
@@ -76,7 +77,8 @@ public class GameServiceSoap implements IServiceSoap<GameDTO> {
                                         ch.isStatus(),
                                         IArtistMapper.INSTANCE.toDTO(ch.getArtist())
                                 ))
-                                .collect(Collectors.toSet())
+                                .collect(Collectors.toSet()),
+                        new DirectorDTO(item.getDirector().getDirectorId(), item.getDirector().getFullName())
                 ))
                 .collect(Collectors.toList());
     }

@@ -1,5 +1,6 @@
 package es.ies.puerto.mgs.project.service.soap;
 
+import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
@@ -18,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.*;
 
+import static es.ies.puerto.mgs.project.controller.GameControllerV3Test.TEST_1;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -40,9 +42,9 @@ public class GameServiceSoapTest extends TestUtilities {
     @Test
     void getAllTest() {
         List<Game> list = new ArrayList<>();
-        list.add(new Game(1, "test1",  new HashSet<>(Arrays.asList(new MGSCharacter(1)))));
-        list.add(new Game(2, "test2",  new HashSet<>(Arrays.asList(new MGSCharacter(2)))));
-        list.add(new Game(2, "test3",  new HashSet<>(Arrays.asList(new MGSCharacter(3)))));
+        Game aux = TEST_1;
+        aux.setDirector(new Director(1, "directorTest"));
+        list.add(TEST_1);
         when(daoMock.findAll()).thenReturn(list);
         Assertions.assertNotNull(service.getAll(), MESSAGE_ERROR);
     }

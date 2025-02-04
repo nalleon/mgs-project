@@ -39,6 +39,7 @@ public class AuthController {
     public String login(@RequestBody UserLoginDTO loginDTO ) {
         String token = authService.authenticate(loginDTO.username(), loginDTO.password());
 
+        ;
         if (token == null) {
             throw new RuntimeException("Credenciales inválidas");
         }

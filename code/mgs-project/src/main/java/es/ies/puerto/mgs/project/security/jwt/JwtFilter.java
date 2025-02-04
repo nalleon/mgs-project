@@ -31,47 +31,37 @@ import static java.lang.Integer.parseInt;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-
     public static final String authHeader="Authorization";
     public static final String authHeaderTokenPrefix="Bearer ";
-
     @Autowired
     private JwtService jwtTokenManager;
-
     @Autowired
     private IDaoUser usuarioRepository;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-
         String path = request.getRequestURI();
 
-//        Set<String> rutasPermitidas = Set.of(
-//                "/", "/swagger-ui.html",
-//                "/swagger-ui/**", "/v2/**",
-//                "/configuration/**", "/swagger*/**",
-//                "/webjars/**", "/api/v1/auth/login",
-//                "/api/v1/auth/register", "/v3/**",
-//                "/websocket*/**", "/index.html"
-//        );
-//
-//        for (String ruta : rutasPermitidas) {
-//            System.out.println("Ruta permitida");
-//            if (path.startsWith(ruta)) {
-//                filterChain.doFilter(request, response);
-//                return;
-//            }
-//        }
+        Set<String> rutasPermitidas = Set.of(
+                "/swagger-ui.html",
+                "/swagger-ui/", "/v2/", "/v3/",
+                "/configuration/","/swagger/",
+                "/webjars/", "/api/v1/auth/",
+                "/websocket/", "/index.html",
+                "/services/"
+        );
 
-        //el token viene en un header Authorization
+        for (String ruta : rutasPermitidas) {
+            if (path.startsWith(ruta)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+        }
+
         String header = request.getHeader(authHeader);
 
-        //típicamente se precede el token con bearer:  Bearer token
         if (header != null && header.startsWith(authHeaderTokenPrefix)) {
-
-            System.out.println("Dentro de comprobacion");
             String token = header.substring(authHeaderTokenPrefix.length());
             try {
                 Map<String, String> mapInfoToken = jwtTokenManager.validateAndGetClaims(token);
@@ -82,11 +72,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 final String rol = mapInfoToken.get("role");
 
-
-                //UserDetails en Spring Security es un interfaz basado en Principal de java
-                //y es la forma que tiene Spring de mantener la información de usuario "autenticado"
-                //en el contexto de seguridad. Nos permite guardar la información de username
-                //y authorities ( los roles si se admiten múltiples roles ) Creamos un objeto de clase anónima UserDetails:
                 UserDetails userDetails = new UserDetails() {
 
                     final String username=nombreusuario;

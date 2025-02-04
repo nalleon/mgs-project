@@ -59,7 +59,6 @@ public class Game implements Serializable {
         this.id = id;
         this.name = name;
         this.gameCharacters = gameCharacters;
-        //this.director = director;
     }
 
     /**

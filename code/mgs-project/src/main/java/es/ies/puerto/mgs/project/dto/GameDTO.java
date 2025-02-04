@@ -40,10 +40,11 @@ public class GameDTO {
      * @param name of the Game
      * @param gameCharacters of the Game
      */
-    public GameDTO(int id, String name, Set<MGSCharacterDTO> gameCharacters) {
+    public GameDTO(int id, String name, Set<MGSCharacterDTO> gameCharacters, DirectorDTO director) {
         this.id = id;
         this.name = name;
         this.gameCharacters = gameCharacters;
+        this.director = director;
     }
 
     /**

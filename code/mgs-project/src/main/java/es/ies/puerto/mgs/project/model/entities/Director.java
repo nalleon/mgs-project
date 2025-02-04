@@ -41,6 +41,16 @@ public class Director implements Serializable {
     }
 
     /**
+     * Constructor of the class
+     * @param directorId of the Director
+     * @param fullName of the Director
+     */
+    public Director(int directorId, String fullName) {
+        this.directorId = directorId;
+        this.fullName = fullName;
+    }
+
+    /**
      * Full constructor of the class
      * @param directorId of the Director
      * @param fullName of the Director

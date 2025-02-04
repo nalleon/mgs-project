@@ -12,7 +12,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(uses = {IMGSCharacterMapper.class, IDirectorMapper.class})
 public interface IGameMapper {
     IGameMapper INSTANCE = Mappers.getMapper(IGameMapper.class);
-
     Game toEntity(GameDTO gameDTO);
     GameDTO toDTO(Game game);
 }

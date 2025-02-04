@@ -47,7 +47,7 @@ public class GameDTOTest extends TestUtilities {
     @Test
     public void equalsTest(){
         GameDTO equals = new GameDTO(GAME_ID);
-        GameDTO notEquals = new GameDTO(2, NAME, GAME_CHARACTERS);
+        GameDTO notEquals = new GameDTO(2, NAME, GAME_CHARACTERS, DIRECTOR);
         String str = "str";
         GameDTO nullObject = null;
 

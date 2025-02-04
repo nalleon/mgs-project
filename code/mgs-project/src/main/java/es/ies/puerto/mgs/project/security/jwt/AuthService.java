@@ -63,6 +63,8 @@ public class AuthService {
         String generateToken = null;
         User user = service.getByName(username);
 
+        System.out.println(user);
+
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
                 generateToken = jwtService.generateToken(user.getName(), user.getRole().getName());

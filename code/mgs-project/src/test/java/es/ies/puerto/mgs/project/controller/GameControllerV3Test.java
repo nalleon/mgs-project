@@ -2,7 +2,9 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.v3.GameControllerV3;
 
+import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.GameDTO;
+import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.rest.impl.GameService;
@@ -25,6 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class GameControllerV3Test extends TestUtilities {
+    public static final Game TEST_1 = new Game(1, "test1", new HashSet<>(Arrays.asList(new MGSCharacter(1))));
     @Mock
     GameService serviceMock;
 
@@ -41,9 +44,9 @@ public class GameControllerV3Test extends TestUtilities {
     @Test
     void getAllTest() {
         List<Game> list = new ArrayList<>();
-        list.add(new Game(1, "test1",  new HashSet<>(Arrays.asList(new MGSCharacter(1)))));
-        list.add(new Game(2, "test2",  new HashSet<>(Arrays.asList(new MGSCharacter(2)))));
-        list.add(new Game(2, "test3",  new HashSet<>(Arrays.asList(new MGSCharacter(3)))));
+        Game aux = TEST_1;
+        aux.setDirector(new Director(1, "directorTest"));
+        list.add(TEST_1);
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }
@@ -52,11 +55,6 @@ public class GameControllerV3Test extends TestUtilities {
     @Test
     void getOneTest() {
         when(serviceMock.getById(1)).thenReturn(new Game(1));
-        List<Game> list = new ArrayList<>();
-        list.add(new Game(1));
-        list.add(new Game(2));
-        list.add(new Game(3));
-        when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
     }
 

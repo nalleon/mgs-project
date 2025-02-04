@@ -1,6 +1,7 @@
 package es.ies.puerto.mgs.project.controller.v2;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
+import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
@@ -57,7 +58,8 @@ public class GameControllerV2 {
                                         ch.isStatus(),
                                         IArtistMapper.INSTANCE.toDTO(ch.getArtist())
                                 ))
-                                .collect(Collectors.toSet())
+                                .collect(Collectors.toSet()),
+                        new DirectorDTO(item.getDirector().getDirectorId(), item.getDirector().getFullName())
                 ))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(filteredList);

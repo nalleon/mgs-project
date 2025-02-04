@@ -48,10 +48,11 @@ CREATE TABLE users (
 );
 
 INSERT INTO artists (artist_id, full_name) VALUES (1, 'Yoji Shinkawa');
-INSERT INTO artists (artist_id, full_name) VALUES (2, 'Yushi Yamaguchi');
-INSERT INTO artists (artist_id, full_name) VALUES (3, 'Shoji Yoshida');
-INSERT INTO artists (artist_id, full_name) VALUES (4, 'Katsuya Terada');
-INSERT INTO artists (artist_id, full_name) VALUES (5, 'Yojiro Kato');
+INSERT INTO artists (artist_id, full_name) VALUES (2, 'Yoji Shinkawa');
+INSERT INTO artists (artist_id, full_name) VALUES (3, 'Yushi Yamaguchi');
+INSERT INTO artists (artist_id, full_name) VALUES (4, 'Shoji Yoshida');
+INSERT INTO artists (artist_id, full_name) VALUES (5, 'Katsuya Terada');
+INSERT INTO artists (artist_id, full_name) VALUES (6, 'Yojiro Kato');
 
 INSERT INTO directors (director_id, full_name) VALUES (1, 'Hideo Kojima');
 
@@ -124,5 +125,4 @@ INSERT INTO roles (id, name) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO roles (id, name) VALUES (2, 'ROLE_USER');
 INSERT INTO roles (id, name) VALUES (3, 'ROLE_GUEST');
 
-INSERT INTO users (id, name, email, password, role_id) VALUES (1, 'nabil', 'nabil14716@gmail.com', '$2a$10$tgK.Ur/OiE2PuQqkgEHkxOt3/6kJWA440Aq7wH8x2z99jyd773AeK', 1);
-INSERT INTO users (id, name, email, password, role_id) VALUES (2, 'alejandro t.', 'atprod@gmail.com', '1q2w3e4r', 2);
+INSERT INTO users (id, name, email, password, role_id) VALUES (1, 'nabil', 'nabil14716@gmail.com', '$2a$10$t97gYiGP4FBZ8ybFX7.F9OHqhgEBpidnsLXwsoV2CgwbYasnhX3aC', 1);
