@@ -1,11 +1,12 @@
 package es.ies.puerto.mgs.project.controller.v1;
 
-import es.ies.puerto.mgs.project.dto.UserLoginDTO;
-import es.ies.puerto.mgs.project.dto.UserRegisterDTO;
+import es.ies.puerto.mgs.project.dto.inputs.UserLoginDTO;
+import es.ies.puerto.mgs.project.dto.inputs.UserRegisterDTO;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.security.jwt.AuthService;
 import es.ies.puerto.mgs.project.security.jwt.JwtService;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
+import es.ies.puerto.mgs.project.utils.ApiResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +40,6 @@ public class AuthController {
     public String login(@RequestBody UserLoginDTO loginDTO ) {
         String token = authService.authenticate(loginDTO.username(), loginDTO.password());
 
-        ;
         if (token == null) {
             throw new RuntimeException("Credenciales inválidas");
         }
@@ -49,17 +49,15 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegisterDTO registerDTO ) {
-        authService.register(registerDTO.username(), registerDTO.password(), registerDTO.email());
-
-        User usuario = service.getByEmail(registerDTO.email());
+        User register = authService.register(registerDTO.username(), registerDTO.password(), registerDTO.email());
 
 
-        if (usuario != null) {
+        if (register != null) {
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("En breves momentos, le llegara un correo de verificacion");
-
+                    .body(new ApiResponse<>(201, "User succesfully created", null));
         }
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(new ApiResponse<>(400, "Error while creating the new user", null));
     }
 }

@@ -1,5 +1,7 @@
 package es.ies.puerto.mgs.project.dto;
 
+import es.ies.puerto.mgs.project.dto.outputs.RoleDTO;
+import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +40,7 @@ public class UserDTOTest extends TestUtilities {
         Assertions.assertTrue(user.toString().contains(NAME), MESSAGE_ERROR);
         Assertions.assertTrue(user.toString().contains(EMAIL), MESSAGE_ERROR);
         Assertions.assertFalse(user.toString().contains(PASSWORD), MESSAGE_ERROR);
-        Assertions.assertTrue(user.toString().contains(ROLE.getName()), MESSAGE_ERROR);
+        Assertions.assertTrue(user.toString().contains(ROLE.toString()), MESSAGE_ERROR);
     }
 
     @Test

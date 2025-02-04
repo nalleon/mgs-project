@@ -1,16 +1,16 @@
 CREATE TABLE artists (
-    artist_id INTEGER NOT NULL PRIMARY KEY,
-    full_name VARCHAR(255)
+    artist_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    full_name VARCHAR(255) UNIQUE
 );
 
 CREATE TABLE directors (
-    director_id INTEGER NOT NULL PRIMARY KEY,
-    full_name VARCHAR(255)
+    director_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    full_name VARCHAR(255) UNIQUE
 );
 
 CREATE TABLE games (
-    id INTEGER NOT NULL PRIMARY KEY,
-    name VARCHAR(255),
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) UNIQUE,
     director_director_id INTEGER,
     FOREIGN KEY (director_director_id) REFERENCES directors(director_id)
 );
@@ -24,7 +24,7 @@ CREATE TABLE games_mgscharacters (
 );
 
 CREATE TABLE mgscharacters (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     age INTEGER NOT NULL,
     codename VARCHAR(255),
     name VARCHAR(255),
@@ -34,12 +34,12 @@ CREATE TABLE mgscharacters (
 );
 
 CREATE TABLE roles (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(255)
 );
 
 CREATE TABLE users (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     email VARCHAR(255),
     name VARCHAR(255),
     password VARCHAR(255),
@@ -48,11 +48,10 @@ CREATE TABLE users (
 );
 
 INSERT INTO artists (artist_id, full_name) VALUES (1, 'Yoji Shinkawa');
-INSERT INTO artists (artist_id, full_name) VALUES (2, 'Yoji Shinkawa');
-INSERT INTO artists (artist_id, full_name) VALUES (3, 'Yushi Yamaguchi');
-INSERT INTO artists (artist_id, full_name) VALUES (4, 'Shoji Yoshida');
-INSERT INTO artists (artist_id, full_name) VALUES (5, 'Katsuya Terada');
-INSERT INTO artists (artist_id, full_name) VALUES (6, 'Yojiro Kato');
+INSERT INTO artists (artist_id, full_name) VALUES (2, 'Yushi Yamaguchi');
+INSERT INTO artists (artist_id, full_name) VALUES (3, 'Shoji Yoshida');
+INSERT INTO artists (artist_id, full_name) VALUES (4, 'Katsuya Terada');
+INSERT INTO artists (artist_id, full_name) VALUES (5, 'Yojiro Kato');
 
 INSERT INTO directors (director_id, full_name) VALUES (1, 'Hideo Kojima');
 

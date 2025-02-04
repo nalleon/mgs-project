@@ -1,6 +1,4 @@
-package es.ies.puerto.mgs.project.dto;
-
-import jakarta.persistence.*;
+package es.ies.puerto.mgs.project.dto.outputs;
 
 import java.util.Objects;
 
@@ -83,13 +81,14 @@ public class UserDTO {
     /**
      * toString
      */
+
     @Override
     public String toString() {
         return "UserDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", id_role=" + role.getName() + '\''+
+                ", role=" + role +
                 '}';
     }
 

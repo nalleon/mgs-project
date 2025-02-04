@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.dto.outputs.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;

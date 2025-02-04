@@ -1,14 +1,10 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
-import es.ies.puerto.mgs.project.dto.RoleDTO;
-import es.ies.puerto.mgs.project.dto.RoleDTO;
+import es.ies.puerto.mgs.project.dto.outputs.RoleDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
 import es.ies.puerto.mgs.project.model.entities.Role;
-import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
-import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import org.slf4j.Logger;
@@ -16,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,10 +1,9 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
+import es.ies.puerto.mgs.project.dto.outputs.ArtistDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
-import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;

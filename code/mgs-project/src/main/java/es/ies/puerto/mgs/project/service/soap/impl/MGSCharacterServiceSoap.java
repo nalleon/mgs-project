@@ -1,15 +1,11 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
-import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
-import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.dto.outputs.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
-import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
-import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import org.slf4j.Logger;
@@ -17,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

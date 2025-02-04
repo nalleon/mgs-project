@@ -1,10 +1,6 @@
-package es.ies.puerto.mgs.project.dto;
-
-import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
+package es.ies.puerto.mgs.project.dto.outputs;
 
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * @author nalleon

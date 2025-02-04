@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.dto;
 
-import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
+import es.ies.puerto.mgs.project.dto.outputs.ArtistDTO;
+import es.ies.puerto.mgs.project.dto.outputs.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

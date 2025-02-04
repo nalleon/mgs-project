@@ -1,6 +1,5 @@
-package es.ies.puerto.mgs.project.dto;
+package es.ies.puerto.mgs.project.dto.outputs;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * @author nalleon

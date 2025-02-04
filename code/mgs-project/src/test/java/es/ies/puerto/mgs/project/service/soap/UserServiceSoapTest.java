@@ -1,14 +1,10 @@
 package es.ies.puerto.mgs.project.service.soap;
 
-import es.ies.puerto.mgs.project.dto.UserDTO;
-import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
 import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.entities.User;
-import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
-import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import es.ies.puerto.mgs.project.service.soap.impl.UserServiceSoap;
-import es.ies.puerto.mgs.project.service.soap.impl.WeaponServiceSoap;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,9 +42,6 @@ public class UserServiceSoapTest extends TestUtilities {
     @Test
     void getAllTest() {
         List<User> list = new ArrayList<>();
-        list.add(new User(1, "example@email.com"));
-        list.add(new User(2, "example2@email.com"));
-        list.add(new User(3, "example3@email.com"));
         when(daoMock.findAll()).thenReturn(list);
         Assertions.assertNotNull(service.getAll(), MESSAGE_ERROR);
     }

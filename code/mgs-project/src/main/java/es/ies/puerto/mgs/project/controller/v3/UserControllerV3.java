@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;

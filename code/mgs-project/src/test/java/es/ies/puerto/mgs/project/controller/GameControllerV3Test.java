@@ -2,8 +2,7 @@ package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.v3.GameControllerV3;
 
-import es.ies.puerto.mgs.project.dto.DirectorDTO;
-import es.ies.puerto.mgs.project.dto.GameDTO;
+import es.ies.puerto.mgs.project.dto.outputs.GameDTO;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;

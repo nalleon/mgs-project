@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.v3.UserControllerV3;
-import es.ies.puerto.mgs.project.dto.UserDTO;
+import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
@@ -38,9 +38,6 @@ public class UserControllerV3Test extends TestUtilities {
     @Test
     void getAllTest() {
         List<User> list = new ArrayList<>();
-        list.add(new User(1, "example@email.com"));
-        list.add(new User(2, "example2@email.com"));
-        list.add(new User(3, "example3@email.com"));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getAll(), MESSAGE_ERROR);
     }

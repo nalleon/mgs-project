@@ -1,9 +1,7 @@
 package es.ies.puerto.mgs.project.service.interfaces;
 
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
-import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 
 import java.util.List;

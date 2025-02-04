@@ -1,5 +1,6 @@
 package es.ies.puerto.mgs.project.dto;
 
+import es.ies.puerto.mgs.project.dto.outputs.RoleDTO;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

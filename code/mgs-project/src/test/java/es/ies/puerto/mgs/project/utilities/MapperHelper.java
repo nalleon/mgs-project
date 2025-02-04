@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.utilities;
 
-import es.ies.puerto.mgs.project.dto.*;
+import es.ies.puerto.mgs.project.dto.outputs.*;
 import es.ies.puerto.mgs.project.model.entities.*;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -53,7 +53,7 @@ public class MapperHelper extends TestUtilities {
     public WeaponDTO weaponDTO;
 
     public Role role;
-    public  RoleDTO roleDTO;
+    public RoleDTO roleDTO;
 
     public User user;
     public UserDTO userDTO;

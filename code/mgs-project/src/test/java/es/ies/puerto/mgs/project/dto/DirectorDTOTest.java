@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.dto;
 
-import es.ies.puerto.mgs.project.model.entities.Director;
-import es.ies.puerto.mgs.project.model.entities.Game;
+import es.ies.puerto.mgs.project.dto.outputs.DirectorDTO;
+import es.ies.puerto.mgs.project.dto.outputs.GameDTO;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

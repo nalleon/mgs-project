@@ -35,9 +35,9 @@ public class AuthService {
      * @param username of the user
      * @param password of the user
      * @param email of the user
-     * @return true if everything OK, false otherwise
+     * @return the user if everything OK, null otherwise
      */
-    public boolean register(String username, String password, String email) {
+    public User register(String username, String password, String email) {
         User user = new User();
         user.setName(username);
         user.setPassword(passwordEncoder.encode(password));
@@ -49,8 +49,8 @@ public class AuthService {
 
         service.add(user);
 
-        User saved = service.getById(1);
-        return saved != null;
+        return service.getById(1);
+
     }
 
     /**

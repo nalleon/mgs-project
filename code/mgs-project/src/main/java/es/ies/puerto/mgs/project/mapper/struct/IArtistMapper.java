@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.mapper.struct;
 
-import es.ies.puerto.mgs.project.dto.ArtistDTO;
+import es.ies.puerto.mgs.project.dto.outputs.ArtistDTO;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
