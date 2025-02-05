@@ -16,7 +16,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.*;
 
-import static es.ies.puerto.mgs.project.controller.GameControllerV2Test.TEST_1;
+import static es.ies.puerto.mgs.project.controller.v3.GameControllerTest.TEST_1;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 

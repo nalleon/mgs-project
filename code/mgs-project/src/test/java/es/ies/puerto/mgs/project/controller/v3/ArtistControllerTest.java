@@ -1,4 +1,4 @@
-package es.ies.puerto.mgs.project.controller;
+package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.v3.ArtistController;
 import es.ies.puerto.mgs.project.dto.outputs.ArtistDTO;

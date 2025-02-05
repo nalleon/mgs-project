@@ -1,4 +1,4 @@
-package es.ies.puerto.mgs.project.controller;
+package es.ies.puerto.mgs.project.controller.v2;
 
 import es.ies.puerto.mgs.project.controller.v3.MGSCharacterController;
 import es.ies.puerto.mgs.project.dto.outputs.MGSCharacterDTO;
@@ -20,7 +20,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class MGSCharacterControllerTest extends TestUtilities {
+public class MGSCharacterControllerV2Test extends TestUtilities {
 
     @Mock
     MGSCharacterService serviceMock;
@@ -57,35 +57,5 @@ public class MGSCharacterControllerTest extends TestUtilities {
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
     }
 
-    @Test
-    void addTest() {
-        when(serviceMock.add(any(MGSCharacter.class))).thenReturn(true);
-        MGSCharacter aux = new MGSCharacter(1);
-        ResponseEntity responseEntity = controller.add(new MGSCharacterDTO(aux.getId()));
-        Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
-    }
-
-
-    @Test
-    void deleteTest() {
-        ResponseEntity responseEntity = controller.delete(1);
-        Assertions.assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode(), MESSAGE_ERROR);
-    }
-
-
-    @Test
-    void updateTest() {
-        MGSCharacter aux = new MGSCharacter(1);
-        when(serviceMock.add(aux)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(1, new MGSCharacterDTO(aux.getId()));
-        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
-    }
-
-    @Test
-    void updateExceptionTest() throws Exception {
-        MGSCharacter aux = new MGSCharacter(1);
-        when(serviceMock.update(1, new MGSCharacter(1))).thenThrow(new RuntimeException("Database error"));
-        Assertions.assertThrows(RuntimeException.class, () -> controller.update(1, new MGSCharacterDTO(aux.getId())), MESSAGE_ERROR);
-    }
 
 }

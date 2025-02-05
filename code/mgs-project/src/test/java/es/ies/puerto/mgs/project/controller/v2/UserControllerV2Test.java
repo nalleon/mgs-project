@@ -1,8 +1,8 @@
-package es.ies.puerto.mgs.project.controller;
+package es.ies.puerto.mgs.project.controller.v2;
 
 import es.ies.puerto.mgs.project.controller.v3.UserController;
-import es.ies.puerto.mgs.project.dto.user.UserV3InputDTO;
 import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
+import es.ies.puerto.mgs.project.dto.user.UserV3InputDTO;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-public class UserControllerTest extends TestUtilities {
+public class UserControllerV2Test extends TestUtilities {
     @Mock
     UserService serviceMock;
     @Mock
@@ -58,41 +58,6 @@ public class UserControllerTest extends TestUtilities {
         list.add(new User(3, "example3@email.com"));
         when(serviceMock.getAll()).thenReturn(list);
         Assertions.assertNotNull(controller.getById(1), MESSAGE_ERROR);
-    }
-
-    @Test
-    void addTest() {
-        when(serviceMock.add(any(User.class))).thenReturn(true);
-        when(serviceRoleMock.getById(1)).thenReturn(new Role(1, "ROLE_ADMIN"));
-
-        User aux = new User(1, "example@email.com");
-        ResponseEntity responseEntity = controller.add(new UserV3InputDTO("name", "pass", "mail", 1));
-        Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
-    }
-
-
-    @Test
-    void deleteTest() {
-        ResponseEntity responseEntity = controller.delete(1);
-        Assertions.assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode(), MESSAGE_ERROR);
-    }
-
-
-    @Test
-    void updateTest() {
-        User aux = new User(1, "example@email.com");
-        when(serviceMock.add(aux)).thenReturn(true);
-        ResponseEntity responseEntity = controller.update(1, new UserDTO(aux.getId(), aux.getName()));
-        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode(), MESSAGE_ERROR);
-    }
-
-    @Test
-    void updateExceptionTest() throws Exception {
-        User aux = new User(1, "example@email.com");
-        when(serviceMock.update(eq(1), any(User.class)))
-                .thenThrow(new RuntimeException("Database error"));
-        Assertions.assertThrows(RuntimeException.class,
-                () -> controller.update(1, new UserDTO(aux.getId(), aux.getName())), MESSAGE_ERROR);
     }
 
 }

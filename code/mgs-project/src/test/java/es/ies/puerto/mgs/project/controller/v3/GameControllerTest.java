@@ -1,6 +1,4 @@
-package es.ies.puerto.mgs.project.controller;
-
-import es.ies.puerto.mgs.project.controller.v3.GameController;
+package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.dto.outputs.GameDTO;
 import es.ies.puerto.mgs.project.model.entities.Director;
@@ -25,7 +23,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-public class GameControllerV2Test extends TestUtilities {
+public class GameControllerTest extends TestUtilities {
     public static final Game TEST_1 = new Game(1, "test1", new HashSet<>(Arrays.asList(new MGSCharacter(1))));
     @Mock
     GameService serviceMock;
