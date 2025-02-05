@@ -17,14 +17,14 @@ public interface IDaoUser extends JpaRepository<User, Integer> {
     int deleteItemById(@Param("id") Integer id);
 
     @Query(
-            value="SELECT * FROM users WHERE name LIKE %:name%",
+            value="SELECT * FROM users WHERE name=:name",
             nativeQuery=true
     )
     Optional<User> findUserByName(@Param("name") String name);
 
 
     @Query(
-            value="SELECT * FROM users WHERE email LIKE %:email%",
+            value="SELECT * FROM users WHERE email=:email",
             nativeQuery=true
     )
     Optional<User> findUserByEmail(@Param("email") String email);

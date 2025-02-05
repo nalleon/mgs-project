@@ -1,8 +1,11 @@
 package es.ies.puerto.mgs.project.controller;
 
 import es.ies.puerto.mgs.project.controller.v3.UserControllerV3;
+import es.ies.puerto.mgs.project.dto.inputs.UserV3InputDTO;
 import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
+import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.model.entities.User;
+import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -24,6 +27,8 @@ import static org.mockito.Mockito.when;
 public class UserControllerV3Test extends TestUtilities {
     @Mock
     UserService serviceMock;
+    @Mock
+    RoleService serviceRoleMock;
 
     @InjectMocks
     UserControllerV3 controller;
@@ -34,6 +39,7 @@ public class UserControllerV3Test extends TestUtilities {
         MockitoAnnotations.openMocks(this);
         controller = new UserControllerV3();
         controller.setUserService(serviceMock);
+        controller.setRoleService(serviceRoleMock);
     }
     @Test
     void getAllTest() {
@@ -57,8 +63,10 @@ public class UserControllerV3Test extends TestUtilities {
     @Test
     void addTest() {
         when(serviceMock.add(any(User.class))).thenReturn(true);
+        when(serviceRoleMock.getById(1)).thenReturn(new Role(1, "ROLE_ADMIN"));
+
         User aux = new User(1, "example@email.com");
-        ResponseEntity responseEntity = controller.add(new UserDTO(aux.getId(), aux.getName()));
+        ResponseEntity responseEntity = controller.add(new UserV3InputDTO("name", "pass", "mail", 1));
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 

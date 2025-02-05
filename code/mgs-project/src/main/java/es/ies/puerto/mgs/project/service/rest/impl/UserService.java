@@ -45,6 +45,7 @@ public class UserService implements IService<User> {
         if (user == null){
             return false;
         }
+
         if(repository.existsById(user.getId())){
             return false;
         }

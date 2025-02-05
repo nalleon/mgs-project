@@ -40,6 +40,7 @@ public class WeaponControllerV2 {
         List<WeaponDTO> filteredList = service.getAll().stream()
                 .map(item -> new WeaponDTO(item.getId(), item.getType(), item.getName()))
                 .collect(Collectors.toList());
+
         return ResponseEntity.ok(filteredList);
     }
 

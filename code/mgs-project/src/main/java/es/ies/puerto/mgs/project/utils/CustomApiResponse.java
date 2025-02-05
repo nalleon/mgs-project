@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.utils;
 /**
  * @author Nabil Leon Alvarez <@nalleon>
  */
-public class ApiResponse <T> {
+public class CustomApiResponse<T> {
     /**
      * Properties
      */
@@ -16,7 +16,7 @@ public class ApiResponse <T> {
      * @param message of the petititon
      * @param data of the petititon
      */
-    public ApiResponse(int status, String message, T data) {
+    public CustomApiResponse(int status, String message, T data) {
         this.status = status;
         this.message = message;
         this.data = data;

@@ -1,10 +1,12 @@
 package es.ies.puerto.mgs.project.controller.v3;
-
-import es.ies.puerto.mgs.project.controller.interfaces.IController;
+import es.ies.puerto.mgs.project.dto.inputs.UserV3InputDTO;
 import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
+import es.ies.puerto.mgs.project.model.entities.User;
+import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
+import es.ies.puerto.mgs.project.utils.CustomApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -19,13 +21,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v3/users")
 @CrossOrigin
-public class UserControllerV3 implements IController<UserDTO> {
+public class UserControllerV3  {
+
     /**
      * Properties
      */
-
     private UserService service;
-
+    private RoleService roleService;
     /**
      * Default constructor of the class
      */
@@ -41,7 +43,14 @@ public class UserControllerV3 implements IController<UserDTO> {
     public void setUserService(UserService service) {
         this.service = service;
     }
-
+    /**
+     * Setter of the service
+     * @param roleService  of the role
+     */
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @PostMapping
     @Operation(summary = "Insert user")
@@ -49,10 +58,39 @@ public class UserControllerV3 implements IController<UserDTO> {
             @ApiResponse(responseCode = "200", description = "User created successfully"),
             @ApiResponse(responseCode = "400", description = "Bad request")
     })
-    @Override
-    public ResponseEntity <?>add(@RequestBody UserDTO dto) {
-        service.add(IUserMapper.INSTANCE.toEntity(dto));
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity <?>add(@RequestBody UserV3InputDTO dto) {
+        if(dto == null){
+            return ResponseEntity.badRequest()
+                    .body(new CustomApiResponse<>(400, "User can not be null", null));
+        }
+
+        User dbItemByName = service.getByName(dto.name());
+
+        if (dbItemByName != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new CustomApiResponse<>(409, "Name already in use", null));
+        }
+
+        User dbItemByEmail = service.getByEmail(dto.email());
+
+        if (dbItemByEmail != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(new CustomApiResponse<>(409, "Email already in use", null));
+        }
+
+
+        User aux = new User();
+        aux.setName(dto.name());
+        aux.setEmail(dto.email());
+        aux.setPassword(dto.password());
+        aux.setRole(roleService.getById(dto.role()));
+
+        service.add(aux);
+
+        UserDTO result = IUserMapper.INSTANCE.toDTO(service.getByName(dto.name()));
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new CustomApiResponse<>(201, "Successfully created", result));
     }
 
     @PutMapping("/{id}")
@@ -61,7 +99,6 @@ public class UserControllerV3 implements IController<UserDTO> {
             @ApiResponse(responseCode = "200", description = "User updated successfully"),
             @ApiResponse(responseCode = "404", description = "User not found")
     })
-    @Override
     public ResponseEntity <?> update(@PathVariable(value = "id") int id, @RequestBody UserDTO dto) {
         try {
             service.update(id, IUserMapper.INSTANCE.toEntity(dto));
@@ -73,7 +110,6 @@ public class UserControllerV3 implements IController<UserDTO> {
 
     @GetMapping
     @Operation(summary = "Get all users")
-    @Override
     public ResponseEntity<List<UserDTO>> getAll() {
         List<UserDTO> filteredList = service.getAll().stream()
                 .map(item -> new UserDTO(item.getId(), item.getName(), item.getEmail(),
@@ -82,7 +118,6 @@ public class UserControllerV3 implements IController<UserDTO> {
         return ResponseEntity.ok(filteredList);
     }
 
-    @Override
     @Operation(summary = "Get user by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
@@ -93,7 +128,6 @@ public class UserControllerV3 implements IController<UserDTO> {
         return ResponseEntity.ok(IUserMapper.INSTANCE.toDTO(service.getById(id)));
     }
 
-    @Override
     @Operation(summary = "Delete user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User deleted successfully"),

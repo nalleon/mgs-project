@@ -20,6 +20,7 @@ public class Game implements Serializable {
      * Properties
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
 

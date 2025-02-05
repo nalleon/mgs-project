@@ -7,7 +7,7 @@ import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.security.jwt.AuthService;
 import es.ies.puerto.mgs.project.security.jwt.JwtService;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
-import es.ies.puerto.mgs.project.utils.ApiResponse;
+import es.ies.puerto.mgs.project.utils.CustomApiResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,10 +56,10 @@ public class AuthController {
         if (register != null) {
             UserOutputDTO dto = new UserOutputDTO(register.getName(), register.getEmail(), register.getRole().getId());
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ApiResponse<>(201, "User succesfully created", dto));
+                    .body(new CustomApiResponse<>(201, "User succesfully created", dto));
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body(new ApiResponse<>(400, "Error while creating the new user", null));
+            .body(new CustomApiResponse<>(400, "Error while creating the new user", null));
     }
 }

@@ -19,6 +19,7 @@ public class Director implements Serializable {
      * Properties
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int directorId;
     String fullName;
 

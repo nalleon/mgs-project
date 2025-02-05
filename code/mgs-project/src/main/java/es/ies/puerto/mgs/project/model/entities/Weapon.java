@@ -1,5 +1,7 @@
 package es.ies.puerto.mgs.project.model.entities;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,6 +19,7 @@ public class Weapon implements Serializable {
      * Properties
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
     String type;

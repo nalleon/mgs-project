@@ -17,6 +17,7 @@ public class Artist implements Serializable {
      * Properties
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int artistId;
     String fullName;
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
