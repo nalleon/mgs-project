@@ -1,5 +1,5 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoDirector;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoDirector;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;

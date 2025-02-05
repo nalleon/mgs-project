@@ -1,5 +1,6 @@
 package es.ies.puerto.mgs.project.model.entities;
 
+import es.ies.puerto.mgs.project.model.documents.Weapon;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

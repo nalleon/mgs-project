@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.service.soap.impl;
 
 import es.ies.puerto.mgs.project.dto.outputs.WeaponDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
-import es.ies.puerto.mgs.project.model.entities.Weapon;
+import es.ies.puerto.mgs.project.model.documents.Weapon;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import es.ies.puerto.mgs.project.service.interfaces.IServiceSoap;
 import jakarta.jws.WebResult;

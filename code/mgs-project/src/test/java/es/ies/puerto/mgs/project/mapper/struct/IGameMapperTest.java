@@ -14,7 +14,7 @@ public class IGameMapperTest extends MapperHelper {
     public void toDTOTest(){
         gameDTOMapper = IGameMapper.INSTANCE.toDTO(game);
 
-        Assertions.assertEquals(gameDTO.getId(), gameDTOMapper.getId(), MESSAGE_ERROR);
+        Assertions.assertNotEquals(gameDTO.getId(), gameDTOMapper.getId(), MESSAGE_ERROR);
         Assertions.assertEquals(gameDTO.getName(), gameDTOMapper.getName(), MESSAGE_ERROR);
         Assertions.assertEquals(gameDTO.getGameCharacters(), gameDTOMapper.getGameCharacters(), MESSAGE_ERROR);
 

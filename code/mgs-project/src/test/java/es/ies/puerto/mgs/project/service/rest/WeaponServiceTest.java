@@ -1,8 +1,7 @@
 package es.ies.puerto.mgs.project.service.rest;
 
-import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
-import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.model.entities.Weapon;
+import es.ies.puerto.mgs.project.repository.mongo.dao.IDaoWeapon;
+import es.ies.puerto.mgs.project.model.documents.Weapon;
 import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

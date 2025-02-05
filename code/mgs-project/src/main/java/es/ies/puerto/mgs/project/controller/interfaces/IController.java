@@ -10,13 +10,13 @@ import java.util.List;
  * @author nalleon
  */
 public interface IController <T> {
-    public ResponseEntity add(@RequestBody T t);
+    public ResponseEntity<?> add(@RequestBody T t);
 
-    public ResponseEntity update(@PathVariable int id, @RequestBody T t);
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody T t);
 
-    public ResponseEntity<List<T>> getAll();
+    public ResponseEntity<List<?>> getAll();
 
     public ResponseEntity<T> getById(int id);
 
-    public ResponseEntity delete(int id);
+    public ResponseEntity<?> delete(int id);
 }

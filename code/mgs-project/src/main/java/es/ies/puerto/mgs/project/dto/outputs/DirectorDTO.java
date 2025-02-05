@@ -1,4 +1,6 @@
 package es.ies.puerto.mgs.project.dto.outputs;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 /**
@@ -8,7 +10,7 @@ public class DirectorDTO {
     /**
      * Properties
      */
-
+    @JsonIgnore
     int directorId;
     String fullName;
 

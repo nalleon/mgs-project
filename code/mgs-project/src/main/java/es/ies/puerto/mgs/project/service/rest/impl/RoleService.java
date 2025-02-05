@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoRole;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;

@@ -1,5 +1,7 @@
 package es.ies.puerto.mgs.project.dto.outputs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 /**
@@ -7,6 +9,7 @@ import java.util.Objects;
  */
 public class RoleDTO {
 
+    @JsonIgnore
     private int id;
     private String name;
 

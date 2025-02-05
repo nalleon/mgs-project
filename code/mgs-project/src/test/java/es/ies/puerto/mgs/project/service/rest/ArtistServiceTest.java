@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.service.rest;
 
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoArtist;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoArtist;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;

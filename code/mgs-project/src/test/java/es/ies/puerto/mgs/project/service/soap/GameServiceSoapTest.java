@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.service.soap;
 
 import es.ies.puerto.mgs.project.dto.outputs.GameDTO;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoGame;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoGame;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.service.rest.impl.GameService;
@@ -16,7 +16,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.*;
 
-import static es.ies.puerto.mgs.project.controller.GameControllerV3Test.TEST_1;
+import static es.ies.puerto.mgs.project.controller.GameControllerV2Test.TEST_1;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 

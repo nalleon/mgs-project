@@ -1,5 +1,7 @@
 package es.ies.puerto.mgs.project.dto.outputs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,6 +12,7 @@ public class GameDTO {
     /**
      * Properties
      */
+    @JsonIgnore
     int id;
     String name;
     Set<MGSCharacterDTO> gameCharacters;

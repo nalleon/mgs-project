@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
 
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;

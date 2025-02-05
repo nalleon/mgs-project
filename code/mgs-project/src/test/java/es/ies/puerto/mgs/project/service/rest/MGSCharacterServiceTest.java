@@ -1,9 +1,7 @@
 package es.ies.puerto.mgs.project.service.rest;
 
 
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
-import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.utilities.MapperHelper;
@@ -17,7 +15,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

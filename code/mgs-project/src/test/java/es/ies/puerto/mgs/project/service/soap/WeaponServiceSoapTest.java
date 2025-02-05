@@ -1,8 +1,8 @@
 package es.ies.puerto.mgs.project.service.soap;
 import es.ies.puerto.mgs.project.dto.outputs.WeaponDTO;
 
-import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
-import es.ies.puerto.mgs.project.model.entities.Weapon;
+import es.ies.puerto.mgs.project.repository.mongo.dao.IDaoWeapon;
+import es.ies.puerto.mgs.project.model.documents.Weapon;
 import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import es.ies.puerto.mgs.project.service.soap.impl.WeaponServiceSoap;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;

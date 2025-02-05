@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 import org.slf4j.Logger;

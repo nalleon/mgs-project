@@ -1,5 +1,7 @@
 package es.ies.puerto.mgs.project.dto.outputs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 /**
@@ -9,6 +11,7 @@ public class ArtistDTO {
     /**
      * Properties
      */
+    @JsonIgnore
     int artistId;
     String fullName;
 

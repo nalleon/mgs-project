@@ -1,11 +1,14 @@
 package es.ies.puerto.mgs.project.dto.outputs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 /**
  * @author nalleon
  */
 public class UserDTO {
+    @JsonIgnore
     private int id;
     private String name;
     private String email;

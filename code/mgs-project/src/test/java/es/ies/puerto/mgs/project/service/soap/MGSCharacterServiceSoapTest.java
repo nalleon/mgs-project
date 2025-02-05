@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.service.soap;
 
 import es.ies.puerto.mgs.project.dto.outputs.MGSCharacterDTO;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoMGSCharacter;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoMGSCharacter;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import es.ies.puerto.mgs.project.service.soap.impl.MGSCharacterServiceSoap;

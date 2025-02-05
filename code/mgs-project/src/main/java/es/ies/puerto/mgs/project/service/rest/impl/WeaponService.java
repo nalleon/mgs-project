@@ -1,11 +1,7 @@
 package es.ies.puerto.mgs.project.service.rest.impl;
 
-import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
-import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
-import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
-import es.ies.puerto.mgs.project.model.db.mongo.dao.IDaoWeapon;
-import es.ies.puerto.mgs.project.model.entities.Artist;
-import es.ies.puerto.mgs.project.model.entities.Weapon;
+import es.ies.puerto.mgs.project.repository.mongo.dao.IDaoWeapon;
+import es.ies.puerto.mgs.project.model.documents.Weapon;
 
 import es.ies.puerto.mgs.project.service.interfaces.IService;
 
@@ -15,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component

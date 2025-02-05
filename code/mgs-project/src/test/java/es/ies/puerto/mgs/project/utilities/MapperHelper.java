@@ -1,6 +1,7 @@
 package es.ies.puerto.mgs.project.utilities;
 
 import es.ies.puerto.mgs.project.dto.outputs.*;
+import es.ies.puerto.mgs.project.model.documents.Weapon;
 import es.ies.puerto.mgs.project.model.entities.*;
 import org.junit.jupiter.api.BeforeEach;
 

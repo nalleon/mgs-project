@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.controller.v1;
 
-import es.ies.puerto.mgs.project.dto.inputs.UserLoginDTO;
-import es.ies.puerto.mgs.project.dto.inputs.UserRegisterDTO;
+import es.ies.puerto.mgs.project.dto.user.UserLoginDTO;
+import es.ies.puerto.mgs.project.dto.user.UserRegisterDTO;
 import es.ies.puerto.mgs.project.dto.outputs.UserOutputDTO;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.security.jwt.AuthService;
@@ -54,6 +54,7 @@ public class AuthController {
 
 
         if (register != null) {
+
             UserOutputDTO dto = new UserOutputDTO(register.getName(), register.getEmail(), register.getRole().getId());
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new CustomApiResponse<>(201, "User succesfully created", dto));

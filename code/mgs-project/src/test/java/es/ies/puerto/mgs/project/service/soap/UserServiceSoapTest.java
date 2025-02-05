@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.service.soap;
 
 import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoUser;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import es.ies.puerto.mgs.project.service.soap.impl.UserServiceSoap;

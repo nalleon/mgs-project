@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.mapper.struct;
 
 import es.ies.puerto.mgs.project.dto.outputs.WeaponDTO;
-import es.ies.puerto.mgs.project.model.entities.Weapon;
+import es.ies.puerto.mgs.project.model.documents.Weapon;
 import es.ies.puerto.mgs.project.utilities.MapperHelper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

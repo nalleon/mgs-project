@@ -42,14 +42,11 @@ public class AuthService {
         user.setName(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setEmail(email);
-
         Role role = roleService.getById(2);
-
         user.setRole(role);
-
         service.add(user);
 
-        return service.getById(1);
+        return service.getByName(username);
 
     }
 

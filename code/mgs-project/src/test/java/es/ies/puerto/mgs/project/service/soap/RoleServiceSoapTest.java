@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.service.soap;
 
 import es.ies.puerto.mgs.project.dto.outputs.RoleDTO;
-import es.ies.puerto.mgs.project.model.db.jpa.dao.IDaoRole;
+import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoRole;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.service.soap.impl.RoleServiceSoap;
