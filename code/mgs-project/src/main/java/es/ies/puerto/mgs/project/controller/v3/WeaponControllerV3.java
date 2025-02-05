@@ -30,7 +30,7 @@ public class WeaponControllerV3 implements IController<WeaponDTO> {
 
     /**
      * Setter of the service
-     * @param service
+     * @param service  of the weapon
      */
     @Autowired
     public void setWeaponService(@RequestBody WeaponService service) {
@@ -40,7 +40,7 @@ public class WeaponControllerV3 implements IController<WeaponDTO> {
     @Override
     @PostMapping
     @Operation(summary = "Insert weapon")
-    public ResponseEntity add(@RequestBody WeaponDTO weaponDTO) {
+    public ResponseEntity <?>add(@RequestBody WeaponDTO weaponDTO) {
         service.add(IWeaponMapper.INSTANCE.toEntity(weaponDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -48,7 +48,7 @@ public class WeaponControllerV3 implements IController<WeaponDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update weapon")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody WeaponDTO weaponDTO) {
+    public ResponseEntity <?>update(@PathVariable(value = "id") int id, @RequestBody WeaponDTO weaponDTO) {
         try {
             service.update(id, IWeaponMapper.INSTANCE.toEntity(weaponDTO));
             return ResponseEntity.ok().build();
@@ -77,7 +77,7 @@ public class WeaponControllerV3 implements IController<WeaponDTO> {
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete weapon")
-    public ResponseEntity delete(@PathVariable(value = "id") int id) {
+    public ResponseEntity <?>delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

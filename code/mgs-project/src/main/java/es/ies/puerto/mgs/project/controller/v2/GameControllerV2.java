@@ -33,7 +33,7 @@ public class GameControllerV2 {
 
     /**
      * Setter of the service
-     * @param service
+     * @param service of the weapon
      */
     @Autowired
     public void setGameService(GameService service) {

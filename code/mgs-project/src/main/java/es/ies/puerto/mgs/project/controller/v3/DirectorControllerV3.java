@@ -31,7 +31,7 @@ public class DirectorControllerV3 implements IController<DirectorDTO> {
 
     /**
      * Setter of the service
-     * @param service
+     * @param service of the director
      */
     @Autowired
     public void setDirectorService(DirectorService service) {
@@ -41,7 +41,7 @@ public class DirectorControllerV3 implements IController<DirectorDTO> {
     @Override
     @PostMapping
     @Operation(summary = "Insert director")
-    public ResponseEntity add(@RequestBody DirectorDTO directorDTO) {
+    public ResponseEntity <?>add(@RequestBody DirectorDTO directorDTO) {
         service.add(IDirectorMapper.INSTANCE.toEntity(directorDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -49,7 +49,7 @@ public class DirectorControllerV3 implements IController<DirectorDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update director")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody DirectorDTO directorDTO) {
+    public ResponseEntity <?>update(@PathVariable(value = "id") int id, @RequestBody DirectorDTO directorDTO) {
         try {
             service.update(id, IDirectorMapper.INSTANCE.toEntity(directorDTO));
             return ResponseEntity.ok().build();
@@ -79,7 +79,7 @@ public class DirectorControllerV3 implements IController<DirectorDTO> {
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete director")
-    public ResponseEntity delete(@PathVariable(value = "id") int id) {
+    public ResponseEntity <?>delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

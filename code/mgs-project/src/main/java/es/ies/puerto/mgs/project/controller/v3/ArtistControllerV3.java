@@ -31,8 +31,7 @@ public class ArtistControllerV3 implements IController<ArtistDTO> {
 
     /**
      * Setter of the service
-     *
-     * @param service
+     * @param service of the artist
      */
     @Autowired
     public void setArtistService(@RequestBody ArtistService service) {
@@ -42,7 +41,7 @@ public class ArtistControllerV3 implements IController<ArtistDTO> {
     @Override
     @Operation(summary = "Insert artist")
     @PostMapping
-    public ResponseEntity add(@RequestBody ArtistDTO artistDTO) {
+    public ResponseEntity <?> add(@RequestBody ArtistDTO artistDTO) {
         service.add(IArtistMapper.INSTANCE.toEntity(artistDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -50,7 +49,7 @@ public class ArtistControllerV3 implements IController<ArtistDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update artist")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody ArtistDTO artistDTO) {
+    public ResponseEntity <?> update(@PathVariable(value = "id") int id, @RequestBody ArtistDTO artistDTO) {
         try {
             service.update(id, IArtistMapper.INSTANCE.toEntity(artistDTO));
             return ResponseEntity.ok().build();
@@ -82,7 +81,7 @@ public class ArtistControllerV3 implements IController<ArtistDTO> {
     @Override
     @Operation(summary = "Delete artist")
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable(value = "id") int id) {
+    public ResponseEntity <?>delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

@@ -35,7 +35,7 @@ public class UserControllerV3 implements IController<UserDTO> {
 
     /**
      * Setter of the service
-     * @param service
+     * @param service  of the user
      */
     @Autowired
     public void setUserService(UserService service) {
@@ -50,7 +50,7 @@ public class UserControllerV3 implements IController<UserDTO> {
             @ApiResponse(responseCode = "400", description = "Bad request")
     })
     @Override
-    public ResponseEntity add(@RequestBody UserDTO dto) {
+    public ResponseEntity <?>add(@RequestBody UserDTO dto) {
         service.add(IUserMapper.INSTANCE.toEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -100,7 +100,7 @@ public class UserControllerV3 implements IController<UserDTO> {
             @ApiResponse(responseCode = "404", description = "User not found")
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable(value = "id") int id) {
+    public ResponseEntity <?>delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

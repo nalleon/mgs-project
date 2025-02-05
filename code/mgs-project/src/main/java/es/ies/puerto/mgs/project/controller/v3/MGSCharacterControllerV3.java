@@ -31,7 +31,7 @@ public class MGSCharacterControllerV3 implements IController<MGSCharacterDTO> {
 
     /**
      * Setter of the service
-     * @param service definicion del parametro
+     * @param service of the character
      */
     @Autowired
     public void setMgsCharacterService(MGSCharacterService service) {
@@ -41,7 +41,7 @@ public class MGSCharacterControllerV3 implements IController<MGSCharacterDTO> {
     @Override
     @PostMapping
     @Operation(summary = "Insert character")
-    public ResponseEntity add(@RequestBody MGSCharacterDTO mgsCharacterDTO) {
+    public ResponseEntity <?>add(@RequestBody MGSCharacterDTO mgsCharacterDTO) {
         service.add(IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -49,7 +49,7 @@ public class MGSCharacterControllerV3 implements IController<MGSCharacterDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update character")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody MGSCharacterDTO mgsCharacterDTO) {
+    public ResponseEntity <?>update(@PathVariable(value = "id") int id, @RequestBody MGSCharacterDTO mgsCharacterDTO) {
         try {
             service.update(id, IMGSCharacterMapper.INSTANCE.toEntity(mgsCharacterDTO));
             return ResponseEntity.ok().build();
@@ -83,7 +83,7 @@ public class MGSCharacterControllerV3 implements IController<MGSCharacterDTO> {
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete character")
-    public ResponseEntity delete(@PathVariable(value = "id") int id) {
+    public ResponseEntity <?>delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

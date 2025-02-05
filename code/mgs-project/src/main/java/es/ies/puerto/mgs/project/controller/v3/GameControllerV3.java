@@ -35,7 +35,7 @@ public class GameControllerV3 implements IController<GameDTO> {
 
     /**
      * Setter of the service
-     * @param service
+     * @param service of the game
      */
     @Autowired
     public void setGameService(GameService service) {
@@ -45,7 +45,7 @@ public class GameControllerV3 implements IController<GameDTO> {
     @Override
     @PostMapping
     @Operation(summary = "Insert game")
-    public ResponseEntity add(@RequestBody GameDTO gameDTO) {
+    public ResponseEntity <?>add(@RequestBody GameDTO gameDTO) {
         service.add(IGameMapper.INSTANCE.toEntity(gameDTO));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -53,7 +53,7 @@ public class GameControllerV3 implements IController<GameDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update game")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody GameDTO gameDTO) {
+    public ResponseEntity <?>update(@PathVariable(value = "id") int id, @RequestBody GameDTO gameDTO) {
         try {
             service.update(id, IGameMapper.INSTANCE.toEntity(gameDTO));
             return ResponseEntity.ok().build();
@@ -96,7 +96,7 @@ public class GameControllerV3 implements IController<GameDTO> {
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete game")
-    public ResponseEntity delete(@PathVariable(value = "id") int id) {
+    public ResponseEntity <?>delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

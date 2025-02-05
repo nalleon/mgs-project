@@ -32,7 +32,7 @@ public class RoleControllerV3 implements IController<RoleDTO> {
 
     /**
      * Setter of the service
-     * @param service
+     * @param service  of the role
      */
     @Autowired
     public void setRoleService(RoleService service) {
@@ -42,7 +42,7 @@ public class RoleControllerV3 implements IController<RoleDTO> {
     @Override
     @PostMapping
     @Operation(summary = "Insert role")
-    public ResponseEntity add(@RequestBody RoleDTO dto) {
+    public ResponseEntity <?>add(@RequestBody RoleDTO dto) {
         service.add(IRoleMapper.INSTANCE.toEntity(dto));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -50,7 +50,7 @@ public class RoleControllerV3 implements IController<RoleDTO> {
     @PutMapping("/{id}")
     @Operation(summary = "Update role")
     @Override
-    public ResponseEntity update(@PathVariable(value = "id") int id, @RequestBody RoleDTO dto) {
+    public ResponseEntity <?>update(@PathVariable(value = "id") int id, @RequestBody RoleDTO dto) {
         try {
             service.update(id, IRoleMapper.INSTANCE.toEntity(dto));
             return ResponseEntity.ok().build();
@@ -78,7 +78,7 @@ public class RoleControllerV3 implements IController<RoleDTO> {
     @Override
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete role")
-    public ResponseEntity delete(@PathVariable(value = "id") int id) {
+    public ResponseEntity <?>delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

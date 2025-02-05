@@ -27,7 +27,7 @@ public class WeaponControllerV2 {
 
     /**
      * Setter of the service
-     * @param service
+     * @param service of the weapon
      */
     @Autowired
     public void setWeaponService(@RequestBody WeaponService service) {
