@@ -8,6 +8,7 @@ import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
+import es.ies.puerto.mgs.project.utils.CustomApiResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -69,6 +70,37 @@ public class UserControllerTest extends TestUtilities {
         Assertions.assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode(), MESSAGE_ERROR);
     }
 
+    @Test
+    void addTestNullRequest() {
+        ResponseEntity<?> responseEntity = controller.add(null);
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode(), "Request should be rejected with BAD_REQUEST.");
+        Assertions.assertTrue(responseEntity.getBody() instanceof CustomApiResponse, "Response should be CustomApiResponse.");
+    }
+
+    @Test
+    void addTestNameConflict() {
+        User existingUser = new User();
+        //"name", "pass", "mail", new Role(1, "ROLE_USER"
+
+        when(serviceMock.getByName("name")).thenReturn(existingUser);
+
+        ResponseEntity<?> responseEntity = controller.add(new UserV3InputDTO("name", "pass", "mail", 1));
+
+        Assertions.assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode(), "User creation should be rejected due to name conflict.");
+        Assertions.assertTrue(responseEntity.getBody() instanceof CustomApiResponse, "Response should be CustomApiResponse.");
+    }
+
+    @Test
+    void addTestEmailConflict() {
+        User existingUser = new User();
+        //"otherName", "pass", "mail", new Role(1, "ROLE_USER")
+        when(serviceMock.getByEmail("mail")).thenReturn(existingUser); // El email ya está en uso
+
+        ResponseEntity<?> responseEntity = controller.add(new UserV3InputDTO("newName", "pass", "mail", 1));
+
+        Assertions.assertEquals(HttpStatus.CONFLICT, responseEntity.getStatusCode(), "User creation should be rejected due to email conflict.");
+        Assertions.assertTrue(responseEntity.getBody() instanceof CustomApiResponse, "Response should be CustomApiResponse.");
+    }
     @Test
     void deleteTest() {
         ResponseEntity responseEntity = controller.delete(1);

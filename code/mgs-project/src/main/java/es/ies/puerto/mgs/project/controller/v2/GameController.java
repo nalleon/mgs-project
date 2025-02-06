@@ -4,6 +4,7 @@ import es.ies.puerto.mgs.project.dto.outputs.GameDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.GameService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 @RestController("GameControllerV2")
 @RequestMapping("/api/v2/games")
 @CrossOrigin
+@Tag(name="v2", description = "For authenticated users")
 public class GameController {
     /**
      * Properties

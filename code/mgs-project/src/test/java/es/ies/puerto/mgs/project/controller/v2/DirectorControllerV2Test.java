@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.controller.v2;
 
-import es.ies.puerto.mgs.project.controller.v3.DirectorController;
+import es.ies.puerto.mgs.project.controller.v2.DirectorController;
 import es.ies.puerto.mgs.project.dto.outputs.DirectorDTO;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;

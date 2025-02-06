@@ -5,6 +5,7 @@ import es.ies.puerto.mgs.project.dto.outputs.ArtistDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController("ArtistControllerV2")
-@RequestMapping("/api/v3/artists")
+@RequestMapping("/api/v2/artists")
 @CrossOrigin
+@Tag(name="v2", description = "For authenticated users")
 public class ArtistController {
     /**
      * Properties
@@ -38,16 +40,6 @@ public class ArtistController {
         this.service = service;
     }
 
-    @PutMapping("/{id}")
-    @Operation(summary = "Update artist")
-    public ResponseEntity <?> update(@PathVariable(value = "id") int id, @RequestBody ArtistDTO artistDTO) {
-        try {
-            service.update(id, IArtistMapper.INSTANCE.toEntity(artistDTO));
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @GetMapping
     @Operation(summary = "Get all artist")

@@ -5,6 +5,7 @@ import es.ies.puerto.mgs.project.dto.outputs.DirectorDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IDirectorMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController("DirectorControllerV2")
-@RequestMapping("/api/v3/directors")
+@RequestMapping("/api/v2/directors")
 @CrossOrigin
+@Tag(name="v2", description = "For authenticated users")
 public class DirectorController {
     /**
      * Properties

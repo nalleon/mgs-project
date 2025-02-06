@@ -5,6 +5,7 @@ import es.ies.puerto.mgs.project.dto.outputs.WeaponDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v3/weapons")
 @CrossOrigin(origins = "http://localhost:63342")
+@Tag(name="v3", description = "For users with role admin")
 public class WeaponController implements IController<WeaponDTO> {
     /**
      * Properties

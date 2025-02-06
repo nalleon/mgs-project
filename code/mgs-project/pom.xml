@@ -307,6 +307,9 @@
 									</limits>
 								</rule>
 							</rules>
+							<excludes>
+								<exclude>es/ies/puerto/mgs/project/exception/GlobalExceptionHandler</exclude>
+							</excludes>
 						</configuration>
 					</execution>
 				</executions>

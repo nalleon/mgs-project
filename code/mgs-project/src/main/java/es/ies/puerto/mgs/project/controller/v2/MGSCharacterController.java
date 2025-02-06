@@ -6,6 +6,7 @@ import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IMGSCharacterMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.MGSCharacterService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController("MGSCharacterControllerV2")
-@RequestMapping("/api/v3/characters")
+@RequestMapping("/api/v2/characters")
 @CrossOrigin
+@Tag(name="v2", description = "For authenticated users")
 public class MGSCharacterController {
     /**
      * Properties

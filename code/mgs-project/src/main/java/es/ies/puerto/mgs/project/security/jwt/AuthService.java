@@ -16,22 +16,57 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
-    @Autowired
+    /**
+     * Properties
+     */
+
     private UserService service;
 
-    @Autowired
     private RoleService roleService;
 
-
-    @Autowired
     private JwtService jwtService;
 
-    @Autowired
+
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Setters of the user service
+     * @param service of the user
+     */
+    @Autowired
+    public void setService(UserService service) {
+        this.service = service;
+    }
 
     /**
-     * FUnction to register a new user
+     * Setters of the user service
+     * @param roleService of the role
+     */
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
+    /**
+     * Setters of the user service
+     * @param jwtService of the role
+     */
+    @Autowired
+    public void setJwtService(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
+
+    /**
+     * Setters of the user service
+     * @param passwordEncoder of the role
+     */
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    /**
+     * Function to register a new user
      * @param username of the user
      * @param password of the user
      * @param email of the user

@@ -8,6 +8,7 @@ import es.ies.puerto.mgs.project.security.jwt.AuthService;
 import es.ies.puerto.mgs.project.security.jwt.JwtService;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
 import es.ies.puerto.mgs.project.utils.CustomApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,20 +23,45 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/auth")
 @CrossOrigin
+@Tag(name="v1", description = "Everyone can access")
 public class AuthController {
 
     /**
      * Properties
      */
-    @Autowired
     private UserService service;
 
-    @Autowired
     private JwtService jwtService;
 
-    @Autowired
     private AuthService authService;
 
+    /**
+     * Setter of the user service
+     * @param service of the user
+     */
+    @Autowired
+    public void setService(UserService service) {
+        this.service = service;
+    }
+
+    /**
+     * Setter of the jwt service
+     * @param jwtService for the user
+     */
+    @Autowired
+    public void setJwtService(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
+
+
+    /**
+     * Setter of the jwt service
+     * @param authService for the user
+     */
+    @Autowired
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
+    }
 
     @PostMapping("/login")
     public String login(@RequestBody UserLoginDTO loginDTO ) {
