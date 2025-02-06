@@ -63,9 +63,7 @@ public class UserService implements IService<User> {
             return false;
         }
 
-        User aux = user;
-        aux.setPassword(passwordEncoder.encode(user.getPassword()));
-        repository.save((aux));
+        repository.save(user);
         return true;
     }
 

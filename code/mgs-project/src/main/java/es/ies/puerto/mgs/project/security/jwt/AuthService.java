@@ -98,10 +98,13 @@ public class AuthService {
         System.out.println(user);
 
         if (user != null) {
+            System.out.println(password);
             if (passwordEncoder.matches(password, user.getPassword())) {
                 generateToken = jwtService.generateToken(user.getName(), user.getRole().getName());
             }
         }
+
+        System.out.println(generateToken);
 
         return generateToken;
     }
