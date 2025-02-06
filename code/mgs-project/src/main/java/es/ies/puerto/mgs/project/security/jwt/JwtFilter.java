@@ -65,8 +65,6 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 Map<String, String> mapInfoToken = jwtTokenManager.validateAndGetClaims(token);
 
-                System.out.println(mapInfoToken);
-
                 final String nombreusuario=mapInfoToken.get("username");
 
                 final String rol = mapInfoToken.get("role");
@@ -94,7 +92,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 };
 
 
-
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
@@ -103,9 +100,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-
-
-                System.out.println("AAAAAAAAAAAAA");
 
                 filterChain.doFilter(request, response);
 

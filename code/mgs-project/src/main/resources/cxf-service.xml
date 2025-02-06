@@ -9,25 +9,54 @@
     <!-- Definición del servicio -->
     <jaxws:endpoint id="artistServiceEndpoint"
                     implementor="#artistServiceSoapImpl"
-                    address="/artists"/>
+                    address="/artists">
+        <jaxws:inInterceptors>
+            <ref bean="cxfAuthInterceptor"/>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
+
     <jaxws:endpoint id="directorServiceEndpoint"
                     implementor="#directorServiceSoapImpl"
-                    address="/directors"/>
+                    address="/directors">
+        <jaxws:inInterceptors>
+            <ref bean="cxfAuthInterceptor"/>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
     <jaxws:endpoint id="gameServiceEndpoint"
                     implementor="#gameServiceSoapImpl"
-                    address="/games"/>
+                    address="/games">
+        <jaxws:inInterceptors>
+            <ref bean="cxfAuthInterceptor"/>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
     <jaxws:endpoint id="mgsCharacterServiceEndpoint"
                     implementor="#mgsCharacterServiceSoapImpl"
-                    address="/characters"/>
+                    address="/characters">
+        <jaxws:inInterceptors>
+            <ref bean="cxfAuthInterceptor"/>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
     <jaxws:endpoint id="roleServiceEndpoint"
                     implementor="#roleServiceSoapImpl"
-                    address="/roles"/>
+                    address="/roles">
+        <jaxws:inInterceptors>
+            <ref bean="cxfAuthInterceptor"/>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
     <jaxws:endpoint id="userServiceEndpoint"
                     implementor="#userServiceSoapImpl"
-                    address="/users"/>
+                    address="/users">
+        <jaxws:inInterceptors>
+            <ref bean="cxfAuthInterceptor"/>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
     <jaxws:endpoint id="weaponServiceEndpoint"
                     implementor="#weaponServiceSoapImpl"
-                    address="/weapons"/>
+                    address="/weapons">
+        <jaxws:inInterceptors>
+            <ref bean="cxfAuthInterceptor"/>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
 
     <!-- Definición de los beans -->
     <bean id="artistServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.ArtistServiceSoap"/>
@@ -37,7 +66,7 @@
     <bean id="roleServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.RoleServiceSoap"/>
     <bean id="userServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.UserServiceSoap"/>
     <bean id="weaponServiceSoapImpl" class="es.ies.puerto.mgs.project.service.soap.impl.WeaponServiceSoap"/>
-
+    <bean id="cxfAuthInterceptor" class="es.ies.puerto.mgs.project.security.interceptor.CxfAuthInterceptor"/>
 
 </beans>
 

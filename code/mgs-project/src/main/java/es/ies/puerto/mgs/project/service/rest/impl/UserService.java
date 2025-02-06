@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class UserService implements IService<User> {
     private final static Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     private IDaoUser repository;
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Default constructor of the class
@@ -40,6 +42,17 @@ public class UserService implements IService<User> {
         this.repository = repository;
     }
 
+
+    /**
+     * Setters of the user service
+     * @param passwordEncoder of the role
+     */
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+
     @Override
     public boolean add(User user) {
         if (user == null){
@@ -50,7 +63,9 @@ public class UserService implements IService<User> {
             return false;
         }
 
-        repository.save((user));
+        User aux = user;
+        aux.setPassword(passwordEncoder.encode(user.getPassword()));
+        repository.save((aux));
         return true;
     }
 
@@ -63,7 +78,7 @@ public class UserService implements IService<User> {
                 toUpdate.setName(user.getName());
                 toUpdate.setEmail(user.getEmail());
                 toUpdate.setRole(user.getRole());
-                toUpdate.setPassword(user.getPassword());
+                toUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
                 repository.save(toUpdate);
                 return true;
             } else {
@@ -100,6 +115,7 @@ public class UserService implements IService<User> {
         if(id == 1){
             return false;
         }
+
         int quantity = repository.deleteItemById(id);
         return quantity > 0;
     }
