@@ -1,8 +1,6 @@
 package es.ies.puerto.mgs.project.controller.v3;
 
-import es.ies.puerto.mgs.project.controller.v3.RoleController;
-
-import es.ies.puerto.mgs.project.dto.outputs.RoleDTO;
+import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;

@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.mapper.struct;
 
-import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
+import es.ies.puerto.mgs.project.dto.user.UserDTO;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.utilities.MapperHelper;
 import org.junit.jupiter.api.Assertions;

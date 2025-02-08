@@ -2,7 +2,7 @@ package es.ies.puerto.mgs.project.controller.v1;
 
 import es.ies.puerto.mgs.project.dto.user.UserLoginDTO;
 import es.ies.puerto.mgs.project.dto.user.UserRegisterDTO;
-import es.ies.puerto.mgs.project.dto.outputs.UserOutputDTO;
+import es.ies.puerto.mgs.project.dto.user.UserOutputDTO;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.security.jwt.AuthService;
 import es.ies.puerto.mgs.project.security.jwt.JwtService;

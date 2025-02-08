@@ -1,8 +1,7 @@
 package es.ies.puerto.mgs.project.controller.v3;
 
-import es.ies.puerto.mgs.project.controller.v3.UserController;
 import es.ies.puerto.mgs.project.dto.user.UserV3InputDTO;
-import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
+import es.ies.puerto.mgs.project.dto.user.UserDTO;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;

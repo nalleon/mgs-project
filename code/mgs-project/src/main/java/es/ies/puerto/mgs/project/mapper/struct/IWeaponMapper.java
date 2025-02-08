@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.mapper.struct;
 
-import es.ies.puerto.mgs.project.dto.outputs.WeaponDTO;
+import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.model.documents.Weapon;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

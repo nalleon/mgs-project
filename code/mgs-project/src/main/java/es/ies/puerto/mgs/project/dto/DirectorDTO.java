@@ -1,5 +1,6 @@
-package es.ies.puerto.mgs.project.dto.outputs;
+package es.ies.puerto.mgs.project.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ public class DirectorDTO {
      * Properties
      */
     @JsonIgnore
+    @XmlTransient
     int directorId;
     String fullName;
 

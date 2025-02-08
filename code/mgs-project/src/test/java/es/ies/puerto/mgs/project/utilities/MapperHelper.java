@@ -1,6 +1,7 @@
 package es.ies.puerto.mgs.project.utilities;
 
-import es.ies.puerto.mgs.project.dto.outputs.*;
+import es.ies.puerto.mgs.project.dto.*;
+import es.ies.puerto.mgs.project.dto.user.UserDTO;
 import es.ies.puerto.mgs.project.model.documents.Weapon;
 import es.ies.puerto.mgs.project.model.entities.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +40,7 @@ public class MapperHelper extends TestUtilities {
     public static final String USER_PASSWORD = "password123";
 
     public Artist artist;
-    public  ArtistDTO artistDTO;
+    public ArtistDTO artistDTO;
 
     public Director director;
     public DirectorDTO directorDTO;

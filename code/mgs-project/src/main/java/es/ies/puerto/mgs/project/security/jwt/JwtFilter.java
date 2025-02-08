@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoUser;
+import es.ies.puerto.mgs.project.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,6 +31,7 @@ import static java.lang.Integer.parseInt;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+
     public static final String authHeader="Authorization";
     public static final String authHeaderTokenPrefix="Bearer ";
     @Autowired
@@ -65,31 +67,11 @@ public class JwtFilter extends OncePerRequestFilter {
             try {
                 Map<String, String> mapInfoToken = jwtTokenManager.validateAndGetClaims(token);
 
-                final String nombreusuario=mapInfoToken.get("username");
+                final String username = mapInfoToken.get("username");
 
-                final String rol = mapInfoToken.get("role");
+                final String role = mapInfoToken.get("role");
 
-                UserDetails userDetails = new UserDetails() {
-
-                    final String username=nombreusuario;
-
-                    @Override
-                    public Collection<? extends GrantedAuthority> getAuthorities() {
-                        List<GrantedAuthority> authorities = new ArrayList<>();
-
-                        authorities.add(new SimpleGrantedAuthority(rol));
-                        return authorities;
-                    }
-
-                    @Override
-                    public String getPassword() { return null; 	}
-
-                    @Override
-                    public String getUsername() {
-                        return username;
-                    }
-
-                };
+                CustomUserDetails userDetails = new CustomUserDetails(username, role);
 
 
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(

@@ -1,10 +1,7 @@
 package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.outputs.DirectorDTO;
-import es.ies.puerto.mgs.project.dto.outputs.GameDTO;
-import es.ies.puerto.mgs.project.dto.outputs.MGSCharacterDTO;
-import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
+import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IGameMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.GameService;
 import io.swagger.v3.oas.annotations.Operation;

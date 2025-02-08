@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.controller.v3;
 
 import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.outputs.WeaponDTO;
+import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IWeaponMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import io.swagger.v3.oas.annotations.Operation;

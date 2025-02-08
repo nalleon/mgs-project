@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.service.soap;
 
-import es.ies.puerto.mgs.project.dto.outputs.ArtistDTO;
+import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoArtist;
 import es.ies.puerto.mgs.project.model.entities.Artist;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;

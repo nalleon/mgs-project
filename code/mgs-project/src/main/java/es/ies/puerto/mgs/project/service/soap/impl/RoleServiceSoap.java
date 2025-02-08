@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
-import es.ies.puerto.mgs.project.dto.outputs.RoleDTO;
+import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.interfaces.IService;

@@ -1,7 +1,6 @@
 package es.ies.puerto.mgs.project.controller.v3;
 
-import es.ies.puerto.mgs.project.controller.v3.ArtistController;
-import es.ies.puerto.mgs.project.dto.outputs.ArtistDTO;
+import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.exception.InvalidResourceException;
 import es.ies.puerto.mgs.project.exception.NotFoundException;
 import es.ies.puerto.mgs.project.model.entities.Artist;

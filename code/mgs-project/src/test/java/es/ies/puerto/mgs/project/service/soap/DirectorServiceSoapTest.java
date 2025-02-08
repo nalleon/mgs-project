@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.service.soap;
 
-import es.ies.puerto.mgs.project.dto.outputs.DirectorDTO;
+import es.ies.puerto.mgs.project.dto.DirectorDTO;
 import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoDirector;
 import es.ies.puerto.mgs.project.model.entities.Director;
 import es.ies.puerto.mgs.project.service.rest.impl.DirectorService;

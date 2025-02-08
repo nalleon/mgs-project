@@ -1,7 +1,7 @@
 package es.ies.puerto.mgs.project.controller.v3;
 import es.ies.puerto.mgs.project.dto.user.UserV3InputDTO;
-import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
-import es.ies.puerto.mgs.project.dto.outputs.UserOutputDTO;
+import es.ies.puerto.mgs.project.dto.user.UserDTO;
+import es.ies.puerto.mgs.project.dto.user.UserOutputDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

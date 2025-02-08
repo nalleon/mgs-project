@@ -1,5 +1,6 @@
 package es.ies.puerto.mgs.project.service.rest;
 
+import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.repository.jpa.dao.IDaoUser;
 import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,8 @@ public class UserServiceTest extends TestUtilities {
     @Mock
     IDaoUser daoMock;
 
+    @Mock
+    PasswordEncoder passwordEncoder;
     @InjectMocks
     UserService service;
 
@@ -31,6 +35,7 @@ public class UserServiceTest extends TestUtilities {
         MockitoAnnotations.openMocks(this);
         service = new UserService();
         service.setDao(daoMock);
+        service.setPasswordEncoder(passwordEncoder);
     }
     @Test
     void getAllTest() {
@@ -80,7 +85,13 @@ public class UserServiceTest extends TestUtilities {
     @Test
     void updateTest() throws Exception {
         when(daoMock.findById(1)).thenReturn(Optional.of(new User()));
-        Assertions.assertTrue(service.update(1,new User(1, "example@email.com")), MESSAGE_ERROR);
+        User user = new User();
+        user.setId(1);
+        user.setRole(new Role(1, "ROLE_ADMIN"));
+        user.setEmail("example@email.com");
+        user.setPassword("1q2w3e4r");
+        user.setName("nameTest");
+        Assertions.assertTrue(service.update(1, user), MESSAGE_ERROR);
     }
 
     @Test

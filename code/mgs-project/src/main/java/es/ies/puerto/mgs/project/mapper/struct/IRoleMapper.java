@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.mapper.struct;
 
-import es.ies.puerto.mgs.project.dto.outputs.RoleDTO;
+import es.ies.puerto.mgs.project.dto.RoleDTO;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.service.soap.impl;
 
-import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
+import es.ies.puerto.mgs.project.dto.user.UserDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IRoleMapper;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
 import es.ies.puerto.mgs.project.model.entities.User;

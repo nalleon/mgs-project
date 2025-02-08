@@ -1,6 +1,8 @@
-package es.ies.puerto.mgs.project.dto.outputs;
+package es.ies.puerto.mgs.project.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import es.ies.puerto.mgs.project.dto.RoleDTO;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import java.util.Objects;
 
@@ -9,6 +11,7 @@ import java.util.Objects;
  */
 public class UserDTO {
     @JsonIgnore
+    @XmlTransient
     private int id;
     private String name;
     private String email;

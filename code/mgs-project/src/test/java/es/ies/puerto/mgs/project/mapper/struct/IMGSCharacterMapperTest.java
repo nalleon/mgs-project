@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.mapper.struct;
 
-import es.ies.puerto.mgs.project.dto.outputs.MGSCharacterDTO;
+import es.ies.puerto.mgs.project.dto.MGSCharacterDTO;
 import es.ies.puerto.mgs.project.model.entities.MGSCharacter;
 import es.ies.puerto.mgs.project.utilities.MapperHelper;
 import org.junit.jupiter.api.Assertions;

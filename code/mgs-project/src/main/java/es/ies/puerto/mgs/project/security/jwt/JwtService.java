@@ -26,6 +26,12 @@ public class JwtService {
     //@Value("${jwt.expiration}")
     private long expiration=9876543210L;
 
+    /**
+     * Function to generate a token
+     * @param username to add to the claims
+     * @param role to add to the claims
+     * @return the token created
+     */
     public String generateToken(String username, String role) {
         return JWT.create()
                 .withSubject(username)
@@ -34,7 +40,11 @@ public class JwtService {
                 .sign(Algorithm.HMAC256(secret));
     }
 
-
+    /**
+     * FUnction to get the claims of a token
+     * @param token to get its claims
+     * @return a map (string, string) with the claims
+     */
     public  Map<String, String> validateAndGetClaims(String token) {
         Map<String, Claim> claims = JWT.require(Algorithm.HMAC256(secret))
                 .build()

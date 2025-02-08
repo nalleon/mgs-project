@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.controller.v3;
 
-import es.ies.puerto.mgs.project.dto.outputs.WeaponDTO;
+import es.ies.puerto.mgs.project.dto.WeaponDTO;
 import es.ies.puerto.mgs.project.model.documents.Weapon;
 import es.ies.puerto.mgs.project.service.rest.impl.WeaponService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;

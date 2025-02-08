@@ -1,13 +1,11 @@
 package es.ies.puerto.mgs.project.controller.v2;
 
-import es.ies.puerto.mgs.project.controller.interfaces.IController;
-import es.ies.puerto.mgs.project.dto.outputs.ArtistDTO;
+import es.ies.puerto.mgs.project.dto.ArtistDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IArtistMapper;
 import es.ies.puerto.mgs.project.service.rest.impl.ArtistService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

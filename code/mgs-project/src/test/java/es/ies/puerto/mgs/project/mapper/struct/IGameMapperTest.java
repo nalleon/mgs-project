@@ -1,6 +1,6 @@
 package es.ies.puerto.mgs.project.mapper.struct;
 
-import es.ies.puerto.mgs.project.dto.outputs.GameDTO;
+import es.ies.puerto.mgs.project.dto.GameDTO;
 import es.ies.puerto.mgs.project.model.entities.Game;
 import es.ies.puerto.mgs.project.utilities.MapperHelper;
 import org.junit.jupiter.api.Assertions;

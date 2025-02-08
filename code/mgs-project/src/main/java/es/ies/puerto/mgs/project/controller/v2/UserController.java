@@ -1,19 +1,15 @@
 package es.ies.puerto.mgs.project.controller.v2;
 
-import es.ies.puerto.mgs.project.dto.outputs.UserDTO;
-import es.ies.puerto.mgs.project.dto.outputs.UserOutputDTO;
-import es.ies.puerto.mgs.project.dto.user.UserV3InputDTO;
+import es.ies.puerto.mgs.project.dto.user.UserDTO;
+import es.ies.puerto.mgs.project.dto.user.UserOutputDTO;
 import es.ies.puerto.mgs.project.mapper.struct.IUserMapper;
-import es.ies.puerto.mgs.project.model.entities.User;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.service.rest.impl.UserService;
-import es.ies.puerto.mgs.project.utils.CustomApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

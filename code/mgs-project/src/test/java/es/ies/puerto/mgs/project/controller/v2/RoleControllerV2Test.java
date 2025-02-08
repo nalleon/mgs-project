@@ -1,7 +1,5 @@
 package es.ies.puerto.mgs.project.controller.v2;
 
-import es.ies.puerto.mgs.project.controller.v2.RoleController;
-import es.ies.puerto.mgs.project.dto.outputs.RoleDTO;
 import es.ies.puerto.mgs.project.model.entities.Role;
 import es.ies.puerto.mgs.project.service.rest.impl.RoleService;
 import es.ies.puerto.mgs.project.utilities.TestUtilities;
@@ -11,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
