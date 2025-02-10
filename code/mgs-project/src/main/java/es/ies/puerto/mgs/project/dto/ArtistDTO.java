@@ -13,7 +13,6 @@ public class ArtistDTO {
      * Properties
      */
     @JsonIgnore
-    @XmlTransient
     int artistId;
     String fullName;
 

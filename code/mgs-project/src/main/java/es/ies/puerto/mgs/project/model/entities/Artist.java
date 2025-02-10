@@ -22,7 +22,7 @@ public class Artist implements Serializable {
     @JsonIgnore
     int artistId;
     String fullName;
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<MGSCharacter> charactersDesigned;
 
     /**

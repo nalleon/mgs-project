@@ -24,14 +24,14 @@ public class Game implements Serializable {
     int id;
     String name;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SELECT)
     @JoinTable(name = "games_mgscharacters",
             joinColumns = { @JoinColumn(name = "game_id") },
             inverseJoinColumns = { @JoinColumn(name = "mgsCharacter_id")})
     Set<MGSCharacter> gameCharacters;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "director_director_id")
     Director director;
 

@@ -23,6 +23,11 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 
 public class CxfAuthInterceptor extends AbstractPhaseInterceptor<Message> {
 
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
+    public static final String GET_BY_ID_PETITION = "getById";
+
+    public static final String GET_ALL_PETITION = "getAll";
     /**
      * Properties
      */
@@ -41,14 +46,11 @@ public class CxfAuthInterceptor extends AbstractPhaseInterceptor<Message> {
         super(Phase.PRE_INVOKE);
     }
 
-    private boolean isAuthorized(String role) {
-        return role.equals("ROLE_ADMIN");
-    }
-
 
     @Override
     public void handleMessage(Message message) throws Fault {
         Map<String, List<String>> protocolHeaders = (Map<String, List<String>>) message.get(Message.PROTOCOL_HEADERS);
+
 
         if (protocolHeaders != null && protocolHeaders.containsKey(authHeader)) {
             List<String> authorizationHeaders = protocolHeaders.get(authHeader);
@@ -66,8 +68,26 @@ public class CxfAuthInterceptor extends AbstractPhaseInterceptor<Message> {
 
                 final String username = mapInfoToken.get("username");
                 final String role = mapInfoToken.get("role");
+/*
 
-                if (!isAuthorized(role)) {
+                String petition = message.get(Message.WSDL_OPERATION).toString();
+
+                String[] typePetitionARR = petition.split("}");
+
+                String typePetition = typePetitionARR[1];
+
+                if(typePetition.equals(GET_ALL_PETITION) || typePetition.equals(GET_BY_ID_PETITION)){
+
+                }
+
+
+                System.out.println(typePetition);
+*/
+
+
+
+
+                if (!role.equals(ROLE_ADMIN)) {
                     throw new SecurityException("Access denied. Admin ONLY");
                 }
 

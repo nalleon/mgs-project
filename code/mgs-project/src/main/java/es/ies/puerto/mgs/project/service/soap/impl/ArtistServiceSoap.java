@@ -49,7 +49,6 @@ public class ArtistServiceSoap implements IServiceSoap<ArtistDTO> {
         return service.getAll().stream()
                 .map(item -> new ArtistDTO(item.getArtistId(), item.getFullName()))
                 .collect(Collectors.toList());
-
     }
 
     @Override

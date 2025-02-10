@@ -60,7 +60,9 @@ public class GameServiceSoap implements IServiceSoap<GameDTO> {
     @Override
     public List<GameDTO> getAll() {
         return service.getAll().stream()
-                .map(item -> new GameDTO(
+                .map(IGameMapper.INSTANCE::toDTO).toList();
+
+        /*new GameDTO(
                         item.getId(),
                         item.getName(),
                         item.getGameCharacters().stream()
@@ -75,7 +77,7 @@ public class GameServiceSoap implements IServiceSoap<GameDTO> {
                                 .collect(Collectors.toSet()),
                         new DirectorDTO(item.getDirector().getDirectorId(), item.getDirector().getFullName())
                 ))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
     }
 
     @Override
