@@ -1,7 +1,7 @@
 <div align="justify">
 
 # METAL GEAR SOLID Wiki - Proyecto
-> **Desarrollador:** Nabil L.A. ([ Nabil L.A. ([@nalleon](https://github.com/nalleon)) ](https://github.com/nalleon)) 
+> **Desarrollador:** Nabil L.A. ([@nalleon](https://github.com/nalleon)) 
 
 <br>
 
