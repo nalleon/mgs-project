@@ -1,18 +1,28 @@
 package es.ies.puerto.mgs.project.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
-
+import org.simpleframework.xml.Root;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author nalleon
  */
-public class WeaponDTO {
+
+//https://www.baeldung.com/jackson-xml-serialization-and-deserialization
+//https://github.com/FasterXML/jackson-dataformat-xml/wiki/Jackson-XML-annotations
+@XmlRootElement(name = "weapon")
+public class WeaponDTO implements Serializable {
     /**
      * Properties
      */
+
     @JsonIgnore
-    @XmlTransient
     int id;
     String name;
     String type;
@@ -37,6 +47,7 @@ public class WeaponDTO {
      * @param name of the Weapon
      * @param type of the Weapon
      */
+
     public WeaponDTO(int id, String type, String name) {
         this.type = type;
         this.name = name;
@@ -47,6 +58,7 @@ public class WeaponDTO {
      * Getters and setters
      */
 
+    @XmlTransient
     public int getId() {
         return id;
     }

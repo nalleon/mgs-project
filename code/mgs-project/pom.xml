@@ -29,6 +29,7 @@
 		<jacoco.unit-tests.limit.class-complexity>25</jacoco.unit-tests.limit.class-complexity>
 		<jacoco.unit-tests.limit.method-complexity>10</jacoco.unit-tests.limit.method-complexity>
 		<openapi.version>2.2.0</openapi.version>
+		<simple-xml.version>2.7.1</simple-xml.version>
 	</properties>
 	<dependencies>
 
@@ -44,8 +45,18 @@
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.18.2</version>
+		</dependency>
 
 
+		<dependency>
+			<groupId>org.simpleframework</groupId>
+			<artifactId>simple-xml</artifactId>
+			<version>${simple-xml.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.xerial</groupId>
